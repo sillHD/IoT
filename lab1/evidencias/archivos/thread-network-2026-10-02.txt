@@ -1,0 +1,15 @@
+Formación de red Thread — Lab 1 Radio
+Fecha: 2026-10-02
+Canal configurado: 25
+Potencia TX configurada: 0 dBm en ambas placas
+
+Placa A (/dev/ttyACM0):
+Estado: leader
+RLOC: fd49:3d9e:654d:a680:0:ff:fe00:5c00
+
+Placa B (/dev/ttyACM1):
+Estado: router
+RLOC: fd49:3d9e:654d:a680:0:ff:fe00:c00
+
+Ambos estados se observaron mediante `ot state`; las direcciones se obtuvieron
+con `ot ipaddr`. La clave/dataset de la red no se incluye en el repositorio.

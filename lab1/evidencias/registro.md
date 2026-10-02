@@ -1,6 +1,6 @@
 # Evidencia — Lab 1 Radio
 
-**Estado:** Firmware compilado y OpenThread CLI arrancado en ambas placas; falta escaneo de canales y mediciones de red/radio
+**Estado:** Firmware listo, escaneo completado y red Thread formada (A leader, B router); falta ping y mediciones de alcance/RSSI/PER
 **Guía:** [`en/labs/lab1.md`](../guia.md)
 **SOP opcional:** [`en/labs/sops/sop01_advanced_mac.md`](../sops/sop01_advanced_mac.md)
 **Firmware:** [`firmware/`](../firmware/)
@@ -51,6 +51,14 @@
 
 ## Medición de alcance
 
+### Red formada
+
+- Canal: 25.
+- Potencia TX configurada: 0 dBm en ambas placas.
+- Placa A (`/dev/ttyACM0`): `leader`, RLOC `fd49:3d9e:654d:a680:0:ff:fe00:5c00`.
+- Placa B (`/dev/ttyACM1`): `router`, RLOC `fd49:3d9e:654d:a680:0:ff:fe00:c00`.
+- Evidencia: [`archivos/thread-network-2026-10-02.txt`](archivos/thread-network-2026-10-02.txt). El dataset y su clave no se guardan.
+
 Mantener constantes canal, potencia TX, tamaño de paquete y configuración de ping. No ejecutar pings simultáneos salvo que se documente como experimento de contención.
 
 | Distancia (m) | RSSI recibido A (dBm) | RSSI recibido B (dBm) | Ping A→B recibidos/total | PER A→B (%) | Ping B→A recibidos/total | PER B→A (%) | Entorno |
@@ -79,3 +87,4 @@ Guardar capturas, logs y tablas originales en [`archivos/`](archivos/). Describi
 | [`build-2026-10-02.txt`](archivos/build-2026-10-02.txt) | Compilación de OpenThread CLI para ESP32-C6 | 2026-10-02 |
 | [`boot-dual-boards-2026-10-02.txt`](archivos/boot-dual-boards-2026-10-02.txt) | Arranque del firmware y radio 802.15.4 inicializada en ambas placas | 2026-10-02 |
 | [`channel-scan-2026-10-02.txt`](archivos/channel-scan-2026-10-02.txt) | Escaneo de energía de los canales 11–26 y selección del canal 25 | 2026-10-02 |
+| [`thread-network-2026-10-02.txt`](archivos/thread-network-2026-10-02.txt) | Red Thread formada con A como líder y B como router | 2026-10-02 |
