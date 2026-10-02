@@ -27,7 +27,7 @@
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP: telemetría | Dashboard Flask en `http://localhost:5000` | La página carga y el gráfico muestra puntos con “Connected. Live data stream active.” | [video de prueba](../Imagenes/WhatsApp%20Video%202026-10-01%20at%209.20.37%20PM.mp4) |
-| Dashboard HTTP: actuación | Botones Turn ON / Turn OFF | En el video aparece “Failed to route command to ESP32”; la actuación desde el dashboard aún falla y requiere diagnóstico. Los POST directos por `curl` sí fueron aceptados | [video de prueba](../Imagenes/WhatsApp%20Video%202026-10-01%20at%209.20.37%20PM.mp4) |
+| Dashboard HTTP: actuación | Botones Turn ON / Turn OFF | Según la aclaración del usuario, el aviso “Failed to route command to ESP32” apareció al pulsar Turn OFF cuando el LED ya estaba apagado. Los POST directos por `curl` sí fueron aceptados; queda probar la secuencia Turn ON y luego Turn OFF desde el dashboard | [video de prueba](../Imagenes/WhatsApp%20Video%202026-10-01%20at%209.20.37%20PM.mp4) |
 | Recepción de telemetría | | | |
 | Comando de LED desde dashboard | Pendiente; el POST se envió con `curl` | El LED se encendió con el comando directo; no se ha validado el dashboard | [`archivos/http-post-led-2026-10-02.txt`](archivos/http-post-led-2026-10-02.txt) |
 
@@ -71,7 +71,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 
 Las capturas originales están guardadas en [`Imagenes/`](../Imagenes/).
 
-El video de prueba dura aproximadamente 11 segundos y muestra el dashboard con telemetría activa; también registra el error de enrutamiento al intentar controlar el ESP32 desde la interfaz.
+El video de prueba dura aproximadamente 11 segundos y muestra el dashboard con telemetría activa. El aviso al intentar apagar se produjo, según la aclaración del usuario, porque el LED ya estaba apagado. Para cerrar la validación de actuación desde la interfaz, probar Turn ON seguido de Turn OFF.
 
 ## Implementación preparada
 
