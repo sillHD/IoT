@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 HTTP
 
-**Estado:** Build inicial exitoso; consola serial confirmada; flasheo HTTP y pruebas funcionales pendientes
+**Estado:** Build y flasheo exitosos; falta confirmar arranque, Wi-Fi, HTTP y control del LED
 **Guía:** [`guia.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -19,6 +19,7 @@
 |---|---|---|---|
 | Dependencias y configuración | | | |
 | Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-http ~/IoT/lab_http/firmware` desde `~/zephyrproject` | Éxito; se generó la imagen ESP32-C6 | [`archivos/build-2026-10-01.log`](archivos/build-2026-10-01.log) |
+| Recompilación y flasheo | Credenciales Wi-Fi ingresadas localmente; `west flash -d build-iot-lab-http --esp-device /dev/ttyACM0` | Éxito; 715,536 bytes escritos, hash verificado y reset solicitado. Aviso: herramienta configurada para 8 MB, chip detectado de 4 MB | [`archivos/flash-2026-10-01.log`](archivos/flash-2026-10-01.log) |
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
@@ -30,10 +31,10 @@
 - Dirección IP del ESP32 (si aplica):
 - Resultado del build: Zephyr 4.4.99; SDK 1.0.1; compilador RISC-V GCC 14.3.0.
 - Memoria reportada: Flash 668,324 B (7.97%); SRAM 239,472 B (47.01%).
-- Configuración Wi-Fi: valores de ejemplo `changeme`; este build es solo para validar compilación, no para operar en la red.
+- Primer build: valores de ejemplo `changeme`; luego se recompiló usando credenciales ingresadas localmente. No se registran SSID ni contraseña.
 - Aviso no bloqueante: Ccache 4.9.1 instalado, versión 4.12 o superior recomendada por el build.
 - La consola del ESP32 está en `/dev/ttyACM0` en esta placa; `/dev/ttyUSB0` no existe en la sesión.
-- El firmware previo informa flash física de 4 MB y una cabecera de imagen de 8 MB. El `.config` del build Lab HTTP usa cabecera `2MB`; la región linker `CONFIG_FLASH_SIZE=8192` es 8 MB y el binario generado ocupa 668 KB. La discrepancia del mensaje serial pertenece al firmware anterior; Lab HTTP aún no se ha flasheado.
+- La placa reporta 4 MB de flash física. El `.config` lista `CONFIG_ESPTOOLPY_FLASHSIZE="2MB"`, pero `west flash` informa que intenta configurar la imagen para 8 MB. La escritura actual de 715,536 bytes terminó y pasó la verificación hash; revisar/alinear el parámetro antes de siguientes flasheos.
 - Ruta/método HTTP observado:
 - Payload de telemetría observado (sin datos sensibles):
 - Respuesta del dispositivo:
@@ -56,6 +57,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | [`build-2026-10-01.log`](archivos/build-2026-10-01.log) | Compilación completa, toolchain y uso de memoria | 2026-10-01 |
 | [`serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) | Consola serial y firmware que ya estaba en la placa antes de Lab HTTP | 2026-10-01 |
 | [`flash-config-2026-10-01.txt`](archivos/flash-config-2026-10-01.txt) | Configuración de flash del build Lab HTTP | 2026-10-01 |
+| [`flash-2026-10-01.log`](archivos/flash-2026-10-01.log) | Flasheo verificado con aviso de tamaño de flash | 2026-10-01 |
 
 ## Implementación preparada
 

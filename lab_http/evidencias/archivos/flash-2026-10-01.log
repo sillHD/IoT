@@ -1,0 +1,20 @@
+Sanitized excerpt from the user-provided build and flash output. SSID and password omitted.
+
+Rebuild result:
+  Zephyr v4.4.99; board esp32c6_devkitc/esp32c6/hpcore.
+  Successfully created ESP32-C6 image.
+  FLASH used: 668,340 B of 8,388,352 B (7.97%).
+  SRAM used: 239,472 B of 509,456 B (47.01%).
+
+Flash command:
+  west flash -d build-iot-lab-http --esp-device /dev/ttyACM0
+
+Flash result:
+  Chip: ESP32-C6, revision v0.2; port /dev/ttyACM0.
+  Warning: configured flash size 8 MB is larger than detected physical flash size 4 MB.
+  715,536 bytes written from address 0x00000000.
+  Hash of data verified.
+  Hard reset via RTS pin completed.
+
+The warning did not stop this write. Firmware boot and runtime behavior still need
+verification on the serial monitor.

@@ -9,7 +9,8 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Implementar `GET /api/sensor` con temperatura simulada.
 - [x] Implementar `POST /api/control` para controlar el LED.
 - [x] Compilar con valores de ejemplo de Kconfig (validación inicial; no flashear este build).
-- [ ] Recompilar con credenciales locales, flashear y comprobar la telemetría desde `curl`.
+- [x] Recompilar con credenciales locales y flashear la imagen.
+- [ ] Confirmar arranque, asociación Wi-Fi y telemetría desde `curl`.
 - [ ] Validar encendido/apagado del LED y dashboard HTTP.
 - [ ] Guardar logs y capturas en `evidencias/archivos/` y completar el registro.
 
