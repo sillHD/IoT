@@ -15,7 +15,7 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Confirmar el encendido del LED por `POST /api/control` desde `curl`.
 - [ ] Validar apagado del LED y dashboard HTTP.
 - [x] Guardar logs disponibles y completar el registro en `evidencias/`.
-- [ ] Archivar las capturas originales en `evidencias/archivos/` (pendiente de recibirlas como archivos).
+- [x] Archivar las capturas originales en `Imagenes/` y enlazarlas desde el registro.
 
 ## Compilación
 
