@@ -1,0 +1,18 @@
+Evidencia de arranque en ambas placas — Lab 1 Radio
+Fecha: 2026-10-02
+Firmware: Zephyr 4.4.0-13610-g4564d775ab0b, OpenThread CLI
+
+Placa A — /dev/ttyACM0:
+[00:00:00.076,000] <inf> ieee802154_esp32: IEEE 802154 radio initialized
+[00:00:00.103,000] <inf> lab1_radio: 802.15.4 radio ready. OpenThread commands start with "ot".
+
+Placa B — /dev/ttyACM1:
+[00:00:00.075,000] <inf> ieee802154_esp32: IEEE 802154 radio initialized
+[00:00:00.102,000] <inf> lab1_radio: 802.15.4 radio ready. OpenThread commands start with "ot".
+uart:~$
+
+La imagen arranca en ambas placas y muestra el banner del CLI de OpenThread. El
+prompt `uart:~$` aparece en la captura de la placa B; para la placa A la salida
+compartida termina truncada antes de mostrar el prompt.
+Ambos logs informan que el tamaño detectado de flash es 4 MB y la cabecera de
+imagen indica 8 MB; pese al aviso, el arranque se completa.

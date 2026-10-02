@@ -5,7 +5,7 @@ Guía detallada: [`guia.md`](guia.md) · SOP opcional: [`sops/sop01_advanced_mac
 ## Actividades y evidencia
 
 - [x] Compilar el OpenThread CLI para ESP32-C6.
-- [ ] Flashear el firmware en ambas placas.
+- [x] Flashear y confirmar el arranque del OpenThread CLI en ambas placas.
 - [ ] Escanear los canales 802.15.4 y registrar el nivel de energía.
 - [ ] Formar la red con ambas placas y confirmar conectividad por ping.
 - [ ] Medir RSSI y PER en ambas direcciones a distancias crecientes.
