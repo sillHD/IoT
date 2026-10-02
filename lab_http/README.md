@@ -11,7 +11,7 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Compilar con valores de ejemplo de Kconfig (validación inicial; no flashear este build).
 - [x] Recompilar con credenciales locales y flashear la imagen.
 - [x] Confirmar arranque, asociación Wi-Fi y servidor HTTP escuchando en puerto 80.
-- [ ] Consultar telemetría desde `curl`.
+- [x] Consultar telemetría desde `curl` (HTTP 200 y JSON válido).
 - [ ] Validar encendido/apagado del LED y dashboard HTTP.
 - [ ] Guardar logs y capturas en `evidencias/archivos/` y completar el registro.
 

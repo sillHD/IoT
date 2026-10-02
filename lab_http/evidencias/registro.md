@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 HTTP
 
-**Estado:** Build, flasheo, asociación Wi-Fi y servidor HTTP confirmados; faltan GET/POST y dashboard
+**Estado:** Build, flasheo, Wi-Fi y GET telemetría confirmados; faltan POST/LED y dashboard
 **Guía:** [`guia.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -21,6 +21,7 @@
 | Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-http ~/IoT/lab_http/firmware` desde `~/zephyrproject` | Éxito; se generó la imagen ESP32-C6 | [`archivos/build-2026-10-01.log`](archivos/build-2026-10-01.log) |
 | Recompilación y flasheo | Credenciales Wi-Fi ingresadas localmente; `west flash -d build-iot-lab-http --esp-device /dev/ttyACM0` | Éxito; 715,536 bytes escritos, hash verificado y reset solicitado. Aviso: herramienta configurada para 8 MB, chip detectado de 4 MB | [`archivos/flash-2026-10-01.log`](archivos/flash-2026-10-01.log) |
 | Arranque y Wi-Fi | `west espressif monitor -p /dev/ttyACM0` | Lab HTTP arrancó, se asoció al AP, obtuvo `192.168.1.9` y escucha HTTP en puerto 80 | [`archivos/runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) |
+| Consulta de telemetría | `curl -i --max-time 5 http://192.168.1.9/api/sensor` | `HTTP/1.1 200`, JSON `{"temperature": 29.8}`; serial confirma la solicitud | [`archivos/http-get-2026-10-01.txt`](archivos/http-get-2026-10-01.txt) |
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
@@ -37,9 +38,9 @@
 - Aviso no bloqueante: Ccache 4.9.1 instalado, versión 4.12 o superior recomendada por el build.
 - La consola del ESP32 está en `/dev/ttyACM0` en esta placa; `/dev/ttyUSB0` no existe en la sesión.
 - La placa reporta 4 MB de flash física. El `.config` lista `CONFIG_ESPTOOLPY_FLASHSIZE="2MB"`, pero `west flash` informa que intenta configurar la imagen para 8 MB. La escritura actual de 715,536 bytes terminó y pasó la verificación hash; revisar/alinear el parámetro antes de siguientes flasheos.
-- Ruta/método HTTP observado:
-- Payload de telemetría observado (sin datos sensibles):
-- Respuesta del dispositivo:
+- Ruta/método HTTP observado: `GET /api/sensor`.
+- Payload de telemetría observado: `{"temperature": 29.8}` (valor simulado).
+- Respuesta del dispositivo: `HTTP/1.1 200` con `Content-Type: application/json`.
 - Resultado físico del LED:
 - Errores o ajustes necesarios:
 
@@ -61,6 +62,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | [`flash-config-2026-10-01.txt`](archivos/flash-config-2026-10-01.txt) | Configuración de flash del build Lab HTTP | 2026-10-01 |
 | [`flash-2026-10-01.log`](archivos/flash-2026-10-01.log) | Flasheo verificado con aviso de tamaño de flash | 2026-10-01 |
 | [`runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) | Arranque, conexión Wi-Fi, dirección DHCP y servidor HTTP activo | 2026-10-01 |
+| [`http-get-2026-10-01.txt`](archivos/http-get-2026-10-01.txt) | GET exitoso y confirmación serial | 2026-10-01 |
 
 ## Implementación preparada
 

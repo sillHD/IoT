@@ -1,0 +1,17 @@
+Evidence supplied by the user.
+
+Command:
+  curl -i --max-time 5 http://192.168.1.9/api/sensor
+
+HTTP response:
+  HTTP/1.1 200
+  Transfer-Encoding: chunked
+  Content-Type: application/json
+
+  {"temperature": 29.8}
+
+Corresponding ESP32 serial log:
+  [00:04:28.471,000] <inf> lab0_http: Telemetry requested, sent: {"temperature": 29.8}
+
+The GET endpoint returned valid JSON and the serial output confirms the request was
+handled by the Lab HTTP firmware.
