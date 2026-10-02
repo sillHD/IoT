@@ -1,0 +1,18 @@
+Evidencia: Mosquitto acepta conexiones en interfaces de red
+Fecha: 2026-10-02
+Host: Windows, adaptador Wi-Fi IPv4 192.168.1.4
+Broker: Mosquitto 2.1.2
+
+Arranque manual con el archivo de configuración explícito:
+mosquitto.exe -c "C:\Program Files\Mosquitto\mosquitto.conf" -v
+
+El log indicó que cargó el archivo de configuración y quedó en ejecución, sin
+el aviso "Starting in local only mode".
+
+Salida de netstat:
+TCP    0.0.0.0:1883    0.0.0.0:0    LISTENING
+TCP    [::]:1883       [::]:0       LISTENING
+
+Nota: el broker se ejecuta en primer plano desde una ventana de CMD. Esa ventana
+debe permanecer abierta durante el laboratorio. Aún no se ha comprobado la
+conectividad desde WSL ni la configuración permanente del servicio de Windows.
