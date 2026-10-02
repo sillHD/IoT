@@ -26,7 +26,7 @@
 | Conexión del ESP32 al broker | Wi-Fi y MQTT a `192.168.1.4:1883` | IPv4 del nodo `192.168.1.9`; conexión MQTT y suscripción `iot/control` confirmadas en serial | [`archivos/flash-runtime-2026-10-02.txt`](archivos/flash-runtime-2026-10-02.txt) |
 | Telemetría en `iot/sensor` | Publicación periódica cada 2 s | El firmware registra publicaciones con payload JSON; falta confirmar recepción desde un suscriptor | [`archivos/flash-runtime-2026-10-02.txt`](archivos/flash-runtime-2026-10-02.txt) |
 | Comando en `iot/control` y LED | | | |
-| Dashboard MQTT | | | |
+| Dashboard MQTT | `python lab_mqtt/tools/dashboard_mqtt.py` desde `.venv-dashboard` | Conectado a `192.168.1.4:1883` y suscrito a `iot/sensor`; visualización web y control del LED pendientes | [`archivos/dashboard-startup-2026-10-02.txt`](archivos/dashboard-startup-2026-10-02.txt) |
 
 ## Resultados
 
@@ -55,3 +55,4 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | [`wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) | Conectividad TCP desde WSL al broker Windows | 2026-10-02 |
 | [`build-2026-10-02.txt`](archivos/build-2026-10-02.txt) | Compilación del firmware MQTT para ESP32-C6 y uso de memoria | 2026-10-02 |
 | [`flash-runtime-2026-10-02.txt`](archivos/flash-runtime-2026-10-02.txt) | Flasheo verificado, conexión al broker y publicaciones registradas | 2026-10-02 |
+| [`dashboard-startup-2026-10-02.txt`](archivos/dashboard-startup-2026-10-02.txt) | Dashboard MQTT conectado al broker y suscrito al tópico de telemetría | 2026-10-02 |

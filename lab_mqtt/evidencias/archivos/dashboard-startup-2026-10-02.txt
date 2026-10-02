@@ -1,0 +1,18 @@
+Evidencia de inicio del dashboard MQTT
+Fecha: 2026-10-02
+Broker: 192.168.1.4:1883
+Topics: suscripción iot/sensor; publicación a iot/control
+
+Dependencia instalada en el entorno virtual local: paho-mqtt 2.1.0.
+
+Salida observada al iniciar:
+[*] MQTT Dashboard running.
+[*] Broker: 192.168.1.4:1883
+[*] Subscribed to: iot/sensor
+[*] Publishing control to: iot/control
+[MQTT] Connected to broker (rc=Success)
+[MQTT] Subscribed to: iot/sensor
+
+Esto confirma conexión del cliente del dashboard al broker y suscripción al
+tópico. La visualización de telemetría en el navegador y los comandos LED desde
+la interfaz aún están pendientes de validación.
