@@ -14,13 +14,12 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 
 ## Compilación
 
-Desde la raíz de este repo, con el entorno Zephyr activo:
+Con el entorno Zephyr activo, compila desde la raíz del workspace Zephyr. El primer build usa las credenciales de ejemplo de Kconfig y solo sirve para validar la compilación:
 
 ```bash
-cd lab_http/firmware
-west build -p always -b esp32c6_devkitc/esp32c6/hpcore . \
-  -- -DCONFIG_LAB_WIFI_SSID='"TU_SSID"' -DCONFIG_LAB_WIFI_PSK='"TU_CLAVE"'
-west flash
+cd ~/zephyrproject
+west build -p always -b esp32c6_devkitc/esp32c6/hpcore \
+  -d build-iot-lab-http ~/IoT/lab_http/firmware
 ```
 
-No compartas ni registres las credenciales. Sigue la sección de integración de `guia.md` para el monitor serial y las pruebas.
+Antes de flashear, recompila pasando tus credenciales localmente con `-DCONFIG_LAB_WIFI_SSID='"..."' -DCONFIG_LAB_WIFI_PSK='"..."'`. No las compartas ni las registres. Sigue la sección de integración de `guia.md` para el monitor serial y las pruebas.
