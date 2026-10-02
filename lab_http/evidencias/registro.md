@@ -23,7 +23,7 @@
 | Arranque y Wi-Fi | `west espressif monitor -p /dev/ttyACM0` | Lab HTTP arrancó, se asoció al AP, obtuvo `192.168.1.9` y escucha HTTP en puerto 80 | [`archivos/runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) |
 | Consulta de telemetría | `curl -i --max-time 5 http://192.168.1.9/api/sensor` | `HTTP/1.1 200`, JSON `{"temperature": 29.8}`; serial confirma la solicitud | [`archivos/http-get-2026-10-01.txt`](archivos/http-get-2026-10-01.txt) |
 | Comando de control | `curl -i --max-time 5 -X POST http://192.168.1.9/api/control -H 'Content-Type: application/json' -d '{"state": 1}'` | `HTTP/1.1 200`; la consola serial confirma `LED state: 1` y la fotografía muestra el LED encendido | [`archivos/http-post-led-2026-10-02.txt`](archivos/http-post-led-2026-10-02.txt), [captura de consola serial](../Imagenes/Imagen%201.png), [captura de solicitudes HTTP](../Imagenes/Imagen%202.png), [foto de la placa](../Imagenes/Imagen%203.jpeg) |
-| Comando para apagar el LED | `curl -i --max-time 5 -X POST http://192.168.1.9/api/control -H 'Content-Type: application/json' -d '{"state": 0}'` | `HTTP/1.1 200`, `{"status": "ok"}`; falta confirmar el estado físico o serial del LED | [`archivos/http-post-led-off-2026-10-02.txt`](archivos/http-post-led-off-2026-10-02.txt) |
+| Comando para apagar el LED | `curl -i --max-time 5 -X POST http://192.168.1.9/api/control -H 'Content-Type: application/json' -d '{"state": 0}'` | `HTTP/1.1 200`, `{"status": "ok"}`; consola serial confirma `LED state: 0` | [`archivos/http-post-led-off-2026-10-02.txt`](archivos/http-post-led-off-2026-10-02.txt) |
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
@@ -43,7 +43,7 @@
 - Ruta/método HTTP observado: `GET /api/sensor`.
 - Payload de telemetría observado: `{"temperature": 29.8}` (valor simulado).
 - Respuesta del dispositivo: `HTTP/1.1 200` con `Content-Type: application/json`.
-- Resultado físico del LED: encendido (`state: 1`) confirmado en la foto; la solicitud de apagado recibió HTTP 200, falta registrar confirmación física/serial del estado apagado.
+- Resultado del control del LED: la consola serial confirma los estados `1` y `0`; el estado `1` también aparece encendido en la fotografía.
 - Errores o ajustes necesarios:
 
 ## Conclusión y arquitectura

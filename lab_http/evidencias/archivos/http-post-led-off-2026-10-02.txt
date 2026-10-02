@@ -14,5 +14,8 @@ Content-Type: application/json
 
 {"status": "ok"}
 
-Nota: la respuesta HTTP confirma que el servidor acepto la solicitud. No se
-adjunto salida serial ni confirmacion visual del LED apagado en esta evidencia.
+Confirmacion serial observada:
+[00:17:03.554,000] <inf> lab0_http: Actuating command received, LED state: 0
+
+La respuesta HTTP y la consola serial confirman que el servidor acepto el
+comando y que la aplicacion aplico el estado 0 al LED.
