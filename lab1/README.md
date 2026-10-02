@@ -8,7 +8,7 @@ Guía detallada: [`guia.md`](guia.md) · SOP opcional: [`sops/sop01_advanced_mac
 - [x] Flashear y confirmar el arranque del OpenThread CLI en ambas placas.
 - [x] Escanear los canales 802.15.4; canal 25 seleccionado con energía de -104 dBm.
 - [x] Formar la red Thread; placa A leader y placa B router.
-- [ ] Confirmar conectividad y medir PER por ping.
+- [x] Confirmar conectividad y medir PER por ping en ambas direcciones a ~1 m (0%).
 - [ ] Medir RSSI y PER en ambas direcciones a distancias crecientes.
 - [ ] Estimar alcance confiable, canal preferido y separación recomendada.
 - [x] Guardar la evidencia de compilación en `evidencias/archivos/`.

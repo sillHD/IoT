@@ -63,9 +63,11 @@ Mantener constantes canal, potencia TX, tamaño de paquete y configuración de p
 
 | Distancia (m) | RSSI recibido A (dBm) | RSSI recibido B (dBm) | Ping A→B recibidos/total | PER A→B (%) | Ping B→A recibidos/total | PER B→A (%) | Entorno |
 |---:|---:|---:|---:|---:|---:|---:|---|
+| ≈1 | -66 | -67 | 100/100 | 0.0 | 100/100 | 0.0 | Distancia objetivo de referencia; entorno no especificado |
 
-- Tamaño y cantidad de pings:
-- Intervalo:
+- Tamaño y cantidad de pings: payload de 64 bytes, 100 por dirección.
+- Intervalo: 0.2 s; pings A→B y B→A se hicieron secuencialmente.
+- Evidencia de la referencia bidireccional a ≈1 m: [`archivos/ping-1m-2026-10-02.txt`](archivos/ping-1m-2026-10-02.txt).
 - Umbral RSSI asociado con PER < 1% (si los datos lo permiten):
 - Máximo alcance confiable observado:
 - Separación recomendada y margen aplicado:
@@ -88,3 +90,4 @@ Guardar capturas, logs y tablas originales en [`archivos/`](archivos/). Describi
 | [`boot-dual-boards-2026-10-02.txt`](archivos/boot-dual-boards-2026-10-02.txt) | Arranque del firmware y radio 802.15.4 inicializada en ambas placas | 2026-10-02 |
 | [`channel-scan-2026-10-02.txt`](archivos/channel-scan-2026-10-02.txt) | Escaneo de energía de los canales 11–26 y selección del canal 25 | 2026-10-02 |
 | [`thread-network-2026-10-02.txt`](archivos/thread-network-2026-10-02.txt) | Red Thread formada con A como líder y B como router | 2026-10-02 |
+| [`ping-1m-2026-10-02.txt`](archivos/ping-1m-2026-10-02.txt) | Referencia A↔B a ≈1 m: 0% PER y RSSI promedio de −66/−67 dBm | 2026-10-02 |

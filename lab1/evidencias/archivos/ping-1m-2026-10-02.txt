@@ -1,0 +1,18 @@
+Medición bidireccional de referencia a aproximadamente 1 m
+Fecha: 2026-10-02
+Canal Thread: 25
+Potencia TX: 0 dBm en ambas placas
+Paquete de ping: 64 bytes de payload, 100 solicitudes, intervalo 0.2 s
+
+Dirección A → B (A=/dev/ttyACM0, B=/dev/ttyACM1):
+100 transmitidos, 100 recibidos; pérdida 0.0% (PER 0%).
+RTT min/avg/max: 14/14.010/15 ms.
+Tabla de vecinos en B: RSSI promedio de A = -67 dBm; último = -69 dBm.
+
+Dirección B → A:
+100 transmitidos, 100 recibidos; pérdida 0.0% (PER 0%).
+RTT min/avg/max: 14/14.030/16 ms.
+Tabla de vecinos en A: RSSI promedio de B = -66 dBm; último = -68 dBm.
+
+Los pings se ejecutaron secuencialmente, no de forma simultánea. La distancia
+fue el objetivo de referencia aproximado de 1 m indicado en el procedimiento.
