@@ -14,7 +14,8 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Consultar telemetría desde `curl` (HTTP 200 y JSON válido).
 - [x] Confirmar el encendido del LED por `POST /api/control` desde `curl`.
 - [x] Confirmar los comandos de encendido y apagado del LED (HTTP 200 y consola serial).
-- [ ] Validar dashboard HTTP.
+- [x] Confirmar que el dashboard carga y recibe telemetría en vivo.
+- [ ] Corregir y validar el control del LED desde el dashboard (el video registra “Failed to route command to ESP32”).
 - [x] Guardar logs disponibles y completar el registro en `evidencias/`.
 - [x] Archivar las capturas originales en `Imagenes/` y enlazarlas desde el registro.
 
