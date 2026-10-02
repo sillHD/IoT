@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 HTTP
 
-**Estado:** Build y flasheo exitosos; falta confirmar arranque, Wi-Fi, HTTP y control del LED
+**Estado:** Build, flasheo, asociación Wi-Fi y servidor HTTP confirmados; faltan GET/POST y dashboard
 **Guía:** [`guia.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -20,6 +20,7 @@
 | Dependencias y configuración | | | |
 | Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-http ~/IoT/lab_http/firmware` desde `~/zephyrproject` | Éxito; se generó la imagen ESP32-C6 | [`archivos/build-2026-10-01.log`](archivos/build-2026-10-01.log) |
 | Recompilación y flasheo | Credenciales Wi-Fi ingresadas localmente; `west flash -d build-iot-lab-http --esp-device /dev/ttyACM0` | Éxito; 715,536 bytes escritos, hash verificado y reset solicitado. Aviso: herramienta configurada para 8 MB, chip detectado de 4 MB | [`archivos/flash-2026-10-01.log`](archivos/flash-2026-10-01.log) |
+| Arranque y Wi-Fi | `west espressif monitor -p /dev/ttyACM0` | Lab HTTP arrancó, se asoció al AP, obtuvo `192.168.1.9` y escucha HTTP en puerto 80 | [`archivos/runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) |
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
@@ -28,7 +29,8 @@
 
 ## Resultados
 
-- Dirección IP del ESP32 (si aplica):
+- Dirección IP del ESP32: `192.168.1.9` (DHCP).
+- SSID: registrado en la terminal del usuario; se omite del repo.
 - Resultado del build: Zephyr 4.4.99; SDK 1.0.1; compilador RISC-V GCC 14.3.0.
 - Memoria reportada: Flash 668,324 B (7.97%); SRAM 239,472 B (47.01%).
 - Primer build: valores de ejemplo `changeme`; luego se recompiló usando credenciales ingresadas localmente. No se registran SSID ni contraseña.
@@ -58,6 +60,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | [`serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) | Consola serial y firmware que ya estaba en la placa antes de Lab HTTP | 2026-10-01 |
 | [`flash-config-2026-10-01.txt`](archivos/flash-config-2026-10-01.txt) | Configuración de flash del build Lab HTTP | 2026-10-01 |
 | [`flash-2026-10-01.log`](archivos/flash-2026-10-01.log) | Flasheo verificado con aviso de tamaño de flash | 2026-10-01 |
+| [`runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) | Arranque, conexión Wi-Fi, dirección DHCP y servidor HTTP activo | 2026-10-01 |
 
 ## Implementación preparada
 

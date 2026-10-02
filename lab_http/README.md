@@ -10,7 +10,8 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Implementar `POST /api/control` para controlar el LED.
 - [x] Compilar con valores de ejemplo de Kconfig (validación inicial; no flashear este build).
 - [x] Recompilar con credenciales locales y flashear la imagen.
-- [ ] Confirmar arranque, asociación Wi-Fi y telemetría desde `curl`.
+- [x] Confirmar arranque, asociación Wi-Fi y servidor HTTP escuchando en puerto 80.
+- [ ] Consultar telemetría desde `curl`.
 - [ ] Validar encendido/apagado del LED y dashboard HTTP.
 - [ ] Guardar logs y capturas en `evidencias/archivos/` y completar el registro.
 

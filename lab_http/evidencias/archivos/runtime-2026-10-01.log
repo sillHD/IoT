@@ -1,0 +1,14 @@
+Sanitized excerpt from the user-provided serial monitor output. SSID omitted.
+
+Command:
+  west espressif monitor -p /dev/ttyACM0
+
+Boot and application output:
+  *** Booting Zephyr OS build v4.4.0-13610-g4564d775ab0b ***
+  [00:00:00.079,000] <inf> lab0_http: Connecting to [SSID redacted]...
+  [00:00:02.750,000] <inf> lab0_http: IPv4 address: 192.168.1.9
+  [00:00:02.750,000] <inf> lab0_http: Associated with [SSID redacted]
+  [00:00:02.751,000] <inf> lab0_http: HTTP server listening on port 80
+
+The ESP32-C6 booted the Lab HTTP firmware, joined Wi-Fi, obtained a DHCP address,
+and started the HTTP server. Endpoint behavior is not yet verified.
