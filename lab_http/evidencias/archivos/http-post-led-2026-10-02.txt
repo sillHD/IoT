@@ -1,0 +1,22 @@
+Evidencia de POST /api/control y actuacion del LED WS2812
+Fecha: 2026-10-02
+Placa: ESP32-C6
+
+Comando ejecutado desde WSL:
+curl -i --max-time 5 -X POST http://192.168.1.9/api/control \
+  -H 'Content-Type: application/json' \
+  -d '{"state": 1}'
+
+Respuesta observada:
+HTTP/1.1 200
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+Confirmacion serial:
+Actuating command received, LED state: 1
+
+Observacion fisica: en la fotografia compartida en el chat, el indicador LED
+de la placa aparece encendido. El original de esa imagen no estuvo disponible
+como archivo para archivarlo en el repositorio.
+
+Nota de privacidad: se omiten el SSID y otros datos de la red Wi-Fi.

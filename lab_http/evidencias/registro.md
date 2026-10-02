@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 HTTP
 
-**Estado:** Build, flasheo, Wi-Fi y GET telemetría confirmados; faltan POST/LED y dashboard
+**Estado:** Build, flasheo, Wi-Fi, GET y POST con LED encendido confirmados; dashboard y prueba de apagado pendientes
 **Guía:** [`guia.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -22,11 +22,12 @@
 | Recompilación y flasheo | Credenciales Wi-Fi ingresadas localmente; `west flash -d build-iot-lab-http --esp-device /dev/ttyACM0` | Éxito; 715,536 bytes escritos, hash verificado y reset solicitado. Aviso: herramienta configurada para 8 MB, chip detectado de 4 MB | [`archivos/flash-2026-10-01.log`](archivos/flash-2026-10-01.log) |
 | Arranque y Wi-Fi | `west espressif monitor -p /dev/ttyACM0` | Lab HTTP arrancó, se asoció al AP, obtuvo `192.168.1.9` y escucha HTTP en puerto 80 | [`archivos/runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) |
 | Consulta de telemetría | `curl -i --max-time 5 http://192.168.1.9/api/sensor` | `HTTP/1.1 200`, JSON `{"temperature": 29.8}`; serial confirma la solicitud | [`archivos/http-get-2026-10-01.txt`](archivos/http-get-2026-10-01.txt) |
+| Comando de control | `curl -i --max-time 5 -X POST http://192.168.1.9/api/control -H 'Content-Type: application/json' -d '{"state": 1}'` | `HTTP/1.1 200`; la consola serial confirma `LED state: 1` y la fotografía compartida muestra el LED encendido | [`archivos/http-post-led-2026-10-02.txt`](archivos/http-post-led-2026-10-02.txt) |
 | Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
 | Recepción de telemetría | | | |
-| Comando de LED desde dashboard | | | |
+| Comando de LED desde dashboard | Pendiente; el POST se envió con `curl` | El LED se encendió con el comando directo; no se ha validado el dashboard | [`archivos/http-post-led-2026-10-02.txt`](archivos/http-post-led-2026-10-02.txt) |
 
 ## Resultados
 
@@ -41,7 +42,7 @@
 - Ruta/método HTTP observado: `GET /api/sensor`.
 - Payload de telemetría observado: `{"temperature": 29.8}` (valor simulado).
 - Respuesta del dispositivo: `HTTP/1.1 200` con `Content-Type: application/json`.
-- Resultado físico del LED:
+- Resultado físico del LED: encendido (`state: 1`) confirmado en la foto compartida; prueba de apagado pendiente.
 - Errores o ajustes necesarios:
 
 ## Conclusión y arquitectura
@@ -63,6 +64,9 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | [`flash-2026-10-01.log`](archivos/flash-2026-10-01.log) | Flasheo verificado con aviso de tamaño de flash | 2026-10-01 |
 | [`runtime-2026-10-01.log`](archivos/runtime-2026-10-01.log) | Arranque, conexión Wi-Fi, dirección DHCP y servidor HTTP activo | 2026-10-01 |
 | [`http-get-2026-10-01.txt`](archivos/http-get-2026-10-01.txt) | GET exitoso y confirmación serial | 2026-10-01 |
+| [`http-post-led-2026-10-02.txt`](archivos/http-post-led-2026-10-02.txt) | POST HTTP exitoso, confirmación serial del estado 1 y observación de LED encendido | 2026-10-02 |
+
+Las capturas originales fueron enviadas como imágenes en el chat y no quedaron disponibles como archivos para guardarlas en este repositorio. El registro anterior conserva los resultados observados; para archivar las imágenes originales, adjúntalas como archivos PNG/JPG.
 
 ## Implementación preparada
 

@@ -12,8 +12,10 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Recompilar con credenciales locales y flashear la imagen.
 - [x] Confirmar arranque, asociación Wi-Fi y servidor HTTP escuchando en puerto 80.
 - [x] Consultar telemetría desde `curl` (HTTP 200 y JSON válido).
-- [ ] Validar encendido/apagado del LED y dashboard HTTP.
-- [ ] Guardar logs y capturas en `evidencias/archivos/` y completar el registro.
+- [x] Confirmar el encendido del LED por `POST /api/control` desde `curl`.
+- [ ] Validar apagado del LED y dashboard HTTP.
+- [x] Guardar logs disponibles y completar el registro en `evidencias/`.
+- [ ] Archivar las capturas originales en `evidencias/archivos/` (pendiente de recibirlas como archivos).
 
 ## Compilación
 
