@@ -1,0 +1,26 @@
+Evidencia de flasheo y ejecución — Lab MQTT
+Fecha: 2026-10-02
+Placa: ESP32-C6, esp32c6_devkitc/esp32c6/hpcore
+Puerto: /dev/ttyACM0
+
+Flasheo:
+- Imagen escrita: 695,872 bytes.
+- Hash de los datos verificado.
+- Reset por RTS completado.
+
+Arranque y conexión:
+- Zephyr 4.4.0-13610-g4564d775ab0b inicia correctamente.
+- El dispositivo obtiene IPv4 192.168.1.9.
+- Conexión al broker 192.168.1.4:1883 confirmada.
+- Suscripción a iot/control confirmada.
+- La aplicación emite publicaciones de temperatura en iot/sensor cada 2 s.
+
+Ejemplos de mensajes registrados:
+[00:00:11.088,000] <inf> lab0_mqtt: Publishing to iot/sensor: {"temperature": 22.7}
+[00:00:13.091,000] <inf> lab0_mqtt: Publishing to iot/sensor: {"temperature": 20.3}
+
+Advertencia: el chip detecta 4 MB de flash y la cabecera de imagen indica 8 MB.
+La escritura y el arranque se completaron pese al aviso. Revisar la configuración
+del tamaño de flash antes de futuros flasheos.
+
+SSID, contraseña y dirección MAC se omiten de este archivo.

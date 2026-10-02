@@ -9,7 +9,7 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Implementar control WS2812 y suscripción al tópico de comandos en `firmware/src/main.c`.
 - [x] Implementar publicación de telemetría en el tópico del sensor.
 - [x] Compilar el firmware MQTT para ESP32-C6.
-- [ ] Mantener Mosquitto accesible; flashear el ESP32-C6.
+- [x] Mantener Mosquitto accesible, compilar y flashear el ESP32-C6.
 - [ ] Verificar dashboard, tópicos y actuación del LED.
 - [x] Registrar configuración del broker, conexión TCP WSL→Windows y resultado del build en `evidencias/`.
 
