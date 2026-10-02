@@ -11,7 +11,7 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Compilar el firmware MQTT para ESP32-C6.
 - [x] Mantener Mosquitto accesible, compilar y flashear el ESP32-C6.
 - [x] Confirmar telemetría MQTT de `iot/sensor` en el dashboard.
-- [ ] Validar comando `iot/control` desde el dashboard y observar el cambio del LED.
+- [x] Validar comandos `iot/control` desde el dashboard; el monitor serial confirma estados 1 y 0.
 - [x] Registrar configuración del broker, compilación, flasheo y pruebas de telemetría en `evidencias/`.
 
 Empieza después de completar Lab HTTP. No registres contraseñas, claves ni tokens en el repo.

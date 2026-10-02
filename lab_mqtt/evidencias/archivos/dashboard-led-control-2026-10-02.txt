@@ -1,0 +1,16 @@
+Evidencia de actuación MQTT desde el dashboard
+Fecha: 2026-10-02
+Placa: ESP32-C6
+Tópico de comandos: iot/control (QoS 1)
+
+Fragmento serial observado durante la prueba:
+[00:20:13.601,000] <inf> lab0_mqtt: Actuating command received, LED state: 1
+[00:20:14.623,000] <inf> lab0_mqtt: Actuating command received, LED state: 0
+[00:20:16.774,000] <inf> lab0_mqtt: Actuating command received, LED state: 1
+[00:20:18.414,000] <inf> lab0_mqtt: Actuating command received, LED state: 0
+[00:20:19.743,000] <inf> lab0_mqtt: Actuating command received, LED state: 1
+[00:20:21.285,000] <inf> lab0_mqtt: Actuating command received, LED state: 0
+
+Las órdenes de encendido y apagado llegaron repetidamente al ESP32. El mismo
+registro muestra que la publicación de telemetría en iot/sensor continuó durante
+la actuación.
