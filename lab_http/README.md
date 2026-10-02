@@ -13,7 +13,8 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Confirmar arranque, asociación Wi-Fi y servidor HTTP escuchando en puerto 80.
 - [x] Consultar telemetría desde `curl` (HTTP 200 y JSON válido).
 - [x] Confirmar el encendido del LED por `POST /api/control` desde `curl`.
-- [ ] Validar apagado del LED y dashboard HTTP.
+- [ ] Confirmar físicamente el apagado del LED; el POST con `state: 0` respondió HTTP 200.
+- [ ] Validar dashboard HTTP.
 - [x] Guardar logs disponibles y completar el registro en `evidencias/`.
 - [x] Archivar las capturas originales en `Imagenes/` y enlazarlas desde el registro.
 

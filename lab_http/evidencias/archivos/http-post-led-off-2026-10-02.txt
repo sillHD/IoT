@@ -1,0 +1,18 @@
+Evidencia de POST /api/control para apagar el LED WS2812
+Fecha: 2026-10-02
+Placa: ESP32-C6
+
+Comando ejecutado desde WSL:
+curl -i --max-time 5 -X POST http://192.168.1.9/api/control \
+  -H 'Content-Type: application/json' \
+  -d '{"state": 0}'
+
+Respuesta observada:
+HTTP/1.1 200
+Transfer-Encoding: chunked
+Content-Type: application/json
+
+{"status": "ok"}
+
+Nota: la respuesta HTTP confirma que el servidor acepto la solicitud. No se
+adjunto salida serial ni confirmacion visual del LED apagado en esta evidencia.
