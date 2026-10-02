@@ -1,0 +1,85 @@
+(.venv) ismael@vivobook:~/IoT$ source ~/zephyrproject/.venv/bin/activate
+
+if [ -d ~/IoT/.git ]; then
+  git -C ~/IoT pull --ff-only
+else
+  git clone https://github.com/sillHD/IoT.git ~/IoT
+fi
+remote: Enumerating objects: 7, done.
+remote: Counting objects: 100% (7/7), done.
+remote: Compressing objects: 100% (1/1), done.
+remote: Total 4 (delta 3), reused 4 (delta 3), pack-reused 0 (from 0)
+Unpacking objects: 100% (4/4), 676 bytes | 67.00 KiB/s, done.
+From https://github.com/sillHD/IoT
+   5d10fe6..e1d2a74  main       -> origin/main
+Updating 5d10fe6..e1d2a74
+Fast-forward
+ lab_http/README.md | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
+(.venv) ismael@vivobook:~/IoT$ cd ~/zephyrproject
+west build -p always -b esp32c6_devkitc/esp32c6/hpcore \
+  -d build-iot-lab-http ~/IoT/lab_http/firmware
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base).
+-- Application: /home/ismael/IoT/lab_http/firmware
+-- CMake version: 3.28.3
+-- Found Python3: /home/ismael/zephyrproject/.venv/bin/python3 (found suitable version "3.12.3", minimum required is "3.12") found components: Interpreter
+-- Cache files will be written to: /home/ismael/.cache/zephyr
+-- Zephyr version: 4.4.99 (/home/ismael/zephyrproject/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32c6_devkitc, qualifiers: esp32c6/hpcore
+-- ZEPHYR_TOOLCHAIN_VARIANT not set, trying to locate Zephyr SDK
+-- Found host-tools: zephyr 1.0.1 (/home/ismael/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/ismael/zephyr-sdk-1.0.1)
+-- Found Dtc: /home/ismael/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/dtc (found suitable version "1.7.0", minimum required is "1.4.6")
+-- Found BOARD.dts: /home/ismael/zephyrproject/zephyr/boards/espressif/esp32c6_devkitc/esp32c6_devkitc_hpcore.dts
+-- Found devicetree overlay: /home/ismael/IoT/lab_http/firmware/boards/esp32c6_devkitc_hpcore.overlay
+-- Generated zephyr.dts: /home/ismael/zephyrproject/build-iot-lab-http/zephyr/zephyr.dts
+-- Generated pickled edt: /home/ismael/zephyrproject/build-iot-lab-http/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/ismael/zephyrproject/build-iot-lab-http/zephyr/include/generated/zephyr/devicetree_generated.h
+Parsing /home/ismael/IoT/lab_http/firmware/Kconfig
+Loaded configuration '/home/ismael/zephyrproject/zephyr/boards/espressif/esp32c6_devkitc/esp32c6_devkitc_hpcore_defconfig'
+Merged configuration '/home/ismael/IoT/lab_http/firmware/prj.conf'
+Configuration saved to '/home/ismael/zephyrproject/build-iot-lab-http/zephyr/.config'
+Kconfig header saved to '/home/ismael/zephyrproject/build-iot-lab-http/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache: Found unsuitable version "4.9.1", but required is at least "4.12" (found /usr/bin/ccache)
+-- Found GnuLd: /home/ismael/zephyr-sdk-1.0.1/gnu/riscv64-zephyr-elf/riscv64-zephyr-elf/bin/ld.bfd (found version "2.43.1")
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/ismael/zephyr-sdk-1.0.1/gnu/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-gcc
+-- Espressif HAL path: /home/ismael/zephyrproject/modules/hal/espressif
+-- Image partition address: 0x0
+-- Found Python3: /home/ismael/zephyrproject/.venv/bin/python3 (found version "3.12.3") found components: Interpreter
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- Using ccache: /usr/bin/ccache
+-- Found gen_kobject_list: /home/ismael/zephyrproject/zephyr/scripts/build/gen_kobject_list.py
+-- Configuring done (31.2s)
+-- Generating done (0.7s)
+-- Build files have been written to: /home/ismael/zephyrproject/build-iot-lab-http
+-- west build: building application
+[1/635] Preparing syscall dependency handling
+
+[3/635] Generating include/generated/zephyr/version.h
+-- Zephyr version: 4.4.99 (/home/ismael/zephyrproject/zephyr), build: v4.4.0-13610-g4564d775ab0b
+[635/635] Linking C executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:      668324 B    8388352 B      7.97%
+     sram0_0_seg:      239472 B     509456 B     47.01%
+     irom0_0_seg:      453392 B         8 MB      5.40%
+     drom0_0_seg:       78500 B         8 MB      0.94%
+      lp_ram_seg:           0 B      15584 B      0.00%
+ lp_reserved_seg:           0 B         24 B      0.00%
+        IDT_LIST:           0 B         8 KB      0.00%
+Generating files from /home/ismael/zephyrproject/build-iot-lab-http/zephyr/zephyr.elf for board: esp32c6_devkitc/esp32c6/hpcore
+esptool v5.3.1
+Creating ESP32-C6 image...
+Image has only RAM segments visible. ROM segments are hidden and SHA256 digest is not appended.
+Note: Inserting 12 bytes padding between http_content_type_area and .flash.rodata_end
+Note: Inserting 4 bytes padding between http_service_desc_area and net_mgmt_event_static_handler_area
+Note: Inserting 4 bytes padding between k_kernel_init_post_entry_area and _static_thread_data_area
+Note: Inserting 4 bytes padding between net_buf_pool_area and net_if_area
+Merged 31 ELF sections.
+Successfully created ESP32-C6 image.
+(.venv) ismael@vivobook:~/zephyrproject$
