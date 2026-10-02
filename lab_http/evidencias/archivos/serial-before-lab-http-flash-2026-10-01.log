@@ -1,0 +1,16 @@
+Excerpt transcribed from the user-provided serial monitor output. Captured before flashing the Lab HTTP image.
+
+Command:
+  west espressif monitor -p /dev/ttyACM0
+
+Observed:
+  --- idf_monitor on /dev/ttyACM0 115200 ---
+  --- Quit: Ctrl+] | Menu: Ctrl+T | Help: Ctrl+T followed by Ctrl+H ---
+  rst:0x1 (POWERON),boot:0xc (SPI_FAST_FLASH_BOOT)
+  E (spi_flash): Detected size(4096k) smaller than the size in the binary image header(8192k). Probe failed.
+  *** Booting Zephyr OS build v4.4.0-13610-g4564d775ab0b ***
+  SoilSense Control — superloop build (esp32c6_devkitc)
+  t=0 p_mv=0 sp_mv=1500 duty=0 flow_x100=0 estop=0 backlog=0
+
+Interpretation:
+  The serial connection works on /dev/ttyACM0. The running SoilSense Control image predates the Lab HTTP firmware. The log reports 4 MB detected flash versus an 8 MB image header; resolve that configuration mismatch before flashing the lab image.

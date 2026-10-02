@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 HTTP
 
-**Estado:** Build inicial exitoso; flasheo y pruebas funcionales pendientes
+**Estado:** Build inicial exitoso; consola serial confirmada; flasheo HTTP y pruebas funcionales pendientes
 **Guía:** [`guia.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -19,6 +19,7 @@
 |---|---|---|---|
 | Dependencias y configuración | | | |
 | Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-http ~/IoT/lab_http/firmware` desde `~/zephyrproject` | Éxito; se generó la imagen ESP32-C6 | [`archivos/build-2026-10-01.log`](archivos/build-2026-10-01.log) |
+| Consola serial previa al flasheo HTTP | `west espressif monitor -p /dev/ttyACM0` | Puerto abierto; se observa firmware previo `SoilSense Control` | [`archivos/serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) |
 | Flasheo y conexión Wi-Fi | | | |
 | Dashboard HTTP | | | |
 | Recepción de telemetría | | | |
@@ -31,6 +32,8 @@
 - Memoria reportada: Flash 668,324 B (7.97%); SRAM 239,472 B (47.01%).
 - Configuración Wi-Fi: valores de ejemplo `changeme`; este build es solo para validar compilación, no para operar en la red.
 - Aviso no bloqueante: Ccache 4.9.1 instalado, versión 4.12 o superior recomendada por el build.
+- La consola del ESP32 está en `/dev/ttyACM0` en esta placa; `/dev/ttyUSB0` no existe en la sesión.
+- El firmware previo informa flash física de 4 MB y una cabecera de imagen de 8 MB. Aún no se ha flasheado Lab HTTP; verificar/alinear la configuración antes de grabar.
 - Ruta/método HTTP observado:
 - Payload de telemetría observado (sin datos sensibles):
 - Respuesta del dispositivo:
@@ -51,6 +54,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | Archivo | Qué demuestra | Fecha |
 |---|---|---|
 | [`build-2026-10-01.log`](archivos/build-2026-10-01.log) | Compilación completa, toolchain y uso de memoria | 2026-10-01 |
+| [`serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) | Consola serial y firmware que ya estaba en la placa antes de Lab HTTP | 2026-10-01 |
 
 ## Implementación preparada
 
