@@ -1,0 +1,18 @@
+Command:
+  grep -Ei 'FLASH_SIZE|FLASHSIZE|FLASH.*SIZE' \
+    ~/zephyrproject/build-iot-lab-http/zephyr/.config
+
+Output shared by the user:
+  CONFIG_FLASH_SIZE=8192
+  # CONFIG_ESPTOOLPY_FLASHSIZE_1MB is not set
+  CONFIG_ESPTOOLPY_FLASHSIZE_2MB=y
+  # CONFIG_ESPTOOLPY_FLASHSIZE_4MB is not set
+  # CONFIG_ESPTOOLPY_FLASHSIZE_8MB is not set
+  # CONFIG_ESPTOOLPY_FLASHSIZE_16MB is not set
+  CONFIG_ESPTOOLPY_FLASHSIZE="2MB"
+  # CONFIG_ESPTOOLPY_HEADER_FLASHSIZE_UPDATE is not set
+
+Interpretation: The current Lab HTTP image header is configured for 2 MB; the linked
+flash region is 8 MB. The board's previously booted image reported a physical 4 MB
+flash chip, which is enough for the current 668 KB Lab HTTP image. The 8 MB header
+warning came from the previously installed firmware, not the current Lab HTTP build.

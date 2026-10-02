@@ -33,7 +33,7 @@
 - Configuración Wi-Fi: valores de ejemplo `changeme`; este build es solo para validar compilación, no para operar en la red.
 - Aviso no bloqueante: Ccache 4.9.1 instalado, versión 4.12 o superior recomendada por el build.
 - La consola del ESP32 está en `/dev/ttyACM0` en esta placa; `/dev/ttyUSB0` no existe en la sesión.
-- El firmware previo informa flash física de 4 MB y una cabecera de imagen de 8 MB. Aún no se ha flasheado Lab HTTP; verificar/alinear la configuración antes de grabar.
+- El firmware previo informa flash física de 4 MB y una cabecera de imagen de 8 MB. El `.config` del build Lab HTTP usa cabecera `2MB`; la región linker `CONFIG_FLASH_SIZE=8192` es 8 MB y el binario generado ocupa 668 KB. La discrepancia del mensaje serial pertenece al firmware anterior; Lab HTTP aún no se ha flasheado.
 - Ruta/método HTTP observado:
 - Payload de telemetría observado (sin datos sensibles):
 - Respuesta del dispositivo:
@@ -55,6 +55,7 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 |---|---|---|
 | [`build-2026-10-01.log`](archivos/build-2026-10-01.log) | Compilación completa, toolchain y uso de memoria | 2026-10-01 |
 | [`serial-before-lab-http-flash-2026-10-01.log`](archivos/serial-before-lab-http-flash-2026-10-01.log) | Consola serial y firmware que ya estaba en la placa antes de Lab HTTP | 2026-10-01 |
+| [`flash-config-2026-10-01.txt`](archivos/flash-config-2026-10-01.txt) | Configuración de flash del build Lab HTTP | 2026-10-01 |
 
 ## Implementación preparada
 
