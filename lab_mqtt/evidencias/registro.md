@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 MQTT
 
-**Estado:** Broker accesible, firmware compilado y flasheado; ESP32 conectado y suscrito/publicando; falta validar recepción en dashboard y comandos MQTT
+**Estado:** Lab MQTT completado: ESP32 conectado al broker, dashboard recibe telemetría y sus comandos controlan el LED
 **Guía:** [`en/0_3_Minimal_IoT_Implementation_mqtt.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -20,7 +20,7 @@
 |---|---|---|---|
 | Mosquitto instalado/configurado | `mosquitto.exe -c "C:\Program Files\Mosquitto\mosquitto.conf" -v` | Mosquitto 2.1.2 queda ejecutándose; `netstat` confirma `0.0.0.0:1883` y `[::]:1883`. Se inició manualmente; la ventana debe permanecer abierta y el servicio permanente está pendiente | [`archivos/mosquitto-listener-2026-10-02.txt`](archivos/mosquitto-listener-2026-10-02.txt) |
 | Conectividad desde WSL | `socket.create_connection(('192.168.1.4', 1883), timeout=4)` | Conexión TCP al broker confirmada | [`archivos/wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) |
-| Prueba local pub/sub | | | |
+| Flujo pub/sub ESP32→broker→dashboard | El ESP32 publica `iot/sensor`; dashboard suscrito al tópico | Telemetría visible en el gráfico con estado de recepción activa | [captura serial](../Imagenes/Imagen%201.png), [video del dashboard](../Imagenes/Video%201.mp4) |
 | Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-mqtt ~/IoT/lab_mqtt/firmware` | Build exitoso, 634 pasos; imagen ESP32-C6 generada | [`archivos/build-2026-10-02.txt`](archivos/build-2026-10-02.txt) |
 | Flasheo | `west flash -d build-iot-lab-mqtt --esp-device /dev/ttyACM0` | 695,872 bytes escritos, hash verificado y reset completado. Aviso: chip de 4 MB frente a imagen configurada para 8 MB | [`archivos/flash-runtime-2026-10-02.txt`](archivos/flash-runtime-2026-10-02.txt) |
 | Conexión del ESP32 al broker | Wi-Fi y MQTT a `192.168.1.4:1883` | IPv4 del nodo `192.168.1.9`; conexión MQTT y suscripción `iot/control` confirmadas en serial | [`archivos/flash-runtime-2026-10-02.txt`](archivos/flash-runtime-2026-10-02.txt) |
@@ -34,8 +34,8 @@
 - Telemetría observada: payload JSON `{"temperature": 22.9}` y otras muestras entre 20.0 y 29.9 °C; gráfico de dashboard activo.
 - Comando y QoS usado: dashboard publica en `iot/control` con QoS 1; el ESP32 recibió estados 1 y 0.
 - Resultado del control LED: comandos de encendido y apagado confirmados en la consola serial.
-- Reconexión/pruebas de desconexión realizadas:
-- Errores o ajustes necesarios:
+- Reconexión/pruebas de desconexión realizadas: no probadas.
+- Errores o ajustes necesarios: advertencia no bloqueante de tamaño de flash configurado a 8 MB frente a 4 MB físicos; revisar antes de futuros flasheos.
 
 ## Comparación con HTTP
 
