@@ -10,7 +10,8 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Implementar publicación de telemetría en el tópico del sensor.
 - [x] Compilar el firmware MQTT para ESP32-C6.
 - [x] Mantener Mosquitto accesible, compilar y flashear el ESP32-C6.
-- [ ] Verificar dashboard, tópicos y actuación del LED.
-- [x] Registrar configuración del broker, conexión TCP WSL→Windows y resultado del build en `evidencias/`.
+- [x] Confirmar telemetría MQTT de `iot/sensor` en el dashboard.
+- [ ] Validar comando `iot/control` desde el dashboard y observar el cambio del LED.
+- [x] Registrar configuración del broker, compilación, flasheo y pruebas de telemetría en `evidencias/`.
 
 Empieza después de completar Lab HTTP. No registres contraseñas, claves ni tokens en el repo.
