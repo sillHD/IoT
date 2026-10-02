@@ -51,6 +51,10 @@
 
 ## Medición de alcance
 
+### Alcance de esta sesión
+
+Con el equipo actual, se medirán distancias hasta 5 m. Los puntos de 10 m en adelante quedan pendientes hasta contar con otro PC que mantenga acceso serial a la placa B; por tanto, no se concluirá el alcance máximo confiable hasta completar esas mediciones.
+
 ### Red formada
 
 - Canal: 25.

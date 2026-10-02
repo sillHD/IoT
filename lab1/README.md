@@ -15,3 +15,5 @@ Guía detallada: [`guia.md`](guia.md) · SOP opcional: [`sops/sop01_advanced_mac
 - [ ] Completar el análisis y ADR-001 en `evidencias/registro.md`.
 
 La medición requiere dos placas. Mantén constantes canal, potencia TX y tamaño de paquete; no ejecutes los pings de ambas direcciones simultáneamente durante la medición base.
+
+Con el equipo actual se medirán los puntos hasta 5 m. Las distancias mayores quedan pendientes hasta disponer de otro PC para mantener acceso serial a la placa B.
