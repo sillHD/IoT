@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 MQTT
 
-**Estado:** Mosquitto iniciado manualmente y escuchando en todas las interfaces; conectividad WSL/ESP32 pendiente
+**Estado:** Mosquitto escucha en todas las interfaces y WSL alcanza el puerto TCP; pub/sub MQTT y conexión del ESP32 pendientes
 **Guía:** [`en/0_3_Minimal_IoT_Implementation_mqtt.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -19,6 +19,7 @@
 | Paso | Comando/configuración | Resultado observado | Evidencia |
 |---|---|---|---|
 | Mosquitto instalado/configurado | `mosquitto.exe -c "C:\Program Files\Mosquitto\mosquitto.conf" -v` | Mosquitto 2.1.2 queda ejecutándose; `netstat` confirma `0.0.0.0:1883` y `[::]:1883`. Se inició manualmente; la ventana debe permanecer abierta y el servicio permanente está pendiente | [`archivos/mosquitto-listener-2026-10-02.txt`](archivos/mosquitto-listener-2026-10-02.txt) |
+| Conectividad desde WSL | `socket.create_connection(('192.168.1.4', 1883), timeout=4)` | Conexión TCP al broker confirmada | [`archivos/wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) |
 | Prueba local pub/sub | | | |
 | Compilación y flasheo | | | |
 | Conexión del ESP32 al broker | | | |
@@ -50,3 +51,4 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 | Archivo | Qué demuestra | Fecha |
 |---|---|---|
 | [`mosquitto-listener-2026-10-02.txt`](archivos/mosquitto-listener-2026-10-02.txt) | Broker Mosquitto escuchando en interfaces IPv4 e IPv6 | 2026-10-02 |
+| [`wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) | Conectividad TCP desde WSL al broker Windows | 2026-10-02 |

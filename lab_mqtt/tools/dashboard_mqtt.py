@@ -15,7 +15,7 @@ log = logging.getLogger('werkzeug')
 log.setLevel(logging.ERROR)
 
 # --- MQTT Configuration ---
-MQTT_BROKER = "localhost"
+MQTT_BROKER = "192.168.1.4"
 MQTT_PORT = 1883
 TOPIC_SENSOR = "iot/sensor"
 TOPIC_CONTROL = "iot/control"

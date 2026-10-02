@@ -136,12 +136,22 @@ graph LR
 
 **Configure for local network access:** By default, Mosquitto 2.x only accepts connections from `localhost`. We need to allow connections from the ESP32 on the Wi-Fi network.
 
+Use the Windows Wi-Fi IPv4 address as the broker address (in this session,
+`192.168.1.4`; replace it if DHCP assigns a different address). Do not use the WSL
+virtual adapter address.
+
 Open `C:\Program Files\mosquitto\mosquitto.conf` in a text editor (run as Administrator) and add these two lines at the end:
 
 ```
-listener 1883
-allow_anonymous true
+listener 1883 0.0.0.0
+listener_allow_anonymous true
 ```
+
+Verify with `netstat -ano | findstr :1883`; the listener should include
+`0.0.0.0:1883`. A `127.0.0.1:1883` listener is local-only. If the Windows service
+does not load this file, launch Mosquitto explicitly with
+`mosquitto.exe -c "C:\\Program Files\\Mosquitto\\mosquitto.conf" -v` and keep
+that terminal open during the lab.
 
 **Start/Restart the service:**
 ```cmd
@@ -208,14 +218,17 @@ You should see the message appear in Terminal 1. This confirms the broker is wor
 **Action:** Install the Python dependency and run the dashboard.
 
 ```bash
-pip install paho-mqtt flask
+python -m pip install paho-mqtt Flask
 python lab_mqtt/tools/dashboard_mqtt.py
 ```
+
+Set `MQTT_BROKER` in `lab_mqtt/tools/dashboard_mqtt.py` to the Windows Wi-Fi IPv4
+address used by the ESP32 (currently `192.168.1.4`), not `localhost`.
 
 ```bash
 ~/Documents/4201327-IoT_Systems_Design_Labs/tools$ python3 dashboard_mqtt.py
 [*] MQTT Dashboard running.
-[*] Broker: localhost:1883
+[*] Broker: 192.168.1.4:1883
 [*] Subscribed to: iot/sensor
 [*] Publishing control to: iot/control
  * Serving Flask app 'dashboard_mqtt'
@@ -386,7 +399,7 @@ over the Wi-Fi network.
 ```kconfig
 config LAB_BROKER_ADDR
 	string "MQTT broker IPv4 address"
-	default "192.168.1.50"
+	default "192.168.1.4"
 	help
 	  Your workstation's address on the Wi-Fi network, where Mosquitto is
 	  listening. Not "localhost" - that would mean the board itself.
@@ -407,13 +420,13 @@ cd lab_mqtt/firmware                  # the directory holding CMakeLists.txt
 west build -p always -b esp32c6_devkitc/esp32c6/hpcore . \
   -- -DCONFIG_LAB_WIFI_SSID='"YourNetwork"' \
      -DCONFIG_LAB_WIFI_PSK='"YourPassword"' \
-     -DCONFIG_LAB_BROKER_ADDR='"192.168.1.50"'
+     -DCONFIG_LAB_BROKER_ADDR='"192.168.1.4"'
 ```
 
 > `west: command not found` means the first line was skipped. Install nothing — `west`
 > lives in the Zephyr venv, and `apt install west` is an unrelated package.
 
-> `192.168.1.50` must be your **PC's** address on the Wi-Fi network — the same one
+> `192.168.1.4` must be your **PC's** address on the Wi-Fi network — the same one
 > Mosquitto is bound to. `localhost` would mean the ESP32 itself. Find it with
 > `ip addr` (Linux/macOS) or `ipconfig` (Windows).
 
@@ -565,7 +578,7 @@ perfectly — `mosquitto_sub -h localhost` works fine — while refusing every c
 from the board. Then confirm from the address the board will actually use:
 
 ```bash
-mosquitto_sub -h 192.168.1.50 -t "iot/#" -v
+mosquitto_sub -h 192.168.1.4 -t "iot/#" -v
 ```
 
 ### Step 2: Build and flash
@@ -577,16 +590,16 @@ cd lab_mqtt/firmware
 west build -p always -b esp32c6_devkitc/esp32c6/hpcore . \
   -- -DCONFIG_LAB_WIFI_SSID='"YourNetwork"' \
      -DCONFIG_LAB_WIFI_PSK='"YourPassword"' \
-     -DCONFIG_LAB_BROKER_ADDR='"192.168.1.50"'
+     -DCONFIG_LAB_BROKER_ADDR='"192.168.1.4"'
 west flash
-west espressif monitor -p /dev/ttyUSB0
+west espressif monitor -p /dev/ttyACM0
 ```
 
 ```
 [00:00:03.412] <inf> lab0_mqtt: Connecting to "YourNetwork"...
 [00:00:05.220] <inf> lab0_mqtt: Associated with "YourNetwork"
 [00:00:06.918] <inf> lab0_mqtt: IPv4 address: 192.168.1.100
-[00:00:06.930] <inf> lab0_mqtt: Connecting to broker 192.168.1.50:1883
+[00:00:06.930] <inf> lab0_mqtt: Connecting to broker 192.168.1.4:1883
 [00:00:07.104] <inf> lab0_mqtt: Connected to broker
 [00:00:07.210] <inf> lab0_mqtt: Subscribed to iot/control
 [00:00:09.212] <inf> lab0_mqtt: Publishing to iot/sensor: {"temperature": 24.7}
@@ -599,7 +612,7 @@ dashboard problem.
 Drive the LED by hand from the other direction:
 
 ```bash
-mosquitto_pub -h 192.168.1.50 -t "iot/control" -q 1 -m '{"state": 1}'
+mosquitto_pub -h 192.168.1.4 -t "iot/control" -q 1 -m '{"state": 1}'
 ```
 
 ### Step 3: Launch the Application Domain

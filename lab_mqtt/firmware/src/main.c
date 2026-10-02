@@ -65,8 +65,15 @@ static const struct json_obj_descr control_cmd_descr[] = {
 
 static void led_set(int on)
 {
-	/* TASK 3 - Actuating Capability. Same as the HTTP lab. */
-	ARG_UNUSED(on);
+	struct led_rgb pixel = { .r = 0, .g = 0, .b = 0 };
+
+	if (on) {
+		pixel.g = 0x40;
+	}
+
+	if (led_strip_update_rgb(strip, &pixel, 1) != 0) {
+		LOG_ERR("Failed to drive LED");
+	}
 }
 
 static void handle_control_payload(struct mqtt_client *c,
@@ -82,14 +89,27 @@ static void handle_control_payload(struct mqtt_client *c,
 		return;
 	}
 
-	/* TASK 4 - Actuating Capability.
-	 * The payload is not in the event: read `len` bytes out of the socket
-	 * first, then parse and actuate, then acknowledge. Guide section 3 explains
-	 * both the read and why the acknowledgement is not optional.
-	 */
-	ARG_UNUSED(ret);
-	ARG_UNUSED(cmd);
-	ARG_UNUSED(pub);
+	ret = mqtt_read_publish_payload_blocking(c, payload, len);
+	if (ret < 0) {
+		LOG_ERR("Failed to read publish payload (%d)", ret);
+		return;
+	}
+	payload[len] = '\0';
+
+	ret = json_obj_parse(payload, len, control_cmd_descr,
+			     ARRAY_SIZE(control_cmd_descr), &cmd);
+	if (ret == BIT_MASK(ARRAY_SIZE(control_cmd_descr))) {
+		LOG_INF("Actuating command received, LED state: %d", cmd.state);
+		led_set(cmd.state);
+	} else {
+		LOG_WRN("Could not parse control payload (ret %d)", ret);
+	}
+
+	if (pub->message.topic.qos == MQTT_QOS_1_AT_LEAST_ONCE) {
+		struct mqtt_puback_param ack = { .message_id = pub->message_id };
+
+		mqtt_publish_qos1_ack(c, &ack);
+	}
 }
 
 /* --- Sensing capability -------------------------------------------------- */
@@ -102,15 +122,16 @@ static int publish_sensor(struct mqtt_client *c)
 	int len = snprintf(payload, sizeof(payload), "{\"temperature\": %u.%u}",
 			   tenths / 10, tenths % 10);
 
-	/* TASK 5 - Sensing Capability.
-	 * `payload` already holds the JSON. Describe the message in `param` and
-	 * publish it. Guide section 2 lists the fields and asks you to justify the
-	 * QoS you pick.
-	 */
-	ARG_UNUSED(len);
-	ARG_UNUSED(param);
+	param.message.topic.topic.utf8 = (uint8_t *)TOPIC_SENSOR;
+	param.message.topic.topic.size = strlen(TOPIC_SENSOR);
+	param.message.topic.qos = MQTT_QOS_0_AT_MOST_ONCE;
+	param.message.payload.data = payload;
+	param.message.payload.len = len;
+	param.message_id = sys_rand16_get();
 
-	return 0;
+	LOG_INF("Publishing to %s: %s", TOPIC_SENSOR, payload);
+
+	return mqtt_publish(c, &param);
 }
 
 static int subscribe_control(struct mqtt_client *c)

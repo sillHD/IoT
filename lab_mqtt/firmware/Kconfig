@@ -11,8 +11,15 @@ config LAB_WIFI_PSK
 	string "Wi-Fi password"
 	default "changeme"
 
-# TASK 2 - declare LAB_BROKER_ADDR (string) and LAB_BROKER_PORT (int), following
-# the style above. Guide section 1 gives the values and explains why the node now
-# needs an address that the HTTP lab did not.
+config LAB_BROKER_ADDR
+	string "MQTT broker IPv4 address"
+	default "192.168.1.4"
+	help
+	  IPv4 address of the workstation running Mosquitto. Do not use localhost;
+	  the ESP32 must reach the broker over Wi-Fi.
+
+config LAB_BROKER_PORT
+	int "MQTT broker port"
+	default 1883
 
 source "Kconfig.zephyr"

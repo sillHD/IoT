@@ -1,0 +1,12 @@
+Evidencia: WSL alcanza el listener de Mosquitto en Windows
+Fecha: 2026-10-02
+Dirección del broker: 192.168.1.4:1883
+
+Comando ejecutado en WSL:
+python3 -c "import socket; s=socket.create_connection(('192.168.1.4', 1883), timeout=4); print('Conexión TCP al broker: OK'); s.close()"
+
+Resultado:
+Conexión TCP al broker: OK
+
+Esto confirma conectividad TCP desde WSL hasta el listener. Aún falta probar
+mensajes MQTT y la conexión desde el ESP32.
