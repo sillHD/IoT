@@ -15,21 +15,39 @@
 - Potencia TX configurada en cada placa (dBm):
 - Commit del repositorio (`git rev-parse --short HEAD`):
 
-## Escaneo de canales
-
-### Compilación
+## Compilación
 
 - Comando: `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab1 ~/IoT/lab1/firmware`
 - Resultado: compilación exitosa (866 pasos).
 - Evidencia: [`archivos/build-2026-10-02.txt`](archivos/build-2026-10-02.txt).
 - Placa A (`/dev/ttyACM0`) y placa B (`/dev/ttyACM1`) arrancaron con el CLI y la radio IEEE 802.15.4 inicializada: [`archivos/boot-dual-boards-2026-10-02.txt`](archivos/boot-dual-boards-2026-10-02.txt).
 
-| Canal 802.15.4 | RSSI/energía reportada (dBm) | Observaciones/interferencia |
-|---:|---:|---|
+## Escaneo de canales
 
-- Canal seleccionado y motivo:
-- Canales Wi-Fi cercanos conocidos:
-- Comando y duración del escaneo:
+### Resultado de la medición
+
+| Canal 802.15.4 | RSSI/energía (dBm) | Observaciones |
+|---:|---:|---|
+| 11 | -102 | |
+| 12 | -101 | |
+| 13 | -102 | |
+| 14 | -102 | |
+| 15 | -103 | |
+| 16 | -103 | |
+| 17 | -99 | |
+| 18 | -96 | |
+| 19 | -103 | |
+| 20 | -101 | |
+| 21 | -104 | Empate de menor energía |
+| 22 | -103 | |
+| 23 | -103 | |
+| 24 | -104 | Empate de menor energía; solapa Wi-Fi 11 |
+| 25 | -104 | Empate de menor energía; canal seleccionado, espacio entre Wi-Fi |
+| 26 | -96 | |
+
+- Canal seleccionado y motivo: canal 25; comparte el menor nivel observado (-104 dBm) con 21 y 24, pero 25 queda fuera de los canales Wi-Fi solapados indicados en la guía.
+- Comando y duración: `ot ifconfig up`; `ot scan energy 500` (500 ms por canal).
+- Evidencia completa: [`archivos/channel-scan-2026-10-02.txt`](archivos/channel-scan-2026-10-02.txt).
 
 ## Medición de alcance
 
@@ -60,3 +78,4 @@ Guardar capturas, logs y tablas originales en [`archivos/`](archivos/). Describi
 |---|---|---|
 | [`build-2026-10-02.txt`](archivos/build-2026-10-02.txt) | Compilación de OpenThread CLI para ESP32-C6 | 2026-10-02 |
 | [`boot-dual-boards-2026-10-02.txt`](archivos/boot-dual-boards-2026-10-02.txt) | Arranque del firmware y radio 802.15.4 inicializada en ambas placas | 2026-10-02 |
+| [`channel-scan-2026-10-02.txt`](archivos/channel-scan-2026-10-02.txt) | Escaneo de energía de los canales 11–26 y selección del canal 25 | 2026-10-02 |

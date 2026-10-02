@@ -1,0 +1,27 @@
+Escaneo de energía 802.15.4 — Lab 1 Radio
+Fecha: 2026-10-02
+Placa: A (/dev/ttyACM0)
+Comandos: ot ifconfig up; ot scan energy 500
+
+| Canal | RSSI/energía (dBm) |
+|---:|---:|
+| 11 | -102 |
+| 12 | -101 |
+| 13 | -102 |
+| 14 | -102 |
+| 15 | -103 |
+| 16 | -103 |
+| 17 | -99 |
+| 18 | -96 |
+| 19 | -103 |
+| 20 | -101 |
+| 21 | -104 |
+| 22 | -103 |
+| 23 | -103 |
+| 24 | -104 |
+| 25 | -104 |
+| 26 | -96 |
+
+Canales de menor energía: 21, 24 y 25 (-104 dBm, empate). Se selecciona el
+canal 25: está en un espacio entre canales Wi-Fi; 21 y 24 se solapan con Wi-Fi
+11. Mantener esta selección durante la primera formación de red.
