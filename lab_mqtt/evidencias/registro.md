@@ -1,6 +1,6 @@
 # Evidencia — Lab 0 MQTT
 
-**Estado:** Mosquitto escucha en todas las interfaces y WSL alcanza el puerto TCP; pub/sub MQTT y conexión del ESP32 pendientes
+**Estado:** Broker accesible desde WSL y firmware compilado; falta flashear y validar pub/sub con ESP32 y dashboard
 **Guía:** [`en/0_3_Minimal_IoT_Implementation_mqtt.md`](../guia.md)
 **Firmware:** [`firmware/`](../firmware/)
 
@@ -21,7 +21,8 @@
 | Mosquitto instalado/configurado | `mosquitto.exe -c "C:\Program Files\Mosquitto\mosquitto.conf" -v` | Mosquitto 2.1.2 queda ejecutándose; `netstat` confirma `0.0.0.0:1883` y `[::]:1883`. Se inició manualmente; la ventana debe permanecer abierta y el servicio permanente está pendiente | [`archivos/mosquitto-listener-2026-10-02.txt`](archivos/mosquitto-listener-2026-10-02.txt) |
 | Conectividad desde WSL | `socket.create_connection(('192.168.1.4', 1883), timeout=4)` | Conexión TCP al broker confirmada | [`archivos/wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) |
 | Prueba local pub/sub | | | |
-| Compilación y flasheo | | | |
+| Compilación | `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab-mqtt ~/IoT/lab_mqtt/firmware` | Build exitoso, 634 pasos; imagen ESP32-C6 generada | [`archivos/build-2026-10-02.txt`](archivos/build-2026-10-02.txt) |
+| Flasheo | Pendiente | | |
 | Conexión del ESP32 al broker | | | |
 | Telemetría en `iot/sensor` | | | |
 | Comando en `iot/control` y LED | | | |
@@ -52,3 +53,4 @@ Guardar capturas, logs y otros artefactos en [`archivos/`](archivos/). Describir
 |---|---|---|
 | [`mosquitto-listener-2026-10-02.txt`](archivos/mosquitto-listener-2026-10-02.txt) | Broker Mosquitto escuchando en interfaces IPv4 e IPv6 | 2026-10-02 |
 | [`wsl-broker-connect-2026-10-02.txt`](archivos/wsl-broker-connect-2026-10-02.txt) | Conectividad TCP desde WSL al broker Windows | 2026-10-02 |
+| [`build-2026-10-02.txt`](archivos/build-2026-10-02.txt) | Compilación del firmware MQTT para ESP32-C6 y uso de memoria | 2026-10-02 |

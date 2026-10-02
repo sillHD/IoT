@@ -1,0 +1,23 @@
+Evidencia de compilación — Lab MQTT
+Fecha: 2026-10-02
+Placa: esp32c6_devkitc/esp32c6/hpcore
+Zephyr: 4.4.99 (build v4.4.0-13610-g4564d775ab0b)
+SDK: Zephyr SDK 1.0.1
+Compilador: RISC-V GCC 14.3.0
+
+Comando:
+west build -p always -b esp32c6_devkitc/esp32c6/hpcore \
+  -d build-iot-lab-mqtt ~/IoT/lab_mqtt/firmware
+
+Resultado: compilación completada; 634/634 pasos y se generó la imagen ESP32-C6.
+Uso reportado:
+- FLASH: 660,708 B (7.88%)
+- SRAM: 230,960 B (45.33%)
+- IROM: 433,728 B (5.17%)
+- DROM: 70,884 B (0.85%)
+
+SSID y contraseña se ingresaron localmente para configurar el build y se omiten
+de esta evidencia y del repositorio.
+
+Advertencia no bloqueante: Ccache 4.9.1 está por debajo de la versión 4.12
+recomendada. El build finalizó correctamente.

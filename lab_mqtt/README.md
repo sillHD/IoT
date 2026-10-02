@@ -8,8 +8,9 @@ Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · D
 - [x] Declarar dirección y puerto del broker en `firmware/Kconfig`.
 - [x] Implementar control WS2812 y suscripción al tópico de comandos en `firmware/src/main.c`.
 - [x] Implementar publicación de telemetría en el tópico del sensor.
-- [ ] Configurar y verificar Mosquitto; compilar y flashear el ESP32-C6.
+- [x] Compilar el firmware MQTT para ESP32-C6.
+- [ ] Mantener Mosquitto accesible; flashear el ESP32-C6.
 - [ ] Verificar dashboard, tópicos y actuación del LED.
-- [x] Registrar la configuración inicial del broker y conexión TCP WSL→Windows en `evidencias/`.
+- [x] Registrar configuración del broker, conexión TCP WSL→Windows y resultado del build en `evidencias/`.
 
 Empieza después de completar Lab HTTP. No registres contraseñas, claves ni tokens en el repo.
