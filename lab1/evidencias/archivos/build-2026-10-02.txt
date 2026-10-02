@@ -1,0 +1,20 @@
+Evidencia de compilación — Lab 1 Radio / OpenThread CLI
+Fecha: 2026-10-02
+Placa: esp32c6_devkitc/esp32c6/hpcore
+Zephyr: 4.4.99 (build v4.4.0-13610-g4564d775ab0b)
+SDK: Zephyr SDK 1.0.1
+Compilador: RISC-V GCC 14.3.0
+
+Comando:
+west build -p always -b esp32c6_devkitc/esp32c6/hpcore \
+  -d build-iot-lab1 ~/IoT/lab1/firmware
+
+Resultado: compilación exitosa, 866/866 pasos; imagen generada para ESP32-C6.
+Uso reportado:
+- FLASH: 577,364 B (6.88%)
+- SRAM: 173,440 B (34.04%)
+- IROM: 363,968 B (4.34%)
+- DROM: 53,076 B (0.63%)
+
+Configuración visible en la salida: OpenThread CLI, radio IEEE 802.15.4,
+ping habilitado y autoinicio manual de Thread.

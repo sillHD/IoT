@@ -1,6 +1,6 @@
 # Evidencia — Lab 1 Radio
 
-**Estado:** Pendiente de ejecución
+**Estado:** Firmware compilado; falta flashear ambas placas y realizar escaneo/red/mediciones
 **Guía:** [`en/labs/lab1.md`](../guia.md)
 **SOP opcional:** [`en/labs/sops/sop01_advanced_mac.md`](../sops/sop01_advanced_mac.md)
 **Firmware:** [`firmware/`](../firmware/)
@@ -16,6 +16,12 @@
 - Commit del repositorio (`git rev-parse --short HEAD`):
 
 ## Escaneo de canales
+
+### Compilación
+
+- Comando: `west build -p always -b esp32c6_devkitc/esp32c6/hpcore -d build-iot-lab1 ~/IoT/lab1/firmware`
+- Resultado: compilación exitosa (866 pasos).
+- Evidencia: [`archivos/build-2026-10-02.txt`](archivos/build-2026-10-02.txt).
 
 | Canal 802.15.4 | RSSI/energía reportada (dBm) | Observaciones/interferencia |
 |---:|---:|---|
@@ -51,3 +57,4 @@ Guardar capturas, logs y tablas originales en [`archivos/`](archivos/). Describi
 
 | Archivo | Qué demuestra | Fecha |
 |---|---|---|
+| [`build-2026-10-02.txt`](archivos/build-2026-10-02.txt) | Compilación de OpenThread CLI para ESP32-C6 | 2026-10-02 |
