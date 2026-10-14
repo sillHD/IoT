@@ -9,11 +9,11 @@ Guía detallada: [`guia.md`](guia.md) · SOP opcional: [`sops/sop01_advanced_mac
 - [x] Escanear los canales 802.15.4; canal 25 seleccionado con energía de -104 dBm.
 - [x] Formar la red Thread; placa A leader y placa B router.
 - [x] Confirmar conectividad y medir PER por ping en ambas direcciones a ~1 m (0%).
-- [ ] Medir RSSI y PER en ambas direcciones a distancias crecientes.
-- [ ] Estimar alcance confiable, canal preferido y separación recomendada.
+- [x] Medir RSSI y PER en ambas direcciones a 1, 5, 10 y 15 m; la prueba se detuvo a 15 m por pérdida casi total.
+- [x] Registrar las mediciones de alcance y la condición observada durante la prueba.
 - [x] Guardar la evidencia de compilación en `evidencias/archivos/`.
-- [ ] Completar el análisis y ADR-001 en `evidencias/registro.md`.
+- [x] Completar el análisis y ADR-001 en `evidencias/registro.md`, con limitaciones registradas.
 
 La medición requiere dos placas. Mantén constantes canal, potencia TX y tamaño de paquete; no ejecutes los pings de ambas direcciones simultáneamente durante la medición base.
 
-Con el equipo actual se medirán los puntos hasta 5 m. Las distancias mayores quedan pendientes hasta disponer de otro PC para mantener acceso serial a la placa B.
+Durante las mediciones la línea de visión no estuvo completamente despejada; esto explica la variación anormal de los resultados.
