@@ -1,12 +1,13 @@
 # IoT Labs — ESP32-C6, Zephyr y OpenThread
 
-Este repositorio concentra las tareas, firmware y evidencias de tres prácticas:
+Este repositorio concentra las tareas, firmware y evidencias de las prácticas:
 
 | Laboratorio | Contenido | Estado inicial |
 |---|---|---|
 | [`lab_http/`](lab_http/README.md) | HTTP, telemetría y control de LED | Firmware implementado; falta compilar y validar con la placa |
 | [`lab_mqtt/`](lab_mqtt/README.md) | MQTT, broker, telemetría y control de LED | Pendiente de desarrollo |
 | [`lab1/`](lab1/README.md) | Radio 802.15.4, OpenThread, RSSI y PER | Firmware disponible; mediciones pendientes |
+| [`lab2/`](lab2/README.md) | Malla Thread A/B/C, direccionamiento, dos saltos y recuperación | Firmware, scripts y guía preparados; ejecución física pendiente |
 
 Cada carpeta contiene su guía, firmware, herramientas y un registro de evidencia. El entorno común se documenta en [`evidencias/entorno.md`](evidencias/entorno.md).
 
