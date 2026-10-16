@@ -8,6 +8,7 @@ Este repositorio concentra las tareas, firmware y evidencias de las prácticas:
 | [`lab_mqtt/`](lab_mqtt/README.md) | MQTT, broker, telemetría y control de LED | Pendiente de desarrollo |
 | [`lab1/`](lab1/README.md) | Radio 802.15.4, OpenThread, RSSI y PER | Firmware disponible; mediciones pendientes |
 | [`lab2/`](lab2/README.md) | Thread con dos placas A/B, direccionamiento, RTT y reconexión | Adaptación preparada; pruebas de dos saltos y rutas alternativas requieren una tercera placa |
+| [`lab3/`](lab3/README.md) | CoAP/CBOR con C/S, Observe, válvula y sleepy end device | Firmware, guía y plantillas preparados; ejecución física pendiente |
 
 Cada carpeta contiene su guía, firmware, herramientas y un registro de evidencia. El entorno común se documenta en [`evidencias/entorno.md`](evidencias/entorno.md).
 

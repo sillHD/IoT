@@ -1,0 +1,61 @@
+# Lab 3 — CoAP con dos ESP32-C6
+
+[Guía paso a paso](guia.md) · [Qué enviar de las consolas](EVIDENCIAS.md) ·
+[Registro](evidencias/registro.md) · [Firmware](firmware/) · [Origen](ORIGEN.md)
+
+- **C**: cliente CoAP y líder de Thread, representa al gateway.
+- **S**: servidor de temperatura simulada y válvula representada por el LED RGB.
+
+Una imagen común se carga en ambas. La tercera placa es opcional en el Lab 3
+original. No se necesitan sensor físico, válvula externa, Wi-Fi ni broker MQTT.
+Target: ESP32-C6 DevKitC, RGB GPIO8, flash de al menos 4 MB; en una de 8 MB se
+usan sus primeros 4 MB. Revisa target/LED si alguna placa es otro modelo.
+
+## Preparación en el PC con Zephyr
+
+```bash
+cd ~/IoT
+git pull --ff-only
+bash lab3/tools/build.sh usb
+```
+
+Conecta C sola, adjúntala a WSL y verifica su puerto. Si es ttyACM0:
+
+```bash
+bash ~/IoT/lab3/tools/flash.sh C /dev/ttyACM0 usb
+```
+
+Desconecta C, conecta S, verifica el puerto y ejecuta:
+
+```bash
+bash ~/IoT/lab3/tools/flash.sh S /dev/ttyACM0 usb
+```
+
+Se compila una vez y se carga dos veces. Usa el conector ESP32C6/USB nativo.
+Para CH343/UART compila con `build.sh uart` y carga con `flash.sh C PUERTO uart`.
+
+Abre una terminal por placa. Ejemplo con ambas conectadas y puertos identificados:
+
+```bash
+bash ~/IoT/lab3/tools/monitor.sh C /dev/ttyACM0
+```
+
+```bash
+bash ~/IoT/lab3/tools/monitor.sh S /dev/ttyACM1
+```
+
+Continúa con [guia.md](guia.md). **Ejecuta `ot coap start` solo en C.** En S el
+servidor ya usa UDP 5683; iniciarle el cliente OpenThread interceptaría su tráfico.
+No copies el dataset activo a las evidencias: contiene la clave de red.
+
+## Estado
+
+- [x] Firmware C/S, USB/UART, scripts y guía preparados.
+- [x] Logs adicionales de tamaños CoAP para válvula y notificaciones.
+- [ ] Compilación y carga física en el PC del usuario.
+- [ ] GET/CBOR, Observe, válvula/idempotencia y CON/NON.
+- [ ] Latencia SED a 1/5/15 s, tabla de bytes y estimación de energía.
+- [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
+
+La sintaxis de los scripts y los enlaces se revisan aquí. Este entorno no tiene
+Zephyr/SDK ni acceso USB a las placas: no se afirma una compilación o carga física.
