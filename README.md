@@ -7,7 +7,7 @@ Este repositorio concentra las tareas, firmware y evidencias de las prácticas:
 | [`lab_http/`](lab_http/README.md) | HTTP, telemetría y control de LED | Firmware implementado; falta compilar y validar con la placa |
 | [`lab_mqtt/`](lab_mqtt/README.md) | MQTT, broker, telemetría y control de LED | Pendiente de desarrollo |
 | [`lab1/`](lab1/README.md) | Radio 802.15.4, OpenThread, RSSI y PER | Firmware disponible; mediciones pendientes |
-| [`lab2/`](lab2/README.md) | Malla Thread A/B/C, direccionamiento, dos saltos y recuperación | Firmware, scripts y guía preparados; ejecución física pendiente |
+| [`lab2/`](lab2/README.md) | Thread con dos placas A/B, direccionamiento, RTT y reconexión | Adaptación preparada; pruebas de dos saltos y rutas alternativas requieren una tercera placa |
 
 Cada carpeta contiene su guía, firmware, herramientas y un registro de evidencia. El entorno común se documenta en [`evidencias/entorno.md`](evidencias/entorno.md).
 

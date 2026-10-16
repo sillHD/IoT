@@ -1,131 +1,124 @@
-# Evidencia — Lab 2: Thread Mesh
+# Evidencia — Lab 2 adaptado a dos placas
 
-**Estado:** firmware y procedimiento preparados; pendiente de ejecución física.
+**Estado:** firmware y procedimiento A/B preparados; ejecución física pendiente.
 No hay resultados experimentales de Lab 2 registrados todavía.
+
+## Alcance
+
+Esta adaptación registra una red de dos nodos, direcciones IPv6, RTT de un salto,
+contadores MAC de los extremos y, opcionalmente, reconexión manual de B.
+Las pruebas del Lab 2 original que necesitan un tercer nodo quedan pendientes.
+La reconexión manual no se considera recuperación mediante rutas alternativas.
 
 ## Sesión
 
-- Fecha y lugar: pendiente.
-- Integrantes: pendiente.
-- Modelo y capacidad de flash de A/B/C: pendiente.
-- Puertos reales y conector de cada placa: pendiente.
-- Zephyr (`git -C ~/zephyrproject/zephyr rev-parse HEAD`): pendiente.
-- Commit de IoT usado para compilar: pendiente.
-- Canal previsto: 25; lectura real en las tres: pendiente.
-- Potencia prevista: 0 dBm; salida de `ot txpower` en A/B/C: pendiente.
-- Posición/obstáculos/orientación: pendiente.
-- Dataset compartido localmente; no guardar la clave ni el hexadecimal en Git.
+- Fecha/lugar/integrantes: pendiente.
+- Modelo/flash/puerto/conector de A: pendiente.
+- Modelo/flash/puerto/conector de B: pendiente.
+- Versión Zephyr y commit de IoT usado: pendiente.
+- Canal previsto: 25; lecturas A/B: pendiente.
+- Potencia prevista: 0 dBm; lecturas de ot txpower en A/B: pendiente.
+- Posición, orientación y obstáculos: pendiente.
+- Dataset compartido localmente; no guardar el hexadecimal ni claves en Git.
 
 ## Compilación y carga
 
 | Actividad | Evidencia prevista | Resultado |
 |---|---|---|
-| Build USB o UART | archivos/build-usb.log o build-uart.log | Pendiente |
-| Flash A | archivos/flash-A-usb.log (o uart) | Pendiente |
-| Flash B | archivos/flash-B-usb.log (o uart) | Pendiente |
-| Flash C | archivos/flash-C-usb.log (o uart) | Pendiente |
-| Estados y red de tres routers | Arranque y ot state/router table | Pendiente |
+| Build USB/UART | archivos/build-usb.log o build-uart.log | Pendiente |
+| Flash A | archivos/flash-A-usb.log o uart | Pendiente |
+| Flash B | archivos/flash-B-usb.log o uart | Pendiente |
+| Formación de red | ot state, ot router table | Pendiente |
 
-## Direcciones
+## Direccionamiento
 
-| Placa | Rol | ML-EID | RLOC | RLOC16 | Router ID | Extaddr | Link-local |
+| Placa | Rol observado | ML-EID | RLOC | RLOC16 | Router ID | Extaddr | Link-local |
 |---|---|---|---|---|---|---|---|
 | A | Pendiente | | | | | | |
 | B | Pendiente | | | | | | |
-| C | Pendiente | | | | | | |
 
-| Tipo | Identificación | Alcance/uso |
+| Tipo | Identificación | Uso |
 |---|---|---|
-| Link-local | fe80::/64 | Un enlace; comunicación entre vecinos |
-| RLOC | Prefijo mesh-local + 0:ff:fe00:RLOC16 | Localizador de encaminamiento; puede cambiar |
+| Link-local | fe80::/64 | Comunicación en un enlace |
+| RLOC | Prefijo mesh-local + 0:ff:fe00:RLOC16 | Localizador de encaminamiento |
 | ALOC | Prefijo mesh-local + 0:ff:fe00:fcXX | Función/servicio; fc00 representa al líder |
-| ML-EID | ot ipaddr mleid | Identidad del dispositivo dentro de la malla; usada en los pings |
+| ML-EID | ot ipaddr mleid | Identidad del dispositivo dentro de la malla, usada en los pings |
 
-- Derivación extaddr → IID link-local: pendiente con valores reales;
-  primer byte XOR 0x02 (bit U/L).
-- Derivación RLOC16 → Router ID: pendiente con valores reales; RLOC16 >> 10.
-- Grupos encontrados con ot ipmaddr y su alcance: pendiente.
+- Derivación extaddr → link-local con los valores reales: pendiente;
+  invertir bit U/L (0x02 del primer byte).
+- Router ID = RLOC16 >> 10: pendiente de comprobar con las tablas.
+- Grupos multicast y su alcance: pendiente de capturar ot ipmaddr.
 
-## Prueba del reenvío por B
+## RTT y pérdida — un salto
 
-| Condición | TxUnicast en B tras reset y ping A→C | Next Hop hacia C en A | Evidencia |
-|---|---|---|---|
-| Sin filtros | Pendiente | Pendiente | Pendiente |
-| A/C con LQ directa fijada a 1 | Pendiente | Pendiente | Pendiente |
+| Trayecto | RTT min/avg/max (ms) | Enviados/recibidos | Pérdida (%) | Evidencia |
+|---|---|---|---|---|
+| A→B | Pendiente | | | |
+| B→A | Pendiente | | | |
 
-Registra tablas y valores reales. Los contadores pueden incluir tráfico de control.
+Parámetros: 64 bytes, 20 pings, intervalo 0.5 s, una dirección a la vez.
 
-## RTT y pérdida
+| Dirección de la señal | Tabla del receptor | Avg RSSI | Last RSSI | LQ In |
+|---|---|---|---|---|
+| A→B | B | Pendiente | | |
+| B→A | A | Pendiente | | |
 
-| Trayecto | Saltos verificados | RTT min/avg/max (ms) | Enviados/recibidos | Pérdida (%) | Evidencia |
+## Contadores MAC de los extremos
+
+Resetear en A/B, hacer un ping A→B de 20 paquetes y capturar ambos contadores.
+
+| Placa | TxUnicast | RxUnicast | Otras observaciones | Evidencia |
+|---|---|---|---|---|
+| A | Pendiente | | | |
+| B | Pendiente | | | |
+
+Los nodos son extremos; estos valores no demuestran reenvío por un intermediario.
+
+## Reconexión manual de B — complementario
+
+El tiempo se toma desde ot thread start en B hasta la primera respuesta de ping
+correcta en A. No incluir la duración durante la que B estuvo detenida.
+
+| Ensayo | Inicio de Thread en B | Primera respuesta en A | Tiempo (s) | Rol/dirección posterior | Evidencia |
 |---|---|---|---|---|---|
-| A→B | 1 | Pendiente | | | |
-| A→C mediante B | 2 | Pendiente | | | |
-| Referencia Lab 1 | 1 | Pendiente de elegir sesión comparable | | | |
+| 1 | Pendiente | | | | |
+| 2 | Pendiente | | | | |
+| 3 | Pendiente | | | | |
 
-- Incremento de RTT promedio (2 saltos menos 1 salto): pendiente.
-- Intervalo/tamaño: 0.5 s / 64 bytes / 20 pings por trayecto.
-- Resolución inicial de dirección u otras incidencias observadas: pendiente.
+No comparar estos tiempos con el criterio de recuperación de rutas alternativas
+del Lab 2 original: son fenómenos distintos.
 
-## Recuperación al desconectar B
+## Actividades originales pendientes por tercer nodo
 
-| Ensayo | Momento del corte | Primera respuesta recuperada | Pings perdidos | Interrupción (s) | Ruta posterior | ¿Menor de 120 s? |
-|---|---|---|---|---|---|---|
-| 1 | Pendiente | | | | | |
-| 2 | Pendiente | | | | | |
-| 3 | Pendiente | | | | | |
+- Red A/B/C de tres routers.
+- Reenvío A→B→C comprobado con contadores de B.
+- Comparación RTT de uno y dos saltos.
+- Tres ensayos de pérdida de B y recuperación por el enlace A↔C de respaldo.
+- Conclusiones de ADR-002 y resúmenes sobre latencia por salto/recuperación,
+  respaldados por esas mediciones.
 
-Un ping por segundo, 200 pings. Diferenciar pérdidas ajenas al corte. Guardar
-tablas antes/después y confirmar el retorno al reenvío por B antes del siguiente ensayo.
+## Direcciones, roles e ISO/IEC 30141
 
-## ADR-002 — Topología
-
-- Contexto: comparar malla Thread con una estrella tipo LoRaWAN para el escenario del curso.
-- Decisión: pendiente de completar con las mediciones.
-- Alternativas y criterios: saltos, latencia, recuperación, infraestructura y consumo.
-- Evidencia: completar con RTT, contadores y tres ensayos.
-- Consecuencias: pendiente.
-
-## ISO/IEC 30141 y roles
-
-La malla, sus routers y enlaces forman el subsistema de comunicación del SCD.
-La ML-EID permite a los servicios del ASD identificar nodos dentro de la malla.
+Los enlaces y routers Thread forman el subsistema de comunicación del SCD.
+La ML-EID permite identificar nodos a los servicios del ASD.
 
 | Rol | Función | Implicación de energía |
 |---|---|---|
-| Leader | Funciones de router y coordinación (IDs de router/datos de red) | Receptor activo |
-| Router | Reenvía paquetes | Receptor activo |
-| REED | Dispositivo final elegible para convertirse en router | Capacidad de asumir el trabajo de router |
-| End device | Hoja que usa un padre | No reenvía paquetes de otros nodos |
-| Sleepy end device | Hoja que duerme y consulta a su padre | Puede apagar el receptor entre consultas |
+| Leader | Router y coordinación de IDs/datos de red | Receptor activo |
+| Router | Reenvío | Receptor activo |
+| REED | Dispositivo elegible para router | Puede asumir el trabajo de router |
+| End device | Hoja que usa un padre | No reenvía para otros nodos |
+| Sleepy end device | Hoja que duerme y consulta al padre | Puede apagar el receptor entre consultas |
 
-Efecto sobre la meta de tres meses con batería: pendiente de análisis;
-no asumir que un router con receptor activo consume como un SED.
+Análisis con lo observado en A/B: pendiente. Los experimentos multi-hop se mantienen
+pendientes y no se sustituyen con resultados de esta adaptación.
 
-## Preguntas del informe
-
-1. Compresión IPHC/contexto/IID y fragmentación 6LoWPAN: pendiente.
-2. Detección de fallo por MAC ACK/MLE frente al envejecimiento sin tráfico: pendiente.
-3. Por qué se conserva un enlace A↔C pobre y qué ocurriría al bloquearlo: pendiente.
-4. Opcional, efecto de un cambio de RLOC comparado con ML-EID: pendiente.
-
-## Resumen para Edwin — tres líneas
-
-Pendiente: recuperación medida; cumplimiento de <120 s; comprobaciones ante un nodo caído.
-
-## Resumen para Samuel — tres líneas
-
-Pendiente: incremento de RTT por salto; dirección usada por la aplicación; motivo.
-
-## Índice de archivos
+## Índice de archivos y cierre
 
 | Archivo | Qué demuestra |
 |---|---|
-| Pendiente | Añadir enlaces a logs/capturas reales tras ejecutar |
+| Pendiente | Vincular logs/capturas reales al ejecutar |
 
-## Cierre
-
-- [ ] Limpiar filtros en A/C.
-- [ ] Detener Thread y bajar interfaz en las tres placas.
-- [ ] Revisar logs/capturas para excluir dataset/claves.
-- [ ] Completar las tablas con datos reales y vincular evidencias.
+- [ ] Guardar logs y capturas sin dataset ni claves.
+- [ ] Detener Thread y bajar interfaz en A/B al terminar.
+- [ ] Completar tablas de A/B con datos reales.

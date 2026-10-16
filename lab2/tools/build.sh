@@ -21,4 +21,4 @@ grep -qx 'CONFIG_FLASH_SIZE=4096' "$BUILD_DIR/zephyr/.config" || \
     fail "El build no configura 4 MB de flash. Revisa el overlay antes de cargar."
 
 printf '\nFirmware generado: %s/zephyr/zephyr.bin\n' "$BUILD_DIR"
-printf 'Usa esta misma compilación para las tres placas con consola %s.\n' "$CONSOLE"
+printf 'Usa esta misma compilación para las dos placas A/B con consola %s.\n' "$CONSOLE"

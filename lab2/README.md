@@ -1,52 +1,47 @@
-# Lab 2 — malla Thread con tres ESP32-C6
+# Lab 2 — adaptación para dos ESP32-C6
 
-Firmware común: [firmware/](firmware/) · [Guía completa por placa](guia.md) ·
-[Registro de evidencias](evidencias/registro.md) · [Origen](ORIGEN.md)
+[Firmware](firmware/) · [Instrucciones A/B](guia.md) · [Registro](evidencias/registro.md) · [Origen](ORIGEN.md)
 
-## Qué se prepara
+La misma imagen se carga en **A y B**. A crea la red y B se une usando su dataset.
+Los roles los elige OpenThread; se espera A como líder y B como router.
+El LED muestra azul (leader), verde (router), amarillo (child), rojo (detached)
+y apagado (disabled); también se puede consultar `ot state`.
 
-La misma imagen se carga en **A, B y C**. A crea la red; B y C se unen al mismo
-dataset. OpenThread determina sus roles: A se espera como líder y B/C como routers.
-El LED muestra azul para líder, verde para router, amarillo para child, rojo para
-detached y apagado para disabled. Los roles también aparecen en el log.
+Esta adaptación del **Lab 2** permite formación de red, direccionamiento IPv6,
+ping de un salto, contadores MAC y reconexión de B. El Lab 2 original requiere
+un tercer nodo para dos saltos y recuperación mediante una ruta alternativa;
+esas actividades quedan pendientes. La tercera placa opcional pertenece a los
+requisitos del **Lab 3**, que usa otro firmware, de CoAP.
 
-Objetivo de compilación: `esp32c6_devkitc/esp32c6/hpcore`, RGB GPIO8, flash de al
-menos 4 MB. Una placa de 8 MB utiliza los primeros 4 MB. Si la tercera placa es
-otro modelo, revisar su target y su LED antes de usar estos comandos.
+## Compilación y carga
 
-## Inicio rápido en WSL
+Target: `esp32c6_devkitc/esp32c6/hpcore`, LED RGB GPIO8, flash de al menos 4 MB.
+Una placa de 8 MB usa sus primeros 4 MB. Para otra placa hay que revisar target y LED.
 
-En el PC con Zephyr y el repositorio actualizado:
+En WSL, desde el PC con Zephyr:
 
 ```bash
 cd ~/IoT
+git pull --ff-only
 bash lab2/tools/build.sh usb
 ```
 
-Conecta las placas una a una y pásalas a WSL con usbipd. Cierra el monitor antes
-de cada carga. Si al conectar cada placa sola aparece como `/dev/ttyACM0`:
+Conecta A sola, adjúntala a WSL e identifica el puerto. Si aparece como ttyACM0:
 
 ```bash
 bash ~/IoT/lab2/tools/flash.sh A /dev/ttyACM0 usb
 ```
 
-Desconecta A, conecta B y verifica de nuevo el puerto:
+Desconecta A, conecta B e identifica de nuevo el puerto:
 
 ```bash
 bash ~/IoT/lab2/tools/flash.sh B /dev/ttyACM0 usb
 ```
 
-Desconecta B, conecta C y verifica de nuevo el puerto:
+Se compila una vez y se carga dos veces. La letra identifica el log; no fija el
+rol en el firmware. Usa el conector ESP32C6/USB nativo para esta compilación.
 
-```bash
-bash ~/IoT/lab2/tools/flash.sh C /dev/ttyACM0 usb
-```
-
-**Se compila una vez y se carga tres veces.** La letra identifica la placa en el
-archivo de evidencia del flasheo; no fija su rol en el firmware.
-
-Con las tres conectadas simultáneamente, identifica los puertos reales y abre
-una terminal por placa. Por ejemplo, solo si corresponden a ese orden:
+Abre una terminal por placa con ambas conectadas. Solo si los puertos coinciden:
 
 ```bash
 bash ~/IoT/lab2/tools/monitor.sh A /dev/ttyACM0
@@ -56,27 +51,20 @@ bash ~/IoT/lab2/tools/monitor.sh A /dev/ttyACM0
 bash ~/IoT/lab2/tools/monitor.sh B /dev/ttyACM1
 ```
 
-```bash
-bash ~/IoT/lab2/tools/monitor.sh C /dev/ttyACM2
-```
+Para CH343/UART: `bash lab2/tools/build.sh uart`, luego `flash.sh A PUERTO uart`
+y monitor por el mismo conector. El nombre ttyACM/ttyUSB no basta para identificar
+el backend de consola. Sal del monitor con Ctrl+].
 
-Sigue [guia.md](guia.md) para reiniciar datasets, crear la red, registrar direcciones,
-forzar dos saltos y ejecutar tres ensayos de recuperación. No reutilices las
-direcciones de Lab 1. Canal inicial 25 y potencia 0 dBm en las tres placas.
-
-Para usar el conector UART/CH343, compila con `build.sh uart`, carga con
-`flash.sh A PUERTO uart` y conecta el monitor a ese mismo conector.
-Un dispositivo `ttyACM` o `ttyUSB` identifica el puerto enumerado, no garantiza
-por sí solo qué backend de consola necesita el firmware.
+[La guía](guia.md) contiene USB/WSL, comandos separados de A/B, mediciones y
+solución de problemas. Usa canal 25 y potencia 0 dBm en ambas placas; consulta las
+ML-EID nuevas para los pings. No se necesita Wi-Fi, MQTT ni dashboard.
 
 ## Estado
 
-- [x] Firmware y scripts preparados.
-- [x] Guía para A/B/C y plantillas de evidencia disponibles.
-- [ ] Compilar en el entorno Zephyr del PC.
-- [ ] Cargar y comprobar el arranque de las tres placas.
-- [ ] Completar direccionamiento, RTT, contadores y tres pruebas de recuperación.
-- [ ] Completar ADR-002 y los resúmenes con los resultados reales.
+- [x] Firmware común A/B y scripts adaptados.
+- [x] Guía y plantilla para las mediciones posibles con dos placas.
+- [ ] Compilar y cargar en el entorno Zephyr del usuario.
+- [ ] Registrar red, direcciones, pings, contadores y reconexión.
+- [ ] Completar las pruebas originales de dos saltos y rutas alternativas con una tercera placa.
 
-Los archivos de esta carpeta son preparación; no se ha compilado ni flasheado
-desde el entorno de este chat. No se necesitan Wi-Fi, broker MQTT ni dashboard.
+La compilación Zephyr y la carga física todavía no se han ejecutado desde este chat.

@@ -13,7 +13,7 @@
 
 LOG_MODULE_REGISTER(lab2_mesh, LOG_LEVEL_INF);
 
-/* Same image on A, B and C: the CLI forms the network; roles are dynamic. */
+/* Same image on A and B: the CLI forms the network; roles are dynamic. */
 #if defined(LAB_HAS_ROLE_LED)
 static const struct device *const strip = DEVICE_DT_GET(DT_ALIAS(led_strip));
 static atomic_t role = ATOMIC_INIT(OT_DEVICE_ROLE_DISABLED);
@@ -73,7 +73,7 @@ int main(void)
 		k_work_submit(&led_work);
 	}
 #endif
-	LOG_INF("Lab 2 mesh node ready. Use the same firmware on A, B and C.");
+	LOG_INF("Lab 2 two-board node ready. Use the same firmware on A and B.");
 	LOG_INF("Thread auto-start disabled. Commands start with 'ot'.");
 	return 0;
 }

@@ -1,48 +1,47 @@
-# Lab 2 — instrucciones completas para A, B y C
+# Lab 2 — instrucciones para dos placas A y B
 
-Referencia: [Lab 2 del curso](https://github.com/saacifuentesmu/4201327-iot_systems_design/blob/54ce49e5c0251dd3e7cc1300dbe6c96c28d55fd2/en/labs/lab2.md).
-Guarda resultados en [evidencias/registro.md](evidencias/registro.md), logs en
-`evidencias/archivos/` e imágenes en `Imagen/`. Los valores pendientes deben
-reemplazarse por mediciones reales.
+## Alcance
 
-## 1. Equipos, conectores y entorno
+Se adapta [Lab 2 del curso](https://github.com/saacifuentesmu/4201327-iot_systems_design/blob/54ce49e5c0251dd3e7cc1300dbe6c96c28d55fd2/en/labs/lab2.md)
+a las dos placas disponibles. Podemos formar la red, clasificar direcciones,
+medir RTT/pérdida de un salto, observar contadores y registrar la reconexión de B.
 
-Necesitas tres ESP32-C6 con flash de al menos 4 MB, cables USB de datos y un PC
-con el Zephyr que utilizamos antes. Etiqueta físicamente A, B y C. Puedes usar un
-solo PC con tres terminales seriales, o repartirlas entre varios PCs. Los PCs no
-necesitan compartir una red Wi-Fi: los paquetes viajan por 802.15.4/Thread.
+Con dos nodos no se puede demostrar el reenvío A→B→C ni cambiar a una ruta
+alternativa al retirar el intermediario. Esas partes del Lab 2 original quedan
+pendientes; la reconexión descrita aquí es un ensayo distinto. El Lab 3 sí permite
+dos placas, pero utiliza firmware CoAP y se prepara por separado.
 
-Este firmware apunta a DevKitC con RGB en GPIO8. Para otro modelo se debe
-comprobar el target/overlay, especialmente si no tiene RGB direccionable.
+## 1. Preparar los puertos
 
-**USB nativo (conector ESP32C6):** usa compilación `usb`; el overlay dirige
-consola y shell al USB-Serial-JTAG. **CH343/UART:** usa compilación `uart` y ese
-conector. No cambies de conector para el monitor sin comprobar el backend que
-compilaste. La velocidad es 115200, 8N1, sin control de flujo.
+Etiqueta las placas A/B. Se usa ESP32-C6 DevKitC con RGB GPIO8 y flash de al menos
+4 MB. Las placas de 8 MB usan los primeros 4 MB. Revisa el target y el RGB si tu
+modelo es distinto. No hacen falta dos PCs: puedes abrir dos terminales en uno.
+Tampoco hace falta que los PCs compartan Wi-Fi.
 
-En Windows, lista dispositivos desde PowerShell:
+Compilación **usb**: conector ESP32C6/USB nativo. Compilación **uart**: conector
+CH343/UART. Usa el conector que coincida con la consola compilada.
+
+En PowerShell, consulta los BUSID reales:
 
 ```powershell
 usbipd list
 ```
 
-Para cada placa destinada a WSL, ejecuta con su BUSID real; `bind` requiere una
-terminal con permisos de administrador:
+Para cada dispositivo que vas a usar desde WSL, ejecuta por separado (1-1 es
+solo un ejemplo; bind requiere permisos de administrador):
 
 ```powershell
 usbipd bind --busid 1-1
 usbipd attach --wsl --busid 1-1
 ```
 
-`1-1` es solo ejemplo. Repite con los BUSID de B y C. En WSL:
+En WSL:
 
 ```bash
 ls -l /dev/ttyACM* /dev/ttyUSB* /dev/serial/by-id/* 2>/dev/null
 ```
 
-Identifica la asociación A/B/C conectando una a la vez. El orden puede cambiar
-después de un reset o de mover un cable. No adivines la asociación por el número.
-
+Identifica A/B conectando una a la vez. Los puertos pueden cambiar al reiniciar.
 Si hay permiso denegado:
 
 ```bash
@@ -51,9 +50,9 @@ sudo usermod -aG dialout "$USER"
 
 Cierra la sesión de WSL y vuelve a abrirla para aplicar el grupo.
 
-## 2. Compilar una sola imagen
+## 2. Compilar el firmware común
 
-Si ya tienes `~/IoT`, actualízalo con el árbol de trabajo limpio:
+El script activa la venv existente y compila desde el workspace Zephyr:
 
 ```bash
 cd ~/IoT
@@ -61,110 +60,79 @@ git pull --ff-only
 bash lab2/tools/build.sh usb
 ```
 
-El script activa `~/zephyrproject/.venv`, compila desde el workspace Zephyr y
-guarda `build-usb.log`. La imagen queda en
-`~/zephyrproject/build-iot-lab2-usb/zephyr/zephyr.bin`.
+La imagen queda en `~/zephyrproject/build-iot-lab2-usb/zephyr/zephyr.bin`.
+El log se guarda en `lab2/evidencias/archivos/build-usb.log`.
+El overlay de placa configura RGB y flash de 4 MB; se añade el overlay USB.
+El script comprueba que CONFIG_FLASH_SIZE sea 4096 después de compilar.
 
-Si tu workspace está en otra ruta:
+Workspace en otra ruta:
 
 ```bash
 ZEPHYR_WORKSPACE=/ruta/zephyrproject bash ~/IoT/lab2/tools/build.sh usb
 ```
 
-Comando equivalente para compilación USB, sin el script:
-
-```bash
-source ~/zephyrproject/.venv/bin/activate
-cd ~/zephyrproject
-west build -p always -b esp32c6_devkitc/esp32c6/hpcore \
-  -s ~/IoT/lab2/firmware -d build-iot-lab2-usb -- \
-  -DDTC_OVERLAY_FILE="$HOME/IoT/lab2/firmware/boards/esp32c6_devkitc_hpcore.overlay" \
-  -DEXTRA_CONF_FILE="$HOME/IoT/lab2/firmware/usb_console.conf" \
-  -DEXTRA_DTC_OVERLAY_FILE="$HOME/IoT/lab2/firmware/usb_console.overlay"
-```
-
-El overlay de placa se selecciona explícitamente con DTC_OVERLAY_FILE;
-EXTRA_DTC_OVERLAY_FILE añade la consola USB conservando LED y flash de 4 MB.
-El mapa de particiones
-predeterminado de la versión de Zephyr usada anteriormente cabe en 4 MB.
-
-Para UART:
+Para usar el conector UART:
 
 ```bash
 bash ~/IoT/lab2/tools/build.sh uart
 ```
 
-No hacen falta tres proyectos ni tres builds: cambian los comandos de red, no
-el programa. No hay credenciales Wi-Fi ni claves Thread en el código.
+No hay datasets o claves en la imagen. Ambas placas ejecutan el mismo código;
+se configuran por CLI después de cargarlo.
 
-## 3. Cargar A, B y C
+## 3. Cargar A y B
 
-Cierra los monitores antes de flashear. La opción más sencilla es conectar una
-placa a la vez al PC con Zephyr. Con A sola, si su puerto es ttyACM0:
+Cierra el monitor. Con A sola conectada y adjuntada a WSL, si el puerto real es
+/dev/ttyACM0:
 
 ```bash
 bash ~/IoT/lab2/tools/flash.sh A /dev/ttyACM0 usb
 ```
 
-Desconecta A. Conecta y adjunta B a WSL, vuelve a listar los puertos y ejecuta:
+Desconecta A, conecta y adjunta B, vuelve a listar los puertos y ejecuta:
 
 ```bash
 bash ~/IoT/lab2/tools/flash.sh B /dev/ttyACM0 usb
 ```
 
-Repite con C:
+Usa el puerto real si difiere. También puedes dejarlas conectadas simultáneamente
+si identificas sus puertos correctamente. El script guarda un log por placa y
+usa flash de 4 MB. Si no sincroniza: cierra los monitores, mantén BOOT, pulsa
+RESET, suelta BOOT y reintenta.
 
-```bash
-bash ~/IoT/lab2/tools/flash.sh C /dev/ttyACM0 usb
-```
+## 4. Abrir ambas consolas
 
-Cada comando guarda un log de flash por letra. Usa el puerto real si no es
-ttyACM0. Alternativa con las tres conectadas: especifica el puerto de cada una
-en lugar de usar ttyACM0 en todos los comandos. No abras dos programas sobre el
-mismo puerto. Si no sincroniza: mantén BOOT, pulsa RESET, suelta BOOT y reintenta.
-
-El script pasa `--esp-flash-size 4MB`, coherente con el overlay. En una placa de
-8 MB la imagen sigue usando los primeros 4 MB. Si el chip tiene menos de 4 MB o
-el build sigue indicando 8 MB, detén la carga y revisa la configuración.
-
-Equivalente para A, desde el workspace Zephyr:
-
-```bash
-west flash -d build-iot-lab2-usb --esp-device /dev/ttyACM0 --esp-flash-size 4MB
-```
-
-## 4. Abrir las tres consolas
-
-Abre una terminal por placa. Ejemplo para A:
+Con A/B conectadas y asociadas a sus puertos, abre una terminal para cada una.
+Ejemplo (verifica la asociación antes):
 
 ```bash
 bash ~/IoT/lab2/tools/monitor.sh A /dev/ttyACM0
 ```
 
-En otras terminales, usa B y C con sus puertos reales. Pulsa Enter para obtener
-`uart:~$`. Sal del monitor con Ctrl+]. El arranque debe incluir
-`Lab 2 mesh node ready`.
+```bash
+bash ~/IoT/lab2/tools/monitor.sh B /dev/ttyACM1
+```
 
-En un PC sin Zephyr basta un terminal serial (PuTTY o Tera Term) con el COM que
-muestre el Administrador de dispositivos: 115200, 8N1, sin control de flujo.
-La placa debe haberse cargado previamente en el PC con Zephyr. Si Windows va a
-abrir el puerto, no lo dejes adjuntado a WSL; puedes devolverlo con
-`usbipd detach --busid BUSID_REAL`. Un adaptador CH343 puede necesitar su driver.
+Pulsa Enter para ver el prompt. Debe arrancar con `Lab 2 two-board node ready`.
+Sal con Ctrl+]. No abras dos programas sobre el mismo puerto.
 
-## 5. Inicialización: solo al comenzar el laboratorio
+En un PC sin Zephyr basta PuTTY/Tera Term a 115200, 8N1, sin control de flujo,
+y el COM del Administrador de dispositivos. La placa debe haberse cargado antes
+en el PC con Zephyr. Si Windows abre el puerto, no lo dejes adjuntado a WSL:
+`usbipd detach --busid BUSID_REAL`. El CH343 puede necesitar driver.
 
-En **cada placa**, borra el dataset anterior una vez:
+## 5. Inicialización de una red nueva
+
+Al comenzar el laboratorio, ejecuta una vez en cada placa:
 
 ```text
 ot factoryreset
 ```
 
-La placa se reinicia. Si USB se reenumera, vuelve a adjuntarla a WSL y abre el
-monitor en el puerto actual. No repitas factoryreset entre ensayos.
+Se reiniciará; vuelve a adjuntarla y abrir el monitor si el USB se reenumera.
+No repitas factoryreset entre mediciones.
 
-### Placa A — crear la red
-
-Ejecuta una línea a la vez:
+### Placa A
 
 ```text
 ot txpower 0
@@ -176,32 +144,18 @@ ot ifconfig up
 ot thread start
 ```
 
-Espera y consulta `ot state` hasta ver `leader`. Luego:
+Consulta `ot state` hasta ver leader. Luego obtén el dataset para B:
 
 ```text
 ot dataset active -x
 ```
 
-Copia la cadena hexadecimal completa para B y C por un medio local. Contiene
-la clave de la red: no la incluyas en capturas, logs compartidos ni Git.
+Copia la cadena hexadecimal completa directamente a B. Contiene la clave de la
+red: no la incluyas en capturas ni en logs que vayas a subir.
 
-### Placa B — unirse a A
+### Placa B
 
-Reemplaza el marcador por el hexadecimal de A, sin los signos `< >`:
-
-```text
-ot txpower 0
-ot txpower
-ot dataset set active <HEX_DE_A>
-ot ifconfig up
-ot thread start
-```
-
-Espera a que `ot state` pase de `child` a `router`.
-
-### Placa C — unirse a A
-
-Usa exactamente el mismo dataset de A:
+Reemplaza el marcador completo, sin los signos < >:
 
 ```text
 ot txpower 0
@@ -211,11 +165,10 @@ ot ifconfig up
 ot thread start
 ```
 
-Espera a que `ot state` indique `router`. Puede tardar alrededor de dos minutos.
-Si hay varios leaders persistentes, acércalos y revisa el dataset compartido;
-no generes un dataset nuevo en B o C.
+Consulta `ot state`: primero puede ser child; espera aproximadamente dos minutos
+para router. Si ambas persisten como leader, acércalas y revisa el dataset.
 
-### Comprobación en las tres
+### En ambas placas
 
 ```text
 ot state
@@ -225,10 +178,9 @@ ot router table
 ot neighbor table
 ```
 
-Guarda las salidas sin el dataset. Deben estar en canal 25, a 0 dBm, con tres
-routers en la malla (el líder también realiza funciones de router).
+Registra los valores reales; se prevé canal 25 y 0 dBm en las dos.
 
-## 6. Direcciones: A, B y C
+## 6. Direcciones de A y B
 
 Ejecuta en cada placa:
 
@@ -241,165 +193,124 @@ ot extaddr
 ot ipmaddr
 ```
 
-Registra en la plantilla: ML-EID, RLOC, RLOC16, extended address y link-local.
-`...:fc00` es el ALOC del líder, no el RLOC individual de A. Para obtener este
-último usa `ot ipaddr rloc`. Usa **ML-EID** para los pings de este laboratorio.
+Anota ML-EID, RLOC, RLOC16, extaddr y link-local. La dirección terminada en fc00
+es el ALOC del líder; no la confundas con su RLOC individual. Usa las ML-EID para
+los pings. Las direcciones del Lab 1 ya no son aplicables a esta red nueva.
 
-Comprueba las derivaciones: Router ID = RLOC16 >> 10; la dirección link-local
-usa un IID derivado de extaddr con el bit U/L (0x02 del primer byte) invertido.
-Clasifica también los grupos multicast encontrados.
+Comprueba Router ID = RLOC16 >> 10 y la relación entre extaddr y link-local:
+el bit U/L (0x02 del primer byte) se invierte al formar el IID. Clasifica los
+grupos multicast que encuentres.
 
-## 7. Referencia sin filtros
+## 7. Medir RTT y pérdida de un salto
 
-Mantén las tres placas sobre una mesa, con línea de visión despejada, sin
-cambiar posición, canal ni potencia entre pruebas. En A y C:
-
-```text
-ot macfilter rss clear
-```
-
-En B resetea contadores, en A haz ping a C y después consulta B:
-
-```text
-ot counters mac reset
-```
-
-```text
-ot ping <ML_EID_C> 64 20 0.5
-```
-
-```text
-ot counters mac
-```
-
-Los tres bloques corresponden a B, A y B, respectivamente. Guarda el valor de
-TxUnicast como referencia; el tráfico de control puede contribuir al contador.
-
-## 8. Obligar a preferir A → B → C
-
-Obtén extaddr de A y C con `ot extaddr` (16 caracteres hexadecimales, sin dos
-puntos). En A:
-
-```text
-ot macfilter rss add-lqi <EXTADDR_C> 1
-```
-
-En C:
-
-```text
-ot macfilter rss add-lqi <EXTADDR_A> 1
-```
-
-No añadas filtros en B. Espera aproximadamente un minuto y captura
-`ot router table` en A. El enlace directo A↔C permanece disponible, con LQ
-forzada a 1; la ruta por B debe resultar preferida. Esto modela una ruta de
-respaldo sin depender de paredes ni de separaciones físicas.
-
-Repite la secuencia B reset / A ping a C / B counters de la sección anterior.
-Compara TxUnicast: con 20 solicitudes y 20 respuestas reenviadas puede aumentar
-aproximadamente 40, además del tráfico de control. Registra el valor real;
-no uses el número esperado como resultado. Conserva las tablas para relacionar
-Next Hop con el Router ID de B y demostrar que la ruta pasa por él.
-
-## 9. RTT de uno y dos saltos
-
-En A, ejecuta uno a la vez:
+Mantén las placas cerca, con línea de visión despejada y posición/potencia
+constantes. En A, reemplaza el marcador por la ML-EID actual de B:
 
 ```text
 ot ping <ML_EID_B> 64 20 0.5
 ```
 
-```text
-ot ping <ML_EID_C> 64 20 0.5
-```
-
-Registra enviados/recibidos, pérdida y RTT min/promedio/max. La diferencia de
-promedios es el incremento del RTT para la ruta de dos saltos; RTT incluye ida
-y vuelta, no es un retardo unidireccional medido. Un primer ping puede perderse
-durante la resolución de la ML-EID: anótalo, sin atribuir automáticamente toda
-pérdida a ese motivo. No ejecutes pings simultáneos.
-
-## 10. Recuperación al desconectar B — tres ensayos
-
-Con los filtros de A/C aún aplicados y B reenviando, inicia desde A:
+Cuando termine, desde B:
 
 ```text
-ot ping <ML_EID_C> 64 200 1
+ot ping <ML_EID_A> 64 20 0.5
 ```
 
-Tras unas diez respuestas correctas, desconecta la alimentación de B. Conserva
-A y C encendidas. Anota el instante de desconexión y la última respuesta previa;
-registra cuándo vuelven las respuestas por el enlace A↔C. Anota la duración de
-la interrupción, los paquetes perdidos y el resumen completo del ping.
+Guarda enviados/recibidos, pérdida y RTT min/promedio/max. Ejecuta los pings de
+forma secuencial. En ambas, guarda también `ot neighbor table`. El RSSI se mide
+en el receptor: la tabla de B describe la señal A→B y viceversa.
 
-La cantidad de pings perdidos a intervalo de 1 s da una aproximación del tiempo
-de interrupción; usa tiempos y secuencias para distinguirla de pérdidas previas
-o posteriores. No asumas que toda pérdida del resumen ocurrió por el corte.
+El primer intercambio puede necesitar resolver la ML-EID; anota esa incidencia
+sin atribuir automáticamente toda pérdida a resolución de direcciones.
 
-Después del corte, captura en A:
+## 8. Contadores MAC de los extremos
+
+En ambas placas, antes de otro ping:
 
 ```text
-ot router table
-ot neighbor table
+ot counters mac reset
 ```
 
-Comprueba el cambio de ruta hacia C. B puede permanecer temporalmente en la
-tabla antes de desaparecer. La guía usa Next Hop 63 como ausencia de relay;
-registra lo que reporte tu versión y relaciónalo con los contadores y pings.
-
-Vuelve a conectar B, adjúntala de nuevo a WSL si corresponde y abre su monitor.
-El dataset se conserva; el arranque de Thread es manual. En B:
+Desde A, repite el ping de 20 paquetes a B. Después, en ambas:
 
 ```text
-ot txpower 0
-ot ifconfig up
-ot thread start
-ot state
+ot counters mac
 ```
 
-Espera a router, revisa la potencia y comprueba en A que vuelva la ruta por B
-antes del siguiente ensayo. Repite el procedimiento **tres veces en total**.
-Evalúa si cada tiempo de recuperación fue menor de 120 s.
+Registra TxUnicast, RxUnicast y otros contadores útiles. Aquí A y B son extremos
+del intercambio: estos contadores no prueban que haya un router intermediario.
+No se aplican filtros para fingir dos saltos.
 
-## 11. Guardar evidencias y terminar
+## 9. Reconexión de B — ensayo complementario con dos placas
 
-Guarda resúmenes de ping, tablas de vecinos/rutas, direcciones, potencia y
-contadores. Nombres sugeridos: `direccionamiento-A.txt`, `rtt-1-salto.txt`,
-`rtt-2-saltos.txt`, `contadores-B-sin-filtro.txt`, `contadores-B-con-filtro.txt`,
-`recuperacion-1.txt` y equivalentes para ensayos 2 y 3.
+Opcional: mide tres veces la reincorporación manual de B a la misma red.
+No es la prueba de recuperación de rutas alternativas del Lab 2 original.
 
-Completa las tablas de [registro.md](evidencias/registro.md) y añade imágenes a
-`Imagen/`. No subas un log serial completo si incluye el dataset copiado.
-
-Al terminar, en A y C:
-
-```text
-ot macfilter rss clear
-```
-
-En las tres placas:
+Con ambas conectadas, registra en B `ot ipaddr mleid`. En B:
 
 ```text
 ot thread stop
 ot ifconfig down
 ```
 
-El informe incluye ADR-002, clasificación de direcciones, funciones/consumo de
-los roles Thread y su mapeo SCD/ASD, respuestas de 6LoWPAN/fallos/redundancia y
-los resúmenes para Edwin y Samuel. La plantilla contiene los apartados.
+Durante la interrupción el ping de A a B no tendrá destino alcanzable.
+Cuando vayas a reanudar, inicia el cronómetro y ejecuta en B:
 
-## 12. Si algo falla
+```text
+ot txpower 0
+ot ifconfig up
+ot thread start
+```
 
-| Síntoma | Acción |
+Desde A inicia un ping a la ML-EID de B para observar la primera respuesta:
+
+```text
+ot ping <ML_EID_B> 64 60 1
+```
+
+Registra el tiempo desde thread start hasta la primera respuesta, así como los
+estados y dirección posteriores de B. Si la dirección cambió, regístralo antes
+de repetir; no uses una dirección antigua. Para sincronizar mejor, graba ambas
+terminales o usa un cronómetro compartido. No contabilices el tiempo que B se
+mantuvo apagada/detenida como retardo de reconexión. Si no responde en la ventana,
+registra el resultado sin inventar un tiempo.
+
+Espera que B vuelva al rol previsto y que los pings funcionen antes del próximo
+ensayo. Conserva el dataset durante los tres ensayos.
+
+## 10. Evidencias e informe
+
+Completa [registro.md](evidencias/registro.md) con las salidas reales. Guarda
+logs en `evidencias/archivos/` e imágenes en `Imagen/`. Nombres sugeridos:
+`direccionamiento-A.txt`, `direccionamiento-B.txt`, `rtt-A-B.txt`, `rtt-B-A.txt`,
+`mac-A.txt`, `mac-B.txt`, `reconexion-1.txt`, `reconexion-2.txt`, `reconexion-3.txt`.
+No publiques logs seriales completos que contengan el dataset.
+
+En el informe original, la comparación RTT de uno/dos saltos, los contadores de
+un relay y las tres recuperaciones de ruta alternativa deben figurar pendientes
+por falta de un tercer nodo. Los datos de reconexión de esta adaptación se
+registran aparte y no sustituyen esas mediciones. Completa clasificación de
+direcciones y funciones de roles con lo observado; las conclusiones de ADR-002
+sobre varios saltos/recuperación quedan pendientes de esas pruebas.
+
+## 11. Finalizar
+
+En ambas placas:
+
+```text
+ot thread stop
+ot ifconfig down
+```
+
+## 12. Solución de problemas
+
+| Problema | Acción |
 |---|---|
-| Falta west | Activa la venv de Zephyr o ejecuta el script en el PC donde está instalado. |
-| Faltan blobs/SDK | Usa la instalación existente: `west blobs fetch hal_espressif`; revisa `west sdk list`. |
-| Puerto desaparece | Revisa USB/cable y repite `usbipd list` / attach; vuelve a listar los puertos. |
-| No hay prompt | Comprueba consola usb/uart, conector físico y 115200; pulsa Enter y RESET. |
-| No sincroniza al cargar | Cierra todos los monitores; secuencia BOOT/RESET y reintento. |
-| Varios leaders | Acerca las placas y revisa que B/C usen el dataset de A; espera la convergencia. |
-| B/C siguen child | Espera unos dos minutos; revisa el firmware FTD y no midas el ensayo de tres routers hasta confirmar el rol. |
-| macfilter no existe | Asegura que cargaste Lab 2 y no Lab 1; CONFIG_OPENTHREAD_MAC_FILTER debe estar habilitado. |
-| Contador B no cambia | Verifica extaddr, filtros simétricos A/C, convergencia y Next Hop. |
-| No recupera al quitar B | Comprueba que A/C se oyen; no deben existir deny-lists ni barreras que eliminen el enlace de respaldo. |
-| Aviso flash 8 MB frente a chip 4 MB | Recompila limpio con el overlay suministrado; comprueba CONFIG_FLASH_SIZE=4096 y la opción de flash 4MB. |
+| Falta west | Usa el PC con Zephyr y su venv; los scripts buscan ~/zephyrproject/.venv. |
+| Falta SDK o blobs | Revisa west sdk list y west blobs fetch hal_espressif desde el workspace. |
+| Puerto desaparece | Revisa cable/USB, usbipd list/attach y vuelve a listar los puertos. |
+| Sin prompt | Comprueba conector USB/UART, build correspondiente y 115200; pulsa Enter/RESET. |
+| Ambas leader | Revisa que B tenga el dataset de A, acércalas y espera convergencia. |
+| B sigue child | Espera y comprueba el firmware FTD; el ping puede funcionar como child, registra el rol real. |
+| No sincroniza al cargar | Cierra el monitor y usa BOOT/RESET antes de reintentar. |
+| Flash de 8 MB frente a chip 4 MB | Recompila con el overlay proporcionado y verifica CONFIG_FLASH_SIZE=4096. |

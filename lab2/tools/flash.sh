@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/common.sh"
-[[ $# -ge 2 && $# -le 3 ]] || fail "Uso: bash flash.sh A|B|C /dev/ttyACM0 [usb|uart]"
+[[ $# -ge 2 && $# -le 3 ]] || fail "Uso: bash flash.sh A|B /dev/ttyACM0 [usb|uart]"
 select_console "${3:-usb}"
 setup_workspace
 check_board_port "$1" "$2"

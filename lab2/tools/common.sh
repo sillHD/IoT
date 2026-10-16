@@ -25,7 +25,7 @@ select_console() {
 check_board_port() {
     BOARD_LABEL="$1"
     PORT="$2"
-    case "$BOARD_LABEL" in A|B|C) ;; *) fail "Identifica la placa con A, B o C." ;; esac
+    case "$BOARD_LABEL" in A|B) ;; *) fail "Esta adaptación usa dos placas: A o B." ;; esac
     [[ -c "$PORT" ]] || fail "No existe el puerto serial $PORT. Revisa el cable y usbipd attach."
     [[ -r "$PORT" && -w "$PORT" ]] || fail "No tienes acceso a $PORT. Comprueba el grupo dialout."
 }
