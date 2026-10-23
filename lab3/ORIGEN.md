@@ -28,6 +28,7 @@ que cambie los ensayos del laboratorio.
 
 Validado mediante logs del usuario en WSL: arranque y comunicación C/S, Observe,
 válvula simulada, CON/NON y latencia SED. Véanse el [registro](evidencias/registro.md)
-y el [informe](INFORME.md). No se aportó el RTT del GET ni un registro exitoso
-completo de carga S; la ejecución posterior está documentada. La estimación de
+y el [informe](INFORME.md). El tiempo del GET se estimó posteriormente con video a 60 fps, distinguiéndolo
+del RTT de red aislado. No se aportó un registro exitoso completo de carga S;
+la ejecución posterior está documentada. La estimación de
 energía y la política de cierre autónomo son análisis, no pruebas experimentales.

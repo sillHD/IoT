@@ -20,8 +20,10 @@ informe son estimaciones; no se midió consumo eléctrico.
 | PUT a SED de 5 s | Dos entregas registradas con 131 ms de separación: OPEN y OPEN, no change |
 | Cierre | Válvula CLOSED verificada, S restaurada a rdn y Thread/interfaz detenidos en ambas placas |
 
-El RTT del GET CoAP inicial no fue cronometrado. Queda identificado como dato
-faltante del entregable, sin sustituirlo por el RTT ICMP. No hay captura RF,
+El GET inicial no fue cronometrado. Una grabación posterior de tres GET permite
+estimar intervalos visibles de ≈50, 17 y 67 ms en C (promedio ≈44 ms). Se trata
+del tiempo observado desde la consola, sin sustituirlo por el RTT ICMP ni
+afirmar un RTT de red aislado. Véase el [método y video](evidencias/archivos/GET-video-metodo-y-transcripcion.md). No hay captura RF,
 medición de batería ni comprobación del movimiento de una válvula real.
 La espera NON fue confirmada sin mensajes adicionales, pero no se aportó una
 medición propia de sus dos minutos de observación. Tampoco se conocen todos los
@@ -222,14 +224,22 @@ y medición de corriente. El cálculo se reproduce con
 
 | Medición | Resultado | Alcance |
 |---|---|---|
-| RTT GET CoAP, un salto | No medido | Falta cronometraje del GET; no inferible de logs sin reloj común |
+| GET CoAP, intervalo visible en C | ≈50 / 17 / 67 ms; promedio ≈44 ms | Tres repeticiones en video a 60 fps; marcador visual de envío y respuesta; no RTT RF aislado |
 | CON con S detenida | ≈92 s | Duración aproximada reportada por el usuario |
 | SED, sondeo 1 s | 16 / 465.600 / 916 ms | RTT ICMP min/promedio/máximo, 10/10 respuestas |
 | SED, sondeo 5 s | 196 / 2119.000 / 4039 ms | RTT ICMP min/promedio/máximo, 10/10 respuestas |
 | SED, sondeo 15 s | 757 / 8488.900 / 14461 ms | RTT ICMP min/promedio/máximo, 10/10 respuestas |
 
 Comando de los tres ensayos: `ot ping <S-mleid> 16 10 1.3 64 40`.
-Los tres registraron 0 % de pérdida; el padre reportó LQ de entrada/salida 3/3.
+Para GET, un fotograma equivale a 16.667 ms; los tres intervalos abarcan 3, 1 y
+4 fotogramas. La lectura admite un margen conservador de ±2 fotogramas (≈33 ms)
+en la diferencia, además de latencias sistemáticas de captura/terminal no
+cuantificadas. El marcador es el salto de línea del comando, no el Enter físico.
+[Fotogramas, transcripción y método](evidencias/archivos/GET-video-metodo-y-transcripcion.md),
+[CSV](evidencias/GET-video-tiempos.csv). El ResponseTimeout previo visible en el
+historial no se cuenta como uno de esos tres ensayos.
+
+Los tres ensayos de ping registraron 0 % de pérdida; el padre reportó LQ de entrada/salida 3/3.
 El aumento de RTT concuerda con esperar al sondeo del padre; ICMP mide ida y
 vuelta, no tiempo exacto de ejecución de una orden CoAP. Los diez datos de cada
 condición son una muestra, no percentiles ni garantías.
@@ -277,9 +287,10 @@ mediciones de ahorro eléctrico. El cierre autónomo y la aceptación de 5 s son
 propuestas documentadas, sin alterar el firmware ya ensayado.
 
 El análisis y los documentos quedan completos con los datos disponibles. Para
-completar toda la evidencia exigida por la guía faltan el **RTT real del GET
-CoAP**, los metadatos de sesión y, si se requiere el registro de carga íntegro,
-el log exitoso de flash S. No es necesario repetir las pruebas ya documentadas.
+completar los datos de contexto faltan los metadatos de sesión y, si se requiere el registro de carga íntegro,
+el log exitoso de flash S. El tiempo del GET queda documentado como estimación
+visual; una medición instrumental más precisa del RTT de red requeriría otra
+instrumentación. No es necesario repetir las pruebas ya documentadas.
 La comprobación física del actuador y del consumo correspondería a validación
 posterior del diseño real.
 

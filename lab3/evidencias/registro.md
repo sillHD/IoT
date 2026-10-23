@@ -5,7 +5,7 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis, ADR y estimación de energía completos en el [informe](../INFORME.md); RTT del GET CoAP y metadatos de sesión no aportados.
+PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis, ADR y estimación de energía completos en el [informe](../INFORME.md); GET temporizado mediante video; metadatos de sesión aún incompletos.
 
 ## Sesión
 
@@ -41,6 +41,18 @@ El registro de la primera carga USB se conserva como historial de la incidencia.
 |---|---|---|---|---|---|
 | C | leader | fd2c:525a:8ff2:2258:a81c:f3d:1e07:2a8b | 25 | 0 | [Resumen](archivos/red-C-S-resumen.txt) |
 | S | child, después router | fd2c:525a:8ff2:2258:9966:43d2:59a9:c435 | 25 | 0 | [Resumen](archivos/red-C-S-resumen.txt) |
+
+## GET temporizado por video posterior
+
+Tres solicitudes nuevas en C presentan intervalos visibles de ≈50, 17 y 67 ms,
+promedio ≈44 ms. Se mide desde el primer salto de línea visible tras el comando
+hasta la respuesta/payload; resolución 60 fps (16.667 ms/fotograma), con margen
+de lectura conservador ±2 fotogramas en la diferencia. Incluye efectos de
+consola/USB/captura y no mide el RTT RF aislado ni el Enter físico.
+[Video, fotogramas y método](archivos/GET-video-metodo-y-transcripcion.md),
+[CSV](GET-video-tiempos.csv). Los payloads coinciden con los logs S de 2.05,
+request 15 B y response CoAP 17 B. El timeout que ya figura en el historial
+no se toma como una de estas tres repeticiones.
 
 ## Contratos de aplicación — ASD
 
@@ -219,4 +231,5 @@ El cierre local propuesto no está implementado ni validado en este firmware.
 - [x] Detener Thread y bajar interfaz en ambas.
 - [x] Vincular las transcripciones y el informe; no se archiva el dataset compartido localmente.
 - [x] Completar análisis, estimación, ADR y diseño de cierre local.
-- [ ] Aportar RTT real del GET CoAP y metadatos de sesión; no se infieren de ICMP.
+- [x] Documentar tiempo observado del GET mediante tres repeticiones en video, con límites de precisión.
+- [ ] Completar metadatos de sesión.

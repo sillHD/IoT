@@ -64,7 +64,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Apagado final de Thread/interfaz confirmado en ambas placas.
 - [x] Análisis y estimación de energía con fuentes, hipótesis y cálculo reproducible.
 - [x] ADR-003/004, respuestas, resumen y diseño de cierre local documentados.
-- [ ] RTT del GET CoAP y metadatos de sesión no aportados.
+- [x] Tiempo del GET estimado con tres repeticiones en video: ≈50/17/67 ms; promedio ≈44 ms.
+- [ ] Metadatos de sesión aún incompletos.
 
 La compilación/carga y las mediciones físicas se realizaron en el WSL del usuario;
 aquí se verifican scripts, cálculos y documentación. El informe distingue esos
