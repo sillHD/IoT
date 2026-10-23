@@ -95,13 +95,41 @@ a ninguno de los instrumentos ni se interpreta la discrepancia como calibración
 
 **No se aplica corrección.** Offset del DS18B20 pendiente de referencia confiable.
 Por decisión del usuario se conservan los datos y se continúa con el ruido y los
-restantes ensayos. No se realizó aún el minuto controlado de ruido.
+restantes ensayos. El registro de ruido posterior está documentado a continuación.
 
-## Tabla de clase — nuestra fila, pendiente
+## Ruido y paso observado — registro de aproximadamente un minuto
+
+[Log original](archivos/04-ruido-S-log-original.txt), [muestras CSV](ruido-S-muestras.csv)
+y [resumen calculado](ruido-S-resumen.json).
+
+| Métrica | Resultado |
+|---|---|
+| Muestras impresas | 30, cada 2 s |
+| Primera / última | 00:30:21.224 / 00:31:19.224 del reloj S |
+| Separación entre primera y última | 58 s; 30 muestras a 2 s en un registro de aproximadamente un minuto |
+| Mínimo / máximo | 21.50 / 21.62 °C |
+| Ruido pico a pico | 0.12 °C |
+| Promedio de valores impresos | 21.542 °C |
+| Desviación estándar muestral de valores impresos | 0.0321 °C |
+| Menor cambio no nulo impreso | 0.06 °C |
+| Adquisición min/promedio/máximo | 760664 / 760692 / 760770 µs |
+| Contadores de stats | 32 lecturas en 64 s; 0 fallidas (0.0 %), 0 rechazadas |
+
+El paso impreso de 0.06 °C es compatible con el paso nominal de 0.0625 °C a
+12 bits y el log a dos decimales; no demuestra esa exactitud. Los estadísticos
+se calculan sobre los valores impresos, sin reconstruir decimales originales.
+El comando reset previo no aparece en el fragmento, por lo que no se reconstruye
+su instante. Stats abarca 32 lecturas y 64 s, frente a 30 muestras visibles;
+no se inventan las dos muestras adicionales. La última línea aparece después
+del comando log off, compatible con salida concurrente/diferida; se conserva.
+No se aplica corrección de offset ni se supone calibrada la referencia.
+Esta muestra no sustituye la prueba específica de 120 s en reposo/tráfico.
+
+## Tabla de clase — nuestra fila, parcial
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | pendiente | pendiente | pendiente: referencia no validada | pendiente | pendiente | pendiente | pendiente | pendiente |
+| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | pendiente | pendiente | 760664/760692/760770 µs min/avg/max | pendiente | pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
@@ -138,7 +166,8 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Analizar guía y SOP del curso; fijar origen y adaptaciones.
 - [x] Preparar firmware DS18B20 S y cliente C, herramientas y guía.
 - [x] Montaje conectado según el usuario; DS18B20 reconocido y lectura real confirmada en S.
-- [ ] Ruido, referencia, respuesta e inyecciones documentados.
+- [x] Ruido y paso impreso documentados con 30 muestras visibles y stats.
+- [ ] Offset pendiente de referencia confiable; respuesta e inyecciones pendientes.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
