@@ -8,7 +8,8 @@ y GET 5.03 verificados en video; recuperación, GET 2.05 y nuevo Observe OBS=33
 confirmados. Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router
 documentados; GET tras retorno confirmado. Reposo: 0/78 fallidas en 155 s.
 Tráfico: 0/93 lecturas fallidas en 186 s y 1199/1200 pings recibidos
-(pérdida calculada 0.08333 %). Reset pendiente. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+(pérdida calculada 0.08333 %). Reset documentado: sensor vuelve a leer, contadores se reinician y Thread queda
+en disabled por arranque manual; unión/GET posteriores pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)

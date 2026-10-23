@@ -230,6 +230,10 @@ lecturas fallidas con radio ocupada. El resultado real puede cumplirla o no.
 Con Observe registrado, presiona RESET en S y guarda ambos monitores antes y
 después. Comprueba dataset/unión, primera lectura, contadores, GET y si Observe
 requiere registro nuevo. No ejecutes factoryreset en este ensayo.
+Con `CONFIG_OPENTHREAD_MANUAL_START=y`, es esperable que Thread quede disabled:
+registra primero ese estado y luego ejecuta `ot ifconfig up`/`ot thread start`
+sin copiar un dataset nuevo para comprobar persistencia y unión. No publiques
+las claves ni el dataset en las evidencias.
 
 Al terminar cancela Observe en C. Si se usó la válvula simulada, ciérrala y
 consulta su estado. En ambas: `ot thread stop` y `ot ifconfig down`.

@@ -357,6 +357,30 @@ Las ventanas se conservan con sus duraciones y denominadores reales.
 La ausencia de fallas en ambas muestras no prueba que el tráfico nunca afecte
 al sensor ni representa una estimación del riesgo fuera de estas ventanas.
 
+## Reinicio de S — lectura recuperada y red en arranque manual
+
+[Video, capturas y transcripción](archivos/12-reinicio-S-video-transcripcion.md),
+[CSV de stats](reinicio-S-stats.csv).
+
+Antes del reset: S router, 259 lecturas en 519 s, 0 fallidas y 0 rechazadas;
+C registra Observe OBS=39 (2.05, CBOR 22.3125 °C). Tras el arranque nuevo de
+Zephyr v4.4.0-13610-g4564d775ab0b, S vuelve a leer DS18B20 sin intervención
+adicional visible: **8 lecturas en 15 s** y después **15 en 30 s**, sin fallas
+ni rechazos. Las lecturas recientes son de 22.31 °C impresos. Los contadores
+y el uptime se reinician; no se interpretan como persistentes.
+
+`ot state` devuelve **disabled** en ambas consultas posteriores al reset.
+El firmware usa `CONFIG_OPENTHREAD_MANUAL_START=y`, por lo que ese estado es
+coherente con la configuración. Inicialización NVS no prueba por sí sola
+persistencia operativa del dataset: falta unir S sin copiarlo y verificar GET.
+El número de temperatura igual antes/después tampoco prueba persistencia de
+la última lectura: el contador crece y hay adquisiciones nuevas.
+
+C conserva OBS=39 en el historial, pero S no está unida y no hay nueva
+notificación. El código pierde observadores al reiniciar; registro nuevo y GET
+tras unión quedan por comprobar en consola. El aviso SHA-256 no impidió en
+esta captura el arranque de Zephyr y las lecturas.
+
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
@@ -364,7 +388,7 @@ al sensor ni representa una estimación del riesgo fuera de estas ventanas.
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
 | Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
 | Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout; GET posterior vuelve a responder | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router y GET 2.05 | ≈74.1 s desde GET; detached→router 1.012 s |
-| Reinicio de S | pendiente | pendiente | pendiente |
+| Reinicio de S | Observe OBS=39 previo; sin nueva respuesta tras reset | DS18B20 lee, contadores reiniciados; Thread disabled por arranque manual | 8 lecturas/15 s y 15/30 s; unión y GET posteriores pendientes |
 
 ## Auditoría Trustworthiness — DDR §9
 
@@ -373,7 +397,7 @@ al sensor ni representa una estimación del riesgo fuera de estas ventanas.
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
 | Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
 | Fiabilidad | Reposo 0/78 en 155 s; ensayo tráfico 0/93 en 186 s, sin rechazos; ping 1199/1200 y pérdida calculada 0.08333 % | Tasa de lectura observada <5 %; solapamiento exacto de carga/contadores no delimitado |
-| Resiliencia | Sensor back, GET 2.05 y nuevo Observe; retorno a router y GET posterior confirmado | Reinserción sin marca temporal; falta ensayo de reset |
+| Resiliencia | Sensor back y GET posterior; reset recupera sensor y reinicia contadores, Thread queda disabled | Reinserción sin marca temporal; falta unión sin copiar dataset y GET/Observe tras reset |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -403,6 +427,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] GET posterior al retorno de Thread responde; cancelación en C documentada.
 - [x] Reposo: 78 lecturas en 155 s, sin fallas ni rechazos.
 - [x] Ensayo con tráfico: 0/93 lecturas fallidas en 186 s; C confirma 1199/1200 pings, pérdida calculada 0.08333 %.
-- [ ] Ensayo de reset pendiente.
+- [x] Reset documentado: sensor vuelve a leer, contadores reiniciados y Thread disabled.
+- [ ] Verificar unión sin copiar dataset y GET/nuevo Observe después del reset.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
