@@ -3,7 +3,8 @@
 **Estado:** ejecución iniciada; DS18B20 reconocido y lectura reciente confirmada en S.
 Disponibles según el usuario: DS18B20, protoboards y termómetro.
 Firmware C/S y guía preparados; ejecución física de S confirmada por stats.
-Carga/arranque de C y red Thread aún no documentados.
+Logs posteriores confirman ejecución de Lab 4 en C/S y roles iniciales C child,
+S leader; ajuste a C leader y prueba CoAP pendientes.
 
 ## Sesión y montaje
 
@@ -35,6 +36,15 @@ arranque, error -19 y Sensor lost a los tres intentos. [Fragmento recibido](arch
 La lectura inicial correcta de S se mantiene como evidencia de su sesión.
 Pendiente identificar si este bloque es C con imagen de sensor o S con pérdida
 de conexión; no se asigna causa ni se cuenta como ensayo controlado de desconexión.
+
+## Red: roles iniciales
+
+[Logs C/S](archivos/02-red-roles-iniciales-C-S.txt): C pasa de detached a child
+(a 00:00:24.684 de su reloj); S pasa de detached a leader (00:02:26.902 de su
+reloj). Estos roles son válidos en Thread; para seguir la guía se propone detener
+Thread en ambas y arrancar primero C hasta leader, luego S. No se ha confirmado
+aún el resultado de ese ajuste ni la comunicación CoAP. No se restan timestamps
+entre placas ni se da por resuelta la incidencia anterior de sensor sin verificar.
 
 ## Contrato previsto
 
