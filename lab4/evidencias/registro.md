@@ -4,7 +4,7 @@
 Disponibles según el usuario: DS18B20, protoboards y termómetro.
 Firmware C/S y guía preparados; ejecución física de S confirmada por stats.
 Logs posteriores confirman ejecución de Lab 4 en C/S y roles iniciales C child,
-S leader; ajuste posterior a C leader y S child confirmado. Prueba CoAP pendiente.
+S leader; ajuste posterior a C leader y S child confirmado. Primer GET CoAP real validado en C/S.
 
 ## Sesión y montaje
 
@@ -57,7 +57,20 @@ Stats S: 23.94 °C, edad 1 s; 251 lecturas en 501 s, 0 fallidas y 0 rechazadas;
 tiempo de adquisición min/promedio/máximo 760660/760764/779901 µs.
 Estos contadores acumulados no sustituyen los ensayos controlados de 120 s.
 El bloque actual confirma sensor operativo en S; no permite identificar cuál
-placa originó la incidencia 1-Wire anterior. Falta GET C/S y canal/potencia actuales.
+placa originó la incidencia 1-Wire anterior. GET posterior validado; faltan canal/potencia actuales.
+
+## Primer GET CoAP con sensor real
+
+[Evidencia C/S](archivos/03-GET-inicial-C-S.txt). C solicitó GET CON a la ML-EID
+actual de S; la respuesta coincide con el log S: 2.05, 23.94 °C, edad 1 s y
+Max-Age 59. El payload `a16174f94dfc` decodifica {t:23.9375 °C} (float16).
+El prefijo visual `uart` antes del hex no pertenece a CBOR.
+
+S pasó a router a 00:08:38.173; el GET se atendió a 00:09:39.113 de su reloj.
+El origen del GET identifica la ML-EID de C como
+`fd2c:525a:8ff2:2258:9966:43d2:59a9:c435`.
+Esta muestra verifica frescura en operación normal; no prueba aún el vencimiento
+tras desconectar DATA. No contiene un cronometraje del RTT.
 
 ## Contrato previsto
 
