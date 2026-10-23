@@ -153,8 +153,10 @@ La base de 21.69 °C es una referencia de análisis explícita, no una medición
 sincronizada con el inicio del soplido. El último mínimo antes de la primera
 subida es 21.56 °C a 00:35:03.224, por lo que otros criterios de base cambiarían
 la amplitud y el cruce de mitad. No se presenta un tiempo de respuesta físico
-a partir de una marca de inicio inferida. Falta confirmar si hubo dos soplidos
-y cuándo comenzaron/terminaron; se conservan las dos subidas sin asignar causa.
+a partir de una marca de inicio inferida. El usuario confirmó posteriormente que hubo dos soplidos, sin indicar cuándo
+comenzaron/terminaron. [Aclaración](archivos/05-estimulo-aclaracion-usuario.txt).
+Se documentan dos soplidos y dos subidas observadas, sin atribuir tiempos
+de inicio físicos inferidos de la curva.
 
 | OBS C | Temperatura CBOR °C | Tiempo S | Tipo |
 |---|---:|---|---|
@@ -217,7 +219,8 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Montaje conectado según el usuario; DS18B20 reconocido y lectura real confirmada en S.
 - [x] Ruido y paso impreso documentados con 30 muestras visibles y stats.
 - [x] Curva térmica y seis notificaciones emparejadas en C/S documentadas.
-- [ ] Confirmar inicio/fin y cantidad de estímulos para tiempo de media subida.
+- [x] Dos soplidos confirmados por el usuario.
+- [ ] Inicio/fin de los soplidos no medidos; tiempo de media subida desde el estímulo no determinado.
 - [ ] Offset pendiente de referencia confiable; inyecciones pendientes.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
