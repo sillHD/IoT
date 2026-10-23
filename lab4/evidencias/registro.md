@@ -4,7 +4,7 @@
 Disponibles según el usuario: DS18B20, protoboards y termómetro.
 Firmware C/S y guía preparados; ejecución física de S confirmada por stats.
 Logs posteriores confirman ejecución de Lab 4 en C/S y roles iniciales C child,
-S leader; ajuste a C leader y prueba CoAP pendientes.
+S leader; ajuste posterior a C leader y S child confirmado. Prueba CoAP pendiente.
 
 ## Sesión y montaje
 
@@ -45,6 +45,19 @@ reloj). Estos roles son válidos en Thread; para seguir la guía se propone dete
 Thread en ambas y arrancar primero C hasta leader, luego S. No se ha confirmado
 aún el resultado de ese ajuste ni la comunicación CoAP. No se restan timestamps
 entre placas ni se da por resuelta la incidencia anterior de sensor sin verificar.
+
+## Red ajustada y sensor operativo
+
+[Consolas recibidas](archivos/02-red-C-leader-S-child-y-stats.txt): C confirma
+leader y S child. S reporta ML-EID `fd2c:525a:8ff2:2258:a81c:f3d:1e07:2a8b`.
+La asignación actual se toma de estas salidas; no se reutilizan etiquetas de
+placa/direcciones del Lab 3.
+
+Stats S: 23.94 °C, edad 1 s; 251 lecturas en 501 s, 0 fallidas y 0 rechazadas;
+tiempo de adquisición min/promedio/máximo 760660/760764/779901 µs.
+Estos contadores acumulados no sustituyen los ensayos controlados de 120 s.
+El bloque actual confirma sensor operativo en S; no permite identificar cuál
+placa originó la incidencia 1-Wire anterior. Falta GET C/S y canal/potencia actuales.
 
 ## Contrato previsto
 
