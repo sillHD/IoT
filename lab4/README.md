@@ -9,7 +9,8 @@ confirmados. Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router
 documentados; GET tras retorno confirmado. Reposo: 0/78 fallidas en 155 s.
 Tráfico: 0/93 lecturas fallidas en 186 s y 1199/1200 pings recibidos
 (pérdida calculada 0.08333 %). Reset documentado: sensor vuelve a leer, contadores se reinician y Thread queda
-en disabled por arranque manual; unión/GET posteriores pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+en disabled por arranque manual. Tras activarlo, S vuelve a child con la misma
+ML-EID sin copiar dataset; GET/Observe posteriores al reset pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)

@@ -381,6 +381,18 @@ notificación. El código pierde observadores al reiniciar; registro nuevo y GET
 tras unión quedan por comprobar en consola. El aviso SHA-256 no impidió en
 esta captura el arranque de Zephyr y las lecturas.
 
+## Unión a Thread después del reset, sin copiar dataset
+
+[Consola S](archivos/13-union-Thread-tras-reset-S.txt): desde disabled, el usuario
+activa interfaz y Thread; S registra detached a **00:06:13.257** y child a
+**00:06:28.305**, transición de **15.048 s**. Conserva la ML-EID
+`fd2c:525a:8ff2:2258:a81c:f3d:1e07:2a8b`, igual a la anterior al reset.
+No se muestra una nueva configuración de dataset en la secuencia recibida.
+Esto respalda persistencia operativa de la configuración de red tras reinicio;
+la intervención necesaria fue arrancar Thread manualmente, no volver a provisionar
+las claves. No se recopilan ni publican claves para verificarlo.
+GET y nuevo registro Observe después de esta unión siguen pendientes.
+
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
@@ -388,7 +400,7 @@ esta captura el arranque de Zephyr y las lecturas.
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
 | Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
 | Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout; GET posterior vuelve a responder | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router y GET 2.05 | ≈74.1 s desde GET; detached→router 1.012 s |
-| Reinicio de S | Observe OBS=39 previo; sin nueva respuesta tras reset | DS18B20 lee, contadores reiniciados; Thread disabled por arranque manual | 8 lecturas/15 s y 15/30 s; unión y GET posteriores pendientes |
+| Reinicio de S | Observe OBS=39 previo; GET/Observe nuevos pendientes | Sensor lee; contadores reiniciados; arranque Thread manual vuelve a child y misma ML-EID | 8 lecturas/15 s y 15/30 s; detached→child 15.048 s |
 
 ## Auditoría Trustworthiness — DDR §9
 
@@ -397,7 +409,7 @@ esta captura el arranque de Zephyr y las lecturas.
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
 | Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
 | Fiabilidad | Reposo 0/78 en 155 s; ensayo tráfico 0/93 en 186 s, sin rechazos; ping 1199/1200 y pérdida calculada 0.08333 % | Tasa de lectura observada <5 %; solapamiento exacto de carga/contadores no delimitado |
-| Resiliencia | Sensor back y GET posterior; reset recupera sensor y reinicia contadores, Thread queda disabled | Reinserción sin marca temporal; falta unión sin copiar dataset y GET/Observe tras reset |
+| Resiliencia | Sensor back y GET posterior; reset recupera sensor, reinicia contadores y vuelve a child tras arranque manual sin copiar dataset | Reinserción sin marca temporal; GET/Observe tras reset pendientes |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -428,6 +440,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Reposo: 78 lecturas en 155 s, sin fallas ni rechazos.
 - [x] Ensayo con tráfico: 0/93 lecturas fallidas en 186 s; C confirma 1199/1200 pings, pérdida calculada 0.08333 %.
 - [x] Reset documentado: sensor vuelve a leer, contadores reiniciados y Thread disabled.
-- [ ] Verificar unión sin copiar dataset y GET/nuevo Observe después del reset.
+- [x] Unión tras reset sin copiar dataset: S child y misma ML-EID; detached→child 15.048 s.
+- [ ] GET y nuevo Observe después del reset pendientes.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
