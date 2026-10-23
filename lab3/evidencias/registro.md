@@ -5,16 +5,18 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis, ADR y estimación de energía completos en el [informe](../INFORME.md); GET temporizado mediante video; metadatos de sesión aún incompletos.
+PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis, ADR y estimación de energía completos en el [informe](../INFORME.md); GET temporizado mediante video; integrantes, fecha indicada y condiciones de separación registrados.
 
 ## Sesión
 
-- Fecha/lugar/integrantes: pendiente.
-- C: modelo, capacidad flash, puerto y conector: pendiente.
-- S: modelo, capacidad flash, puerto y conector: pendiente.
-- Zephyr y commit IoT usados: pendiente.
+- Fecha de sesión indicada por los integrantes: **2026-10-15** (ocho días antes de 2026-10-23, según su instrucción).
+- Integrantes: **Ismael Cortes Ramirez** y **David Henao Rojas**.
+- Lugar: no informado.
+- C y S: **ESP32-C6**, consola UART mediante CH343. La capacidad física de flash y la asignación definitiva de puertos no quedaron registradas; firmware configurado a 4 MB.
+- Zephyr observado en los logs: **v4.4.0-13610-g4564d775ab0b**. Commit IoT exacto cargado: no registrado.
 - Potencia/canal reales C/S: 0 dBm / canal 25, confirmados por las consolas.
-- Entorno, obstáculos/orientación: pendiente.
+- Separación aproximada entre placas: **2 metros**, **sin obstáculos**, según los integrantes. Orientación no registrada.
+- El video aportado se llama `2026-10-22 20-35-56.mp4`; se conserva ese nombre de origen y se distingue de la fecha de sesión indicada, sin inferir que todas las evidencias se capturaron el mismo día.
 - Dataset compartido solo localmente y excluido de evidencias.
 
 ## Build, carga y red
@@ -232,4 +234,5 @@ El cierre local propuesto no está implementado ni validado en este firmware.
 - [x] Vincular las transcripciones y el informe; no se archiva el dataset compartido localmente.
 - [x] Completar análisis, estimación, ADR y diseño de cierre local.
 - [x] Documentar tiempo observado del GET mediante tres repeticiones en video, con límites de precisión.
-- [ ] Completar metadatos de sesión.
+- [x] Registrar integrantes, fecha indicada, modelo, distancia y ausencia de obstáculos.
+- Lugar, orientación, capacidad física de flash y commit exacto cargado: no informados.

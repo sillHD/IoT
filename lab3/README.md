@@ -65,7 +65,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Análisis y estimación de energía con fuentes, hipótesis y cálculo reproducible.
 - [x] ADR-003/004, respuestas, resumen y diseño de cierre local documentados.
 - [x] Tiempo del GET estimado con tres repeticiones en video: ≈50/17/67 ms; promedio ≈44 ms.
-- [ ] Metadatos de sesión aún incompletos.
+- [x] Integrantes, fecha indicada (2026-10-15), ESP32-C6 y separación de ≈2 m sin obstáculos registrados.
+- Lugar, orientación y commit cargado no informados.
 
 La compilación/carga y las mediciones físicas se realizaron en el WSL del usuario;
 aquí se verifican scripts, cálculos y documentación. El informe distingue esos

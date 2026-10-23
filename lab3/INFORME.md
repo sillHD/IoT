@@ -3,6 +3,14 @@
 Este informe usa las pruebas de dos ESP32-C6, C (cliente/leader) y S
 (servidor y posteriormente SED), en Thread, canal 25 y TX 0 dBm.
 Las transcripciones y condiciones están en el [registro experimental](evidencias/registro.md).
+
+**Integrantes:** Ismael Cortes Ramirez y David Henao Rojas.  
+**Fecha de sesión indicada:** 15 de octubre de 2026.  
+**Condiciones:** dos placas ESP32-C6, separadas aproximadamente 2 metros, sin obstáculos.
+El lugar no fue informado. La fecha se registra por indicación de los integrantes;
+el nombre original del video posterior es `2026-10-22 20-35-56.mp4` y se conserva
+como procedencia de esa evidencia, sin atribuirle la fecha indicada de sesión.
+
 La temperatura y la válvula son simuladas. Las corrientes y autonomías de este
 informe son estimaciones; no se midió consumo eléctrico.
 
@@ -27,7 +35,7 @@ afirmar un RTT de red aislado. Véase el [método y video](evidencias/archivos/G
 medición de batería ni comprobación del movimiento de una válvula real.
 La espera NON fue confirmada sin mensajes adicionales, pero no se aportó una
 medición propia de sus dos minutos de observación. Tampoco se conocen todos los
-metadatos de lugar/integrantes ni el commit exacto cargado en las placas.
+el lugar ni el commit exacto cargado en las placas.
 
 ## 2. DDR §3 — Decisiones de arquitectura
 
@@ -287,7 +295,8 @@ mediciones de ahorro eléctrico. El cierre autónomo y la aceptación de 5 s son
 propuestas documentadas, sin alterar el firmware ya ensayado.
 
 El análisis y los documentos quedan completos con los datos disponibles. Para
-completar los datos de contexto faltan los metadatos de sesión y, si se requiere el registro de carga íntegro,
+completar los datos de contexto no informados quedan el lugar, la orientación
+y el commit exacto cargado; si se requiere el registro de carga íntegro, falta
 el log exitoso de flash S. El tiempo del GET queda documentado como estimación
 visual; una medición instrumental más precisa del RTT de red requeriría otra
 instrumentación. No es necesario repetir las pruebas ya documentadas.
