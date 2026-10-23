@@ -391,7 +391,21 @@ No se muestra una nueva configuración de dataset en la secuencia recibida.
 Esto respalda persistencia operativa de la configuración de red tras reinicio;
 la intervención necesaria fue arrancar Thread manualmente, no volver a provisionar
 las claves. No se recopilan ni publican claves para verificarlo.
-GET y nuevo registro Observe después de esta unión siguen pendientes.
+GET y nuevo registro Observe después de esta unión se documentan en el
+apartado siguiente con respuestas recibidas en C.
+
+## GET y nuevo Observe después del reinicio
+
+[Consola C](archivos/14-GET-Observe-tras-reset-C.txt). Después de la unión sin
+copiar dataset, C recibe GET con `a16174f94d94` = {t:22.3125 °C}. El nuevo
+Observe responde **OBS=2** y `a16174f94d98` = {t:22.375 °C}.
+La línea OBS=39 al principio es historial, no una notificación nueva.
+No se aportó el log S de este último intercambio; no se asignan timestamps ni
+se reconstruye RTT o código de servidor no impreso por la CLI.
+
+Quedan confirmados respuesta GET y nuevo registro Observe en el cliente tras
+reset. OBS=2 corresponde a la respuesta inicial de inscripción; no se supone
+recepción de notificaciones posteriores que no aparecen en este bloque.
 
 ## Disponibilidad y recuperación
 
@@ -400,25 +414,27 @@ GET y nuevo registro Observe después de esta unión siguen pendientes.
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
 | Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
 | Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout; GET posterior vuelve a responder | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router y GET 2.05 | ≈74.1 s desde GET; detached→router 1.012 s |
-| Reinicio de S | Observe OBS=39 previo; GET/Observe nuevos pendientes | Sensor lee; contadores reiniciados; arranque Thread manual vuelve a child y misma ML-EID | 8 lecturas/15 s y 15/30 s; detached→child 15.048 s |
+| Reinicio de S | GET recibe 22.3125 °C y nuevo Observe OBS=2 con 22.375 °C | Sensor lee; contadores reiniciados; arranque Thread manual vuelve a child y misma ML-EID | 8 lecturas/15 s y 15/30 s; detached→child 15.048 s |
 
 ## Auditoría Trustworthiness — DDR §9
 
 | Característica | Evidencia por obtener | Estado |
 |---|---|---|
-| Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
+| Integridad ante fallas | Ruido, inyecciones y frescura documentados | Offset sin referencia válida; filtros no detectan valor falso plausible |
 | Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
 | Fiabilidad | Reposo 0/78 en 155 s; ensayo tráfico 0/93 en 186 s, sin rechazos; ping 1199/1200 y pérdida calculada 0.08333 % | Tasa de lectura observada <5 %; solapamiento exacto de carga/contadores no delimitado |
-| Resiliencia | Sensor back y GET posterior; reset recupera sensor, reinicia contadores y vuelve a child tras arranque manual sin copiar dataset | Reinserción sin marca temporal; GET/Observe tras reset pendientes |
-| Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
+| Resiliencia | Sensor back y GET posterior; reset recupera sensor, unión con dataset conservado y GET/nuevo Observe confirmados en C | Reinserción sin marca temporal; red manual; contadores/observadores no persisten |
+| Seguridad operativa | Diseño ante 5.03/silencio y cierre local en el informe | Propuesta no implementada ni validada en actuador físico |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
-| Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
+| Cumplimiento | Contratos, origen, evidencia y brechas documentados en el informe | Sin certificación; metadatos y tabla de clase incompletos |
 
 DDR §4: PED magnitud física, SCD sensor/filtros, ASD servicio/frescura.
 DDR §5: respuestas; §6: detección sensor ≤60 s y fallas ocupadas <5 %,
 contrastadas con resultados reales; §7 seguridad; §8 fila Trustworthiness,
 Labs Addressed = Lab 4; §9 auditoría con evidencia y brechas.
-Resumen para Edwin: se redactará al medir ambos modos de falla.
+[Informe y actualización del DDR](../INFORME.md): contratos, respuestas,
+resultados, tabla propia, diseño de seguridad, auditoría y resumen para Edwin.
+La comparación de clase no se fabrica: su tabla aún no se ha recibido.
 
 ## Progreso
 
@@ -441,6 +457,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Ensayo con tráfico: 0/93 lecturas fallidas en 186 s; C confirma 1199/1200 pings, pérdida calculada 0.08333 %.
 - [x] Reset documentado: sensor vuelve a leer, contadores reiniciados y Thread disabled.
 - [x] Unión tras reset sin copiar dataset: S child y misma ML-EID; detached→child 15.048 s.
-- [ ] GET y nuevo Observe después del reset pendientes.
-- [ ] Comparación de clase e informe completados.
+- [x] GET y nuevo Observe después del reset recibidos en C.
+- [x] Informe, auditoría, respuestas, diseño de seguridad y resumen completados con las brechas disponibles.
+- [ ] Comparación con tabla real de clase pendiente.
 - [ ] Cierre físico de la sesión confirmado.

@@ -9,7 +9,7 @@ Este repositorio concentra las tareas, firmware y evidencias de las prácticas:
 | [`lab1/`](lab1/README.md) | Radio 802.15.4, OpenThread, RSSI y PER | Firmware disponible; mediciones pendientes |
 | [`lab2/`](lab2/README.md) | Thread con dos placas A/B, direccionamiento, RTT y reconexión | Adaptación preparada; pruebas de dos saltos y rutas alternativas requieren una tercera placa |
 | [`lab3/`](lab3/README.md) | CoAP/CBOR con C/S, Observe, válvula y sleepy end device | Finalizado; firmware, pruebas C/S, evidencias e informe disponibles |
-| [`lab4/`](lab4/README.md) | DS18B20, CoAP con frescura, fallas y Trustworthiness | DS18B20 reconocido y lectura real confirmada en S; ensayos en curso |
+| [`lab4/`](lab4/README.md) | DS18B20, CoAP con frescura, fallas y Trustworthiness | Ensayos e informe documentados; cierre de sesión y brechas de medición pendientes |
 
 Cada carpeta contiene su guía, firmware, herramientas y un registro de evidencia. El entorno común se documenta en [`evidencias/entorno.md`](evidencias/entorno.md).
 

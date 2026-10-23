@@ -10,10 +10,11 @@ documentados; GET tras retorno confirmado. Reposo: 0/78 fallidas en 155 s.
 Tráfico: 0/93 lecturas fallidas en 186 s y 1199/1200 pings recibidos
 (pérdida calculada 0.08333 %). Reset documentado: sensor vuelve a leer, contadores se reinician y Thread queda
 en disabled por arranque manual. Tras activarlo, S vuelve a child con la misma
-ML-EID sin copiar dataset; GET/Observe posteriores al reset pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+ML-EID sin copiar dataset; GET y nuevo Observe confirmados en C.
+[Informe consolidado](INFORME.md); cierre físico y brechas de medición documentados como pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
-[Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)
+[Registro de resultados](evidencias/registro.md) · [Informe y DDR](INFORME.md) · [Origen](ORIGEN.md)
 
 - **S:** DS18B20 en GPIO18; lectura cada 2 s, resolución configurada de 12 bits.
 - **C:** cliente CoAP sin sensor; representa el gateway. Solo aquí se ejecuta `ot coap start`.
