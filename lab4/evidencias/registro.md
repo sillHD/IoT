@@ -125,11 +125,60 @@ del comando log off, compatible con salida concurrente/diferida; se conserva.
 No se aplica corrección de offset ni se supone calibrada la referencia.
 Esta muestra no sustituye la prueba específica de 120 s en reposo/tráfico.
 
+## Respuesta térmica y Observe — dos subidas observadas
+
+[Log original S](archivos/05-estimulo-S-original.txt),
+[consola C](archivos/05-estimulo-C-original.txt),
+[77 muestras CSV](estimulo-S-muestras.csv),
+[correspondencia Observe C/S](estimulo-observe-C-S.csv).
+
+![Curva medida y notificaciones](../Imagen/estimulo-DS18B20.png)
+
+Las 77 lecturas van de 00:34:41.224 a 00:37:13.224 de S, separadas por 2 s
+(152 s entre primera y última). Observe se acepta a 00:34:46.542 con 21.69 °C
+impresos (21.6875 °C codificados), edad 1 s y Max-Age 59.
+
+| Resultado | Observación |
+|---|---|
+| Referencia inicial de la primera subida | 21.69 °C en el registro Observe; valores próximos durante la base previa |
+| Primer pico | 22.81 °C a 00:35:17.224 |
+| Subida respecto al registro inicial | ≈1.12 °C en valores impresos (1.125 °C entre valores float16 de registro/pico) |
+| Media subida con esa referencia | 22.25 °C, primera muestra que la alcanza a 00:35:09.224; la anterior, a 00:35:07.224, es 22.00 °C |
+| Tiempo desde inicio del soplido a media subida | No determinado: no se adjuntó marca de inicio/fin del estímulo |
+| Recuperación y segunda subida | Tras el primer pico baja a 21.62 °C a 00:36:05.224; después vuelve a subir hasta 22.50 °C a 00:36:17.224 |
+| Final de lecturas | 21.88 °C a 00:37:13.224; no se fuerza retorno exacto a la base inicial |
+| Notificaciones completas posteriores al registro | 6 recibidas en C: 5 threshold/NON y 1 heartbeat/CON |
+
+La base de 21.69 °C es una referencia de análisis explícita, no una medición
+sincronizada con el inicio del soplido. El último mínimo antes de la primera
+subida es 21.56 °C a 00:35:03.224, por lo que otros criterios de base cambiarían
+la amplitud y el cruce de mitad. No se presenta un tiempo de respuesta físico
+a partir de una marca de inicio inferida. Falta confirmar si hubo dos soplidos
+y cuándo comenzaron/terminaron; se conservan las dos subidas sin asignar causa.
+
+| OBS C | Temperatura CBOR °C | Tiempo S | Tipo |
+|---|---:|---|---|
+| 2 | 21.6875 | 00:34:46.542 | Respuesta inicial al registro; no es notificación posterior |
+| 3 | 22.2500 | 00:35:09.571 | NON, threshold 1 |
+| 4 | 22.8125 | 00:35:17.580 | NON, threshold 2 |
+| 5 | 22.1875 | 00:35:29.593 | NON, threshold 3 |
+| 6 | 21.6250 | 00:36:05.630 | NON, threshold 4 |
+| 7 | 22.3125 | 00:36:11.637 | NON, threshold 5 |
+| 8 | 21.8750 | 00:36:56.683 | CON, heartbeat 1 |
+
+El heartbeat sigue unos 45 s después de la última notificación por umbral.
+Cada una de estas seis notificaciones registra 19 B CoAP en S: 114 B en total,
+excluidos registro, ACK, retransmisiones y capas inferiores. Son bytes de
+aplicación, no una captura de paquetes RF. No hay saltos en OBS=3..8.
+El último renglón de S, a 00:37:41.729, es un heartbeat truncado y no tiene
+respuesta correspondiente en el bloque C; se conserva, pero no se suma a las
+seis notificaciones completas y emparejadas. No se aportó cancelación Observe.
+
 ## Tabla de clase — nuestra fila, parcial
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | pendiente | pendiente | 760664/760692/760770 µs min/avg/max | pendiente | pendiente |
+| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | 760664/760692/760770 µs min/avg/max | pendiente | pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
@@ -167,7 +216,9 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Preparar firmware DS18B20 S y cliente C, herramientas y guía.
 - [x] Montaje conectado según el usuario; DS18B20 reconocido y lectura real confirmada en S.
 - [x] Ruido y paso impreso documentados con 30 muestras visibles y stats.
-- [ ] Offset pendiente de referencia confiable; respuesta e inyecciones pendientes.
+- [x] Curva térmica y seis notificaciones emparejadas en C/S documentadas.
+- [ ] Confirmar inicio/fin y cantidad de estímulos para tiempo de media subida.
+- [ ] Offset pendiente de referencia confiable; inyecciones pendientes.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.

@@ -2,7 +2,8 @@
 
 **Estado:** DS18B20 reconocido en S: 24.00 °C, 9 lecturas sin fallas ni rechazos.
 Red C leader/S router y GET 2.05 con Max-Age 59 validados. Ruido registrado:
-21.50–21.62 °C (0.12 °C pico a pico), paso impreso 0.06 °C; demás ensayos pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+21.50–21.62 °C (0.12 °C pico a pico), paso impreso 0.06 °C. Curva de respuesta
+y seis notificaciones Observe documentadas; instantes de estímulo y demás ensayos pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)
