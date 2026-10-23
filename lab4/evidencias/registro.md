@@ -1,6 +1,7 @@
 # Registro — Lab 4, DS18B20
 
-**Estado:** ejecución iniciada; DS18B20 reconocido y lectura reciente confirmada en S.
+**Estado: finalizado por decisión del usuario.** Firmware, ensayos recibidos e
+informe conservados con sus limitaciones; apagado final de las placas no confirmado.
 Disponibles según el usuario: DS18B20, protoboards y termómetro.
 Firmware C/S y guía preparados; ejecución física de S confirmada por stats.
 Logs posteriores confirman ejecución de Lab 4 en C/S y roles iniciales C child,
@@ -444,10 +445,10 @@ La comparación de clase no se fabrica: su tabla aún no se ha recibido.
 - [x] Ruido y paso impreso documentados con 30 muestras visibles y stats.
 - [x] Curva térmica y seis notificaciones emparejadas en C/S documentadas.
 - [x] Dos soplidos confirmados por el usuario.
-- [ ] Inicio/fin de los soplidos no medidos; tiempo de media subida desde el estímulo no determinado.
+- Limitación al cierre: inicio/fin de los soplidos no medidos; tiempo de media subida desde el estímulo no determinado.
 - [x] Inyección 31.5 rechazada por salto y 23 aceptada/notificada en S.
 - [x] Rechazo por rango de inject 90 documentado.
-- [ ] Offset pendiente de referencia confiable.
+- Limitación al cierre: offset no determinado por falta de referencia confiable.
 - [x] Sensor lost, GET con edad/Max-Age y 5.03 documentados con reloj S.
 - [x] Fin de Observe documentado en historial previo; recuperación posterior de S con GET 2.05 y nuevo Observe OBS=33 confirmada.
 - [x] Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router documentados.
@@ -459,5 +460,6 @@ La comparación de clase no se fabrica: su tabla aún no se ha recibido.
 - [x] Unión tras reset sin copiar dataset: S child y misma ML-EID; detached→child 15.048 s.
 - [x] GET y nuevo Observe después del reset recibidos en C.
 - [x] Informe, auditoría, respuestas, diseño de seguridad y resumen completados con las brechas disponibles.
-- [ ] Comparación con tabla real de clase pendiente.
-- [ ] Cierre físico de la sesión confirmado.
+- Limitación al cierre: tabla de clase no recibida; no se fabrica comparación.
+- No se recibió confirmación del apagado final de Thread/interfaz ni cancelación final de Observe.
+- [x] Cierre documental del laboratorio por instrucción del usuario.

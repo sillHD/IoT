@@ -1,6 +1,10 @@
 # Lab 4 — DS18B20 real con dos ESP32-C6
 
-**Estado:** DS18B20 reconocido en S: 24.00 °C, 9 lecturas sin fallas ni rechazos.
+**Estado: finalizado por decisión del usuario.** Se conservan las limitaciones
+de medición y trazabilidad del informe; no se recibió confirmación de apagado
+final de las placas.
+
+DS18B20 reconocido en S: 24.00 °C, 9 lecturas sin fallas ni rechazos.
 Red C leader/S router y GET 2.05 con Max-Age 59 validados. Ruido registrado:
 21.50–21.62 °C (0.12 °C pico a pico), paso impreso 0.06 °C. Curva de respuesta
 y seis notificaciones Observe documentadas. Sensor perdido, Max-Age decreciente
@@ -11,7 +15,7 @@ Tráfico: 0/93 lecturas fallidas en 186 s y 1199/1200 pings recibidos
 (pérdida calculada 0.08333 %). Reset documentado: sensor vuelve a leer, contadores se reinician y Thread queda
 en disabled por arranque manual. Tras activarlo, S vuelve a child con la misma
 ML-EID sin copiar dataset; GET y nuevo Observe confirmados en C.
-[Informe consolidado](INFORME.md); cierre físico y brechas de medición documentados como pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+[Informe final](INFORME.md), con brechas de medición y apagado final no confirmado. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Informe y DDR](INFORME.md) · [Origen](ORIGEN.md)

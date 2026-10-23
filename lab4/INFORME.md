@@ -1,8 +1,9 @@
 # Lab 4 — Sensor real, frescura y Trustworthiness
 
-**Estado:** análisis consolidado con las evidencias recibidas; cierre físico de
-la sesión pendiente. Offset, tiempo desde inicio del estímulo y comparación de
-clase no determinados. No se presentan como ensayos completos o resultados cero.
+**Estado: finalizado por decisión del usuario**, con el análisis y las evidencias
+recibidas. No se recibió confirmación del apagado final de las placas. Offset,
+tiempo desde inicio del estímulo y comparación de clase no determinados;
+no se presentan como ensayos completos o resultados cero.
 
 Dos ESP32-C6: C cliente, S servidor con DS18B20 en GPIO18, alimentación 3V3 y
 consola UART/CH343. Se configuraron lecturas cada 2 s y resolución de 12 bits.
@@ -258,8 +259,10 @@ de nodo inaccesible y demuestra recuperación con distintos grados de intervenci
 
 Quedan como brechas: offset confiable, origen temporal de los soplidos, instante
 físico de desconexión/reconexión, comparación de clase y metadatos específicos.
-El cierre final de la sesión todavía no se ha confirmado. No se repiten ni se
-sustituyen mediciones para ocultar esas limitaciones.
+El laboratorio se cierra documentalmente por instrucción del usuario. No se
+recibió confirmación de cancelación Observe y apagado Thread/interfaz al final
+de esta sesión; no se registra como ejecutado. El cierre no convierte las
+brechas en mediciones realizadas ni modifica los datos experimentales.
 
 ## Referencias
 
