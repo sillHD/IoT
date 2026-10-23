@@ -28,6 +28,14 @@ La muestra confirma lectura real y funcionamiento inicial. No sustituye los
 ensayos de ruido de 60 s ni reposo/tráfico de 120 s. El usuario confirmó montaje
 conectado; no se aportó foto para verificar visualmente las conexiones.
 
+## Incidencia posterior: sensor no detectado
+
+Un nuevo bloque, sin identificar C/S, muestra `No 1-Wire slaves connected` desde
+arranque, error -19 y Sensor lost a los tres intentos. [Fragmento recibido](archivos/incidencia-1wire-placa-no-identificada.txt).
+La lectura inicial correcta de S se mantiene como evidencia de su sesión.
+Pendiente identificar si este bloque es C con imagen de sensor o S con pérdida
+de conexión; no se asigna causa ni se cuenta como ensayo controlado de desconexión.
+
 ## Contrato previsto
 
 `GET /env/temp`, GET+Observe, CBOR {t:float16}, Content-Format 60.
