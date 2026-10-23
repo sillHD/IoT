@@ -1,8 +1,8 @@
 # Evidencia — Lab 3 CoAP, C/S
 
 **Estado:** C y S operativos con consola UART/CH343; red formada y GET de
-temperatura/CBOR validados. Ventana Observe de 300 s registrada en S; falta
-contrastar recepción/cancelación en C. Las demás pruebas siguen pendientes.
+temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
+contrastada en C; cancelación pendiente. Las demás pruebas siguen pendientes.
 
 ## Sesión
 
@@ -68,7 +68,7 @@ heartbeat tras 45 s sin notificar como CON. Válvula simulada mediante LED blanc
 
 | Duración | Threshold inicio/fin/delta | Heartbeat inicio/fin/delta | Total notificaciones | GET a 1 Hz | Ratio 300/total |
 |---|---|---|---|---|---|
-| 300 s, ventana extraída del log S | 0/29/29 (inicio inferido del primer contador 1) | 0/0/0 | 29 generadas por S | 300 | ≈10.34 |
+| 300 s, ventana extraída del log S | 0/29/29 (inicio inferido del primer contador 1) | 0/0/0 | 29 generadas por S y registradas en C | 300 | ≈10.34 |
 
 - Evidencia de S: [log original](archivos/observe-S-registro.txt), con 36 notificaciones completas y final truncado. No contiene cancelación ni la recepción en C.
 - Suscripción aceptada en S a 00:11:34.006; ventana analizada hasta 00:16:34.006 (300 s).
@@ -77,7 +77,9 @@ heartbeat tras 45 s sin notificar como CON. Válvula simulada mediante LED blanc
 - Registro Observe inicial: request 16 B y response 19 B (incluye Observe); se distingue del GET normal de 15/17 B.
 - Los 300 GET hipotéticos de polling son referencia; 300/29 ≈10.34 compara consultas con notificaciones, no consumo energético ni total de paquetes RF.
 - Heartbeat 0 es coherente con cambios frecuentes; no hubo un intervalo de 45 s sin notificar dentro de la ventana.
-- Pendiente: salida de C, recepción y cancelación. Esta tabla cuenta emisiones registradas por S, no entrega confirmada al cliente.
+- Recepción C: [transcripción estructurada](archivos/observe-C-recepcion.txt). OBS=2 es la respuesta inicial; OBS=3..40 son 38 notificaciones consecutivas. Las 29 de la ventana de 300 s corresponden a OBS=3..31; la correspondencia temporal se establece con el log S, porque C no incluye timestamps.
+- No hay saltos en las secuencias aportadas; esto documenta la recepción de esa muestra, sin convertirla en una medición formal de PER ni de consumo.
+- Cancelación pendiente: la última línea aportada es `ot coat stop`, no `ot coap cancel`, y no hay respuesta de cancelación confirmada.
 
 Conteo de notificaciones distinto de paquetes de radio: heartbeat CON puede
 incluir ACK/reintentos. La duración completa de la suscripción queda pendiente;
@@ -168,7 +170,8 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 |---|---|
 | [GET C/S](archivos/get-env-temp-C-S.txt) | Primera lectura de temperatura, payload CBOR y tamaños |
 | [Red C/S](archivos/red-C-S-resumen.txt) | Roles, ML-EID, canal y potencia, sin dataset |
-| [Observe S](archivos/observe-S-registro.txt) | Notificaciones emitidas y ventana de 300 s; recepción C pendiente |
+| [Observe S](archivos/observe-S-registro.txt) | Notificaciones emitidas y ventana de 300 s |
+| [Observe C](archivos/observe-C-recepcion.txt) | OBS=2 inicial y notificaciones OBS=3..40; cancelación pendiente |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
