@@ -66,7 +66,7 @@ Mantener constantes canal, potencia TX, tamaño de paquete y configuración de p
 
 | Distancia (m) | RSSI A→B (dBm) | RSSI B→A (dBm) | PER A→B (%) | PER B→A (%) | Link Quality (LQ In: A→B / B→A) | Estado del enlace |
 |---:|---:|---:|---:|---:|---:|---|
-| 1 (medido) | -66 | -67 | 0.0 | 0.0 | 3 | Enlace perfecto |
+| 1 (medido) | -67 | -66 | 0.0 | 0.0 | 3 | Enlace perfecto |
 | 5 | -78 | -80 | 1.0 | 0.0 | 3 / 2 | Límite confiable (PER ≤ 1 %) |
 | 10 | -91 | -91 | 0.0 | 3.0 | 1 / 1 | Degradación leve |
 | 15 | -80 | -86 | 98.0 | 96.0 | 2 / 2 | Pérdida crítica |
@@ -74,6 +74,7 @@ Mantener constantes canal, potencia TX, tamaño de paquete y configuración de p
 - Tamaño y cantidad de pings: payload de 64 bytes, 100 por dirección.
 - Intervalo: 0.2 s; pings A→B y B→A se hicieron secuencialmente.
 - Evidencia de la referencia bidireccional a ≈1 m: [`archivos/ping-1m-2026-10-02.txt`](archivos/ping-1m-2026-10-02.txt).
+- Corrección de dirección al consolidar el DDR: en ≈1 m, el registro por receptor indica -67 dBm en B (A→B) y -66 dBm en A (B→A). La tabla anterior tenía ese par invertido; se conserva la fuente sin modificar sus datos.
 - La referencia a ≈1 m pertenece a la sesión inicial (0 dBm); los puntos repetidos de 5–15 m se midieron con TX a 20 dBm. Son sesiones distintas y sus resultados no forman una única serie con potencia constante.
 - Datos de 10 y 15 m suministrados por el usuario; TX a 20 dBm, confirmado por el usuario.
 - Medición actualizada a 10 m: A→B 100/100 (0.0 % PER), B→A 97/100 (3.0 % PER). RSSI promedio recibido: -91 dBm en B para A→B y -91 dBm en A para B→A. Último RSSI: -90 dBm en B y -94 dBm en A; LQ In: 1 en ambas placas.
