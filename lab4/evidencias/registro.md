@@ -1,8 +1,9 @@
 # Registro — Lab 4, DS18B20
 
-**Estado:** preparación; no se han recibido mediciones del Lab 4.
+**Estado:** ejecución iniciada; DS18B20 reconocido y lectura reciente confirmada en S.
 Disponibles según el usuario: DS18B20, protoboards y termómetro.
-Firmware C/S y guía preparados; compilación/carga física pendientes.
+Firmware C/S y guía preparados; ejecución física de S confirmada por stats.
+Carga/arranque de C y red Thread aún no documentados.
 
 ## Sesión y montaje
 
@@ -11,6 +12,21 @@ C/S: ESP32-C6, consola prevista UART/CH343. Sensor S: DS18B20, GPIO18,
 alimentación 3V3, 12 bits configurados. Longitud de cable, pull-up, puertos,
 versión compilada, distancia y obstáculos: por confirmar con el montaje real.
 Referencia: termómetro disponible; modelo, exactitud y resolución no informados.
+
+## Primera lectura real en S
+
+[Evidencia original de stats](archivos/01-stats-inicial-S.txt).
+
+| Dato | Resultado |
+|---|---|
+| Sensor identificado | ds18b20 |
+| Última lectura aceptada | 24.00 °C, edad 1 s |
+| Contadores | 9 lecturas en 18 s, 0 fallidas (0.0 %), 0 rechazadas |
+| Duración de adquisición min/promedio/máximo | 760665 / 762805 / 779901 µs |
+
+La muestra confirma lectura real y funcionamiento inicial. No sustituye los
+ensayos de ruido de 60 s ni reposo/tráfico de 120 s. El usuario confirmó montaje
+conectado; no se aportó foto para verificar visualmente las conexiones.
 
 ## Contrato previsto
 
@@ -62,7 +78,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 
 - [x] Analizar guía y SOP del curso; fijar origen y adaptaciones.
 - [x] Preparar firmware DS18B20 S y cliente C, herramientas y guía.
-- [ ] Cableado y lectura real verificados.
+- [x] Montaje conectado según el usuario; DS18B20 reconocido y lectura real confirmada en S.
 - [ ] Ruido, referencia, respuesta e inyecciones documentados.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.

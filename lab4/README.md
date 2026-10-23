@@ -1,6 +1,7 @@
 # Lab 4 — DS18B20 real con dos ESP32-C6
 
-**Estado:** preparación lista; compilación y pruebas físicas pendientes en WSL.
+**Estado:** DS18B20 reconocido en S: 24.00 °C, 9 lecturas sin fallas ni rechazos.
+Red Thread y demás ensayos pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)
