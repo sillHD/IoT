@@ -214,7 +214,7 @@ fallas de 120 s; las inyecciones se analizan por separado.
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | Reposo: 760659/760679/760756 µs min/avg/max | Reposo 0/78 (155 s); tráfico pendiente | Sensor back y retorno de GET; reset pendiente |
+| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | Reposo: 760659/760679/760756 µs min/avg/max | Reposo 0/78 (155 s); ensayo tráfico 0/93 (186 s), ping pendiente | Sensor back y retorno de GET; reset pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
@@ -327,6 +327,27 @@ La tasa se calcula como failed/reads, y rejected se mantiene aparte.
 Pendiente el ensayo con tráfico; si su duración difiere, se compararán tasas
 con sus denominadores y ventanas explícitos, no solo conteos absolutos.
 
+## Stats S del ensayo con tráfico — resumen de ping pendiente
+
+[Evidencia S](archivos/11-trafico-S-stats.txt): 93 lecturas en **186 s**, 0
+fallidas (0.0 %) y 0 rechazadas; última buena 22.31 °C, edad 0 s.
+Adquisición min/promedio/máximo: 760500/760815/764273 µs.
+
+| Ventana reportada | Duración stats | Lecturas | Fallidas | Tasa | Rechazadas |
+|---|---:|---:|---:|---:|---:|
+| Reposo | 155 s | 78 | 0 | 0.0 % | 0 |
+| Ensayo con tráfico, solo stats S recibidos | 186 s | 93 | 0 | 0.0 % | 0 |
+
+La tasa de la segunda ventana es menor de 5 %, pero falta el resumen de ping C
+para acreditar el tráfico y la pérdida de ICMP. No se declara aún cumplida la
+meta de fallas bajo carga con evidencia completa. Los 186 s de stats superan
+los ≈120 s previstos de 1200 pings a 0.1 s; podrían incluir tiempo fuera de la
+carga, cuyo solapamiento no puede precisarse con este fragmento.
+No se etiquetan las 93 lecturas como realizadas todas bajo tráfico activo.
+Las ventanas se conservan con sus duraciones y denominadores reales.
+La ausencia de fallas en ambas muestras no prueba que el tráfico nunca afecte
+al sensor ni representa una estimación del riesgo fuera de estas ventanas.
+
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
@@ -342,7 +363,7 @@ con sus denominadores y ventanas explícitos, no solo conteos absolutos.
 |---|---|---|
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
 | Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
-| Fiabilidad | Reposo: 0/78 fallidas y 0 rechazadas en 155 s | Falta tráfico; meta <5 % ocupado |
+| Fiabilidad | Reposo 0/78 en 155 s; ventana reportada de tráfico 0/93 en 186 s, sin rechazos | Falta resumen de ping C y delimitar solapamiento de carga; meta <5 % ocupado |
 | Resiliencia | Sensor back, GET 2.05 y nuevo Observe; retorno a router y GET posterior confirmado | Reinserción sin marca temporal; falta ensayo de reset |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
@@ -372,6 +393,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - Cronometraje desde desconexión/reconexión física de DATA no disponible.
 - [x] GET posterior al retorno de Thread responde; cancelación en C documentada.
 - [x] Reposo: 78 lecturas en 155 s, sin fallas ni rechazos.
-- [ ] Ensayo con tráfico y reset pendientes.
+- [x] Stats S del ensayo con tráfico: 0/93 fallidas en 186 s; resumen C pendiente.
+- [ ] Aportar resumen de ping C; reset pendiente.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
