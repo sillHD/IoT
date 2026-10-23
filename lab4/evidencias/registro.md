@@ -12,7 +12,8 @@ Fecha/integrantes/lugar: por registrar para este laboratorio.
 C/S: ESP32-C6, consola prevista UART/CH343. Sensor S: DS18B20, GPIO18,
 alimentación 3V3, 12 bits configurados. Longitud de cable, pull-up, puertos,
 versión compilada, distancia y obstáculos: por confirmar con el montaje real.
-Referencia: termómetro disponible; modelo, exactitud y resolución no informados.
+Referencia disponible: termómetro de cocina de pincho; modelo, exactitud y
+resolución no informados. Su idoneidad como referencia no está establecida.
 
 ## Primera lectura real en S
 
@@ -82,11 +83,25 @@ Frescura de 60 s desde la lectura; Max-Age disminuye. Sin dato fresco: 5.03,
 Max-Age 10 y texto `no fresh reading`; notificación final de error termina Observe.
 No se afirma validación experimental de este contrato hasta recibir logs.
 
+## Referencia y offset: discrepancia sin resolver
+
+[Observaciones comunicadas](archivos/referencia-termometro-cocina-observaciones.txt):
+termómetro de cocina ≈32 °C frente a DS18B20 ≈24 °C en la comparación inicial;
+en otra comprobación el refrigerador indicaba 3 °C y el termómetro de cocina 10 °C.
+La diferencia de +7 °C corresponde únicamente a esa observación del refrigerador.
+No se conocen igualdad térmica, estabilización, ubicación del sensor interno ni
+si el indicador mostraba consigna o temperatura medida. No se atribuye el error
+a ninguno de los instrumentos ni se interpreta la discrepancia como calibración.
+
+**No se aplica corrección.** Offset del DS18B20 pendiente de referencia confiable.
+Por decisión del usuario se conservan los datos y se continúa con el ruido y los
+restantes ensayos. No se realizó aún el minuto controlado de ruido.
+
 ## Tabla de clase — nuestra fila, pendiente
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | pendiente | pendiente | pendiente | pendiente | pendiente | pendiente | pendiente | pendiente |
+| DS18B20 | pendiente | pendiente | pendiente: referencia no validada | pendiente | pendiente | pendiente | pendiente | pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
