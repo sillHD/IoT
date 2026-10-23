@@ -56,7 +56,7 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] GET de temperatura y CBOR validados en C/S.
 - [x] Válvula: PUT/GET, apertura/cierre, idempotencia y payload inválido documentados.
 - [x] Observe: recepción y cancelación documentadas.
-- [ ] Comparación CON/NON y tiempos (timeout CON ya confirmado).
+- [x] CON/NON: timeout CON ≈92 s, NON sin mensaje adicional reportado y CON posterior a reconexión validado.
 - [ ] Latencia SED a 1/5/15 s, tabla de bytes y estimación de energía.
 - [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
 

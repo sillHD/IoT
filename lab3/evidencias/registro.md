@@ -4,7 +4,7 @@
 temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
-reportado. Reconexión de S y pruebas SED siguen pendientes.
+reportado. Reconexión de S y CON posterior validados; pruebas SED pendientes.
 
 ## Sesión
 
@@ -108,7 +108,7 @@ para la comparación.
 |---|---|---|---|---|
 | CON | S thread stop; rol disabled | Error 28: ResponseTimeout | ≈92 s (1:32), aclaración posterior del usuario | [C/S](archivos/cancelacion-observe-y-timeout-CON.txt) |
 | NON | S detenida | Solo Done; sin respuesta ni error adicional reportado | Ventana solicitada 120 s; usuario confirmó ausencia de mensaje, sin timestamps propios | [C](archivos/NON-servidor-detenido.txt) |
-| CON posterior | S reincorporada | Pendiente | | |
+| CON posterior | S reincorporada como child; misma ML-EID | 2.04, OPEN; a1617601 = {v:1} | RTT no medido | [C/S](archivos/reconexion-S-y-CON-posterior.txt) |
 
 Con los parámetros por defecto descritos en la guía (espera inicial 2–3 s y cuatro retransmisiones), la suma de esperas es 31 veces la inicial: aproximadamente 62–93 s. El usuario reportó ≈92 s; es compatible con ese intervalo, sin verificar los intervalos internos mediante captura de paquetes.
 
@@ -185,6 +185,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Cierre C/S](archivos/valvula-C-S-cierre.txt) | PUT 0 y GET confirman CLOSED y CBOR {v:0} |
 | [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON ≈92 s |
 | [NON sin S](archivos/NON-servidor-detenido.txt) | Solicitud NON y confirmación del usuario de ausencia de mensaje adicional |
+| [Reconexión y CON](archivos/reconexion-S-y-CON-posterior.txt) | S child con ML-EID conservada; PUT posterior confirmado con 2.04 |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
