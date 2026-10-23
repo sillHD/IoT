@@ -1,6 +1,9 @@
 # Evidencia — Lab 3 CoAP, C/S
 
-**Estado:** C y S operativos con consola UART/CH343; red formada y GET de
+**Cierre:** laboratorio finalizado por decisión de los integrantes, con las
+limitaciones de medición y trazabilidad documentadas.
+
+**Resultados:** C y S operativos con consola UART/CH343; red formada y GET de
 temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
@@ -225,7 +228,6 @@ El cierre local propuesto no está implementado ni validado en este firmware.
 | [SED 5000 ms](archivos/SED-5000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 196/2119.000/4039 ms |
 | [SED 15000 ms](archivos/SED-15000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 757/8488.900/14461 ms |
 | [PUT SED 5 s](archivos/PUT-SED-5000ms-C-S.txt) | Una orden y dos entregas, segunda no change; separación de 131 ms |
-
 | [Apagado final](archivos/apagado-final-ambas-placas.txt) | Thread disabled e interfaz apagada en ambos bloques recibidos |
 
 - [x] Restaurar S: mode rdn y pollperiod 0.

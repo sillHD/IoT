@@ -1,5 +1,8 @@
 # Lab 3 — Informe y actualización del DDR
 
+**Estado: finalizado por decisión de los integrantes.** El cierre conserva el
+alcance, las estimaciones y las limitaciones de evidencia descritos aquí.
+
 Este informe usa las pruebas de dos ESP32-C6, C (cliente/leader) y S
 (servidor y posteriormente SED), en Thread, canal 25 y TX 0 dBm.
 Las transcripciones y condiciones están en el [registro experimental](evidencias/registro.md).

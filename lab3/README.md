@@ -1,5 +1,8 @@
 # Lab 3 — CoAP con dos ESP32-C6
 
+**Estado: finalizado por decisión de los integrantes.** Se conservan las
+limitaciones de medición y trazabilidad descritas en el informe.
+
 [Guía paso a paso](guia.md) · [Qué enviar de las consolas](EVIDENCIAS.md) ·
 [Informe y DDR](INFORME.md) · [Registro](evidencias/registro.md) · [Firmware](firmware/) · [Origen](ORIGEN.md)
 
@@ -53,7 +56,7 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Firmware C/S, USB/UART, scripts y guía preparados.
 - [x] Logs adicionales de tamaños CoAP para válvula y notificaciones.
 - [x] Firmware ejecutado en ambas placas y comunicación C/S validada con logs del usuario.
-- [ ] Log exitoso de carga S no aportado; ejecución posterior sí documentada.
+- Log exitoso de carga S no aportado; ejecución posterior sí documentada.
 - [x] GET de temperatura y CBOR validados en C/S.
 - [x] Válvula: PUT/GET, apertura/cierre, idempotencia y payload inválido documentados.
 - [x] Observe: recepción y cancelación documentadas.
