@@ -114,12 +114,12 @@ Con los parámetros por defecto descritos en la guía (espera inicial 2–3 s y 
 
 ## SED y latencia
 
-- mode/state/parent de S y ML-EID antes de medir: pendiente.
+- En la medición de 1000 ms, S confirmó mode `-`, pollperiod 1000 y state child después de una transición detached→child. Padre reportado: extaddr 52430823735468ed, RLOC a400, LQ In/Out 3/3. [C/S](archivos/SED-1000ms-C-S.txt).
 - Comando: ot ping <S-mleid> 16 10 1.3 64 40.
 
 | Poll period (ms) | Rol/padre verificados | Enviados/recibidos | Pérdida (%) | RTT min/avg/max (ms) | Fracción ideal de sondeo (10 ms/T) |
 |---|---|---|---|---|---|
-| 1000 | Pendiente | | | | 1 % |
+| 1000 | mode -; child; padre a400, LQ 3/3 | 10/10 | 0.0 | 16/465.600/916 | 1 % |
 | 5000 | Pendiente | | | | 0.2 % |
 | 15000 | Pendiente | | | | ≈0.0667 % |
 
@@ -186,6 +186,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON ≈92 s |
 | [NON sin S](archivos/NON-servidor-detenido.txt) | Solicitud NON y confirmación del usuario de ausencia de mensaje adicional |
 | [Reconexión y CON](archivos/reconexion-S-y-CON-posterior.txt) | S child con ML-EID conservada; PUT posterior confirmado con 2.04 |
+| [SED 1000 ms](archivos/SED-1000ms-C-S.txt) | Modo, sondeo, padre y 10/10 pings; RTT 16/465.600/916 ms |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
