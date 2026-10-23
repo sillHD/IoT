@@ -4,7 +4,8 @@
 temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
-reportado. Reconexión de S y CON posterior validados; pruebas SED pendientes.
+reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
+PUT con SED a 5 s y análisis final pendientes.
 
 ## Sesión
 
@@ -121,10 +122,13 @@ Con los parámetros por defecto descritos en la guía (espera inicial 2–3 s y 
 |---|---|---|---|---|---|
 | 1000 | mode -; child; padre a400, LQ 3/3 | 10/10 | 0.0 | 16/465.600/916 | 1 % |
 | 5000 | child; mismo padre a400, LQ 3/3 | 10/10 | 0.0 | 196/2119.000/4039 | 0.2 % |
-| 15000 | Pendiente | | | | ≈0.0667 % |
+| 15000 | child; mismo padre a400, LQ 3/3 | 10/10 | 0.0 | 757/8488.900/14461 | ≈0.0667 % |
 
 Las fracciones son cálculos con la hipótesis de 10 ms por sondeo, no medidas de
-radio/consumo. Copiar pérdidas reales, sin sustituirlas por valores esperados.
+radio/consumo. En los tres ensayos se recibieron 10/10 pings. Los RTT promedio
+fueron 465.600, 2119.000 y 8488.900 ms al aumentar el periodo de sondeo; los
+datos de padre y LQ permanecieron consistentes. Los resultados documentan la
+latencia en estos ensayos, sin convertir las fracciones teóricas en consumo medido.
 
 ## PUT con SED a cinco segundos
 
@@ -188,6 +192,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Reconexión y CON](archivos/reconexion-S-y-CON-posterior.txt) | S child con ML-EID conservada; PUT posterior confirmado con 2.04 |
 | [SED 1000 ms](archivos/SED-1000ms-C-S.txt) | Modo, sondeo, padre y 10/10 pings; RTT 16/465.600/916 ms |
 | [SED 5000 ms](archivos/SED-5000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 196/2119.000/4039 ms |
+| [SED 15000 ms](archivos/SED-15000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 757/8488.900/14461 ms |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
