@@ -120,7 +120,7 @@ Con los parámetros por defecto descritos en la guía (espera inicial 2–3 s y 
 | Poll period (ms) | Rol/padre verificados | Enviados/recibidos | Pérdida (%) | RTT min/avg/max (ms) | Fracción ideal de sondeo (10 ms/T) |
 |---|---|---|---|---|---|
 | 1000 | mode -; child; padre a400, LQ 3/3 | 10/10 | 0.0 | 16/465.600/916 | 1 % |
-| 5000 | Pendiente | | | | 0.2 % |
+| 5000 | child; mismo padre a400, LQ 3/3 | 10/10 | 0.0 | 196/2119.000/4039 | 0.2 % |
 | 15000 | Pendiente | | | | ≈0.0667 % |
 
 Las fracciones son cálculos con la hipótesis de 10 ms por sondeo, no medidas de
@@ -187,6 +187,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [NON sin S](archivos/NON-servidor-detenido.txt) | Solicitud NON y confirmación del usuario de ausencia de mensaje adicional |
 | [Reconexión y CON](archivos/reconexion-S-y-CON-posterior.txt) | S child con ML-EID conservada; PUT posterior confirmado con 2.04 |
 | [SED 1000 ms](archivos/SED-1000ms-C-S.txt) | Modo, sondeo, padre y 10/10 pings; RTT 16/465.600/916 ms |
+| [SED 5000 ms](archivos/SED-5000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 196/2119.000/4039 ms |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
