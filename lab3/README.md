@@ -53,7 +53,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Firmware C/S, USB/UART, scripts y guía preparados.
 - [x] Logs adicionales de tamaños CoAP para válvula y notificaciones.
 - [ ] Compilación y carga física en el PC del usuario.
-- [ ] GET/CBOR, Observe, válvula/idempotencia y CON/NON.
+- [x] GET de temperatura y CBOR validados en C/S.
+- [ ] Observe, válvula/idempotencia y CON/NON.
 - [ ] Latencia SED a 1/5/15 s, tabla de bytes y estimación de energía.
 - [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
 

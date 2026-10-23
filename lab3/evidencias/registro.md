@@ -1,7 +1,7 @@
 # Evidencia — Lab 3 CoAP, C/S
 
-**Estado:** imagen USB generada y carga de C verificada; arranque de la aplicación
-pendiente de diagnóstico. La carga de S y las pruebas CoAP siguen pendientes.
+**Estado:** C y S operativos con consola UART/CH343; red formada y GET de
+temperatura/CBOR validados. Observe y las demás pruebas CoAP siguen pendientes.
 
 ## Sesión
 
@@ -9,7 +9,7 @@ pendiente de diagnóstico. La carga de S y las pruebas CoAP siguen pendientes.
 - C: modelo, capacidad flash, puerto y conector: pendiente.
 - S: modelo, capacidad flash, puerto y conector: pendiente.
 - Zephyr y commit IoT usados: pendiente.
-- Potencia/canal reales C/S: pendiente (previstos 0 dBm/canal 25).
+- Potencia/canal reales C/S: 0 dBm / canal 25, confirmados por las consolas.
 - Entorno, obstáculos/orientación: pendiente.
 - Dataset compartido solo localmente y excluido de evidencias.
 
@@ -27,14 +27,16 @@ El registro confirma escritura y verificación por esptool 5.3.1. Al reiniciar,
 la ROM muestra un aviso SHA-256 y continúa hasta entry 0x40800294, sin salida
 posterior de Zephyr. Este aviso también estuvo presente en arranques anteriores
 que funcionaron; por sí solo no establece la causa del problema actual.
-La causa sigue sin confirmar. Siguiente comprobación propuesta: compilar con
-consola UART y observar por el conector CH343, para distinguir un fallo de
-inicialización de la aplicación de un problema con la salida USB.
+El usuario confirmó que observaba por CH343 mientras la imagen estaba configurada
+para USB nativo. La versión UART posterior arrancó en C con Zephyr
+v4.4.0-13610-g4564d775ab0b y los recursos CoAP listos. La comunicación C/S se
+validó posteriormente con el [GET correcto](archivos/get-env-temp-C-S.txt).
+El registro de la primera carga USB se conserva como historial de la incidencia.
 
 | Placa | Rol inicial | ML-EID | Canal | TX (dBm) | Evidencia |
 |---|---|---|---|---|---|
-| C | Pendiente | | | | |
-| S | Pendiente | | | | |
+| C | leader | fd2c:525a:8ff2:2258:a81c:f3d:1e07:2a8b | 25 | 0 | [Resumen](archivos/red-C-S-resumen.txt) |
+| S | child, después router | fd2c:525a:8ff2:2258:9966:43d2:59a9:c435 | 25 | 0 | [Resumen](archivos/red-C-S-resumen.txt) |
 
 ## Contratos de aplicación — ASD
 
@@ -55,11 +57,11 @@ heartbeat tras 45 s sin notificar como CON. Válvula simulada mediante LED blanc
 
 ## GET y decodificación
 
-- Hexadecimal recibido: pendiente.
-- Decodificación manual y helper: pendiente.
+- Hexadecimal recibido: `a16174f94e63` (6 bytes), confirmado en el log S; la salida C contenía un prefijo de consola no hexadecimal.
+- Decodificación: A1 = mapa de un par; 61 74 = clave t; F9 4E 63 = float16 de 25.546875 °C. El helper confirmó el valor. El log S muestra 25.54 °C antes de cuantizar a float16.
 - Tiempo GET ida/vuelta, método y resolución: pendiente.
-- Request/response CoAP bytes del log S: pendiente.
-- Evidencias C/S: pendiente.
+- Request/response CoAP bytes del log S: 15 B / 17 B; código 2.05.
+- Evidencias C/S: [GET y decodificación](archivos/get-env-temp-C-S.txt).
 
 ## Observe — cinco minutos
 
@@ -114,7 +116,7 @@ radio/consumo. Copiar pérdidas reales, sin sustituirlas por valores esperados.
 
 | Intercambio | Request CoAP B | Response/notify CoAP B | Paquetes básicos | Evidencia |
 |---|---|---|---|---|
-| GET /env/temp | Pendiente | | 2 | |
+| GET /env/temp | 15 | 17 | 2 según intercambio de aplicación, sin captura RF | [GET](archivos/get-env-temp-C-S.txt) |
 | Observe NON | — | Pendiente | 1 | |
 | PUT /act/valve CON | Pendiente | | 2 con ACK piggyback | |
 
@@ -153,7 +155,8 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 
 | Archivo | Qué demuestra |
 |---|---|
-| Pendiente | Añadir logs/capturas reales al ejecutar |
+| [GET C/S](archivos/get-env-temp-C-S.txt) | Primera lectura de temperatura, payload CBOR y tamaños |
+| [Red C/S](archivos/red-C-S-resumen.txt) | Roles, ML-EID, canal y potencia, sin dataset |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
