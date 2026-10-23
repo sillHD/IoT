@@ -255,14 +255,35 @@ la multiplicidad de respuestas a una causa RF.
 En la desconexión principal el log dice **0 observation(s) ended**: ya no había
 observadores activos. Se distinguen las dos secuencias; el final de Observe
 proviene del episodio previo y la tabla de edad/Max-Age del episodio principal.
-La reconexión posterior a la desconexión principal aún no fue aportada.
+La reconexión posterior a la desconexión principal se documenta en el video
+siguiente, descrito a continuación.
+
+## Recuperación de la desconexión principal y nuevo Observe
+
+[Video, capturas y transcripción](archivos/08-recuperacion-DATA-video-transcripcion.md),
+[CSV de tiempos](recuperacion-DATA-tiempos.csv).
+
+S registra `Sensor back after 193 failed reads` y 22.00 °C a **01:01:37.224**, sin
+arranque nuevo visible y con continuidad del uptime. El trabajo policy anuncia
+dato fresco/GET 2.05 a **01:01:38.188**, **0.964 s** después de la lectura.
+La reconexión física no aparece marcada, de modo que no se estima su tiempo.
+
+El GET de C se atiende a **01:01:48.927** con 2.05, edad 1 s y Max-Age 59;
+CBOR `a16174f94d88` = {t:22.125 °C}, impreso como 22.12 °C en S.
+C registra Observe de nuevo a **01:01:58.841** y recibe **OBS=33** con ese mismo
+valor. Es la respuesta de registro inicial, no una notificación posterior.
+
+Quedan verificados recuperación de lectura sin reinicio visible, retorno real
+de GET 2.05 y registro Observe explícito posterior. Los 11.703 s entre primera
+lectura y GET incluyen la intervención del usuario y no son RTT ni tiempo de
+reconexión. No se muestra aún notificación posterior a OBS=33.
 
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
 |---|---|---|---|
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
-| Sensor reconectado | Historial previo; GET posterior sin timestamp S correlacionado | Sensor back y lectura 21.94 °C; policy vuelve a 2.05 | 0.518 s de lectura recuperada a anuncio policy; falta tiempo desde reinserción |
+| Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
 | Nodo fuera de red | pendiente | pendiente | pendiente |
 | Reinicio de S | pendiente | pendiente | pendiente |
 
@@ -273,7 +294,7 @@ La reconexión posterior a la desconexión principal aún no fue aportada.
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
 | Disponibilidad | GET fresco y vencimiento 5.03 en video; fin de Observe en historial previo | Sensor perdido documentado; falta nodo fuera de red y tiempo desde retiro físico |
 | Fiabilidad | failed/reads en reposo y bajo tráfico; meta <5 % ocupado | pendiente |
-| Resiliencia | Sensor back, lectura recuperada y anuncio 2.05 en historial del video | Reconexión manual sin marca temporal; faltan reset y nodo fuera de red |
+| Resiliencia | Sensor back sin reinicio visible; GET 2.05 y nuevo Observe OBS=33 verificados | Reconexión manual sin marca temporal; faltan reset y nodo fuera de red |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -297,7 +318,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Rechazo por rango de inject 90 documentado.
 - [ ] Offset pendiente de referencia confiable.
 - [x] Sensor lost, GET con edad/Max-Age y 5.03 documentados con reloj S.
-- [x] Fin de Observe y recuperación de lectura documentados en historial previo del video.
+- [x] Fin de Observe documentado en historial previo; recuperación posterior de S con GET 2.05 y nuevo Observe OBS=33 confirmada.
 - [ ] Cronometraje desde desconexión/reconexión física no disponible; falta nodo inaccesible.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
