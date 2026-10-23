@@ -1,7 +1,7 @@
 # Evidencia — Lab 3 CoAP, C/S
 
-**Estado:** preparación lista; compilación, carga y pruebas físicas pendientes.
-Ninguna tabla contiene todavía resultados experimentales.
+**Estado:** imagen USB generada y carga de C verificada; arranque de la aplicación
+pendiente de diagnóstico. La carga de S y las pruebas CoAP siguen pendientes.
 
 ## Sesión
 
@@ -17,9 +17,19 @@ Ninguna tabla contiene todavía resultados experimentales.
 
 | Actividad | Archivo | Resultado |
 |---|---|---|
-| Build | archivos/build-usb.log o uart | Pendiente |
-| Flash C | archivos/flash-C-usb.log o uart | Pendiente |
+| Build USB | [Registro recibido](archivos/flash-C-usb-arranque-pendiente.txt) | Imagen disponible y cargada; CONFIG_FLASH_SIZE=4096, consola y shell en usb_serial |
+| Flash C USB | [Carga y arranque](archivos/flash-C-usb-arranque-pendiente.txt) | 602352 bytes en 0x00000000, hash de escritura verificado; sin salida Zephyr después de entry 0x40800294 |
 | Flash S | archivos/flash-S-usb.log o uart | Pendiente |
+
+### Incidencia de arranque en C
+
+El registro confirma escritura y verificación por esptool 5.3.1. Al reiniciar,
+la ROM muestra un aviso SHA-256 y continúa hasta entry 0x40800294, sin salida
+posterior de Zephyr. Este aviso también estuvo presente en arranques anteriores
+que funcionaron; por sí solo no establece la causa del problema actual.
+La causa sigue sin confirmar. Siguiente comprobación propuesta: compilar con
+consola UART y observar por el conector CH343, para distinguir un fallo de
+inicialización de la aplicación de un problema con la salida USB.
 
 | Placa | Rol inicial | ML-EID | Canal | TX (dBm) | Evidencia |
 |---|---|---|---|---|---|
