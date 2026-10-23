@@ -182,6 +182,7 @@ seis notificaciones completas y emparejadas. No se aportó cancelación Observe.
 
 | Acción | Resultado registrado |
 |---|---|
+| inject 90 | Rejected a 00:48:19.240 por estar fuera de rango; [evidencia posterior](archivos/06-inject90-S-original.txt) |
 | inject 31.5 | Rejected a 00:45:25.984: salto +9.6 °C frente a lectura reciente de 21.94 °C |
 | inject 23 | Aceptado a 00:45:34.536 como `inject: 23.00 C` |
 | Observe tras inyección | S registra NON con 23.00 °C a 00:45:35.213, threshold 6 |
@@ -198,10 +199,16 @@ redundancia puede detectar discrepancias; autenticación protege procedencia,
 pero no vuelve exacto un sensor defectuoso. Seguridad frente a atacantes se
 aborda en Lab 6.
 
-El contador muestra dos rechazos acumulados, pero el fragmento solo identifica
-uno (31.5). No se infiere que el otro corresponda a `inject 90`: su comando y
-mensaje de rechazo por rango aún no se han aportado. Los contadores no son el
-ensayo controlado de fallas de 120 s; las inyecciones se analizan por separado.
+El primer fragmento muestra dos rechazos acumulados, pero identifica uno
+(31.5); no se asigna causa al rechazo previo no visible. Un bloque posterior
+confirma `Rejected 90.00 C from inject: outside -40..85 C` a 00:48:19.240 y
+stats de 540 lecturas en 1080 s, 0 fallidas y 3 rechazadas, con última buena
+21.94 °C de edad 0 s. Adquisición min/promedio/máximo: 760272/760685/761385 µs.
+Se conserva el orden recibido: el mensaje aparece después de stats y no tiene
+instante de ejecución del comando para reconstruir exactamente esa secuencia.
+Las tres acciones exigidas quedan documentadas: rango rechazado, salto rechazado
+y valor plausible aceptado. Los contadores no son el ensayo controlado de
+fallas de 120 s; las inyecciones se analizan por separado.
 
 ## Tabla de clase — nuestra fila, parcial
 
@@ -249,7 +256,8 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Dos soplidos confirmados por el usuario.
 - [ ] Inicio/fin de los soplidos no medidos; tiempo de media subida desde el estímulo no determinado.
 - [x] Inyección 31.5 rechazada por salto y 23 aceptada/notificada en S.
-- [ ] Aportar rechazo por rango de inject 90; offset pendiente de referencia confiable.
+- [x] Rechazo por rango de inject 90 documentado.
+- [ ] Offset pendiente de referencia confiable.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
