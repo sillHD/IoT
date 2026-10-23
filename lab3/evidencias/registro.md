@@ -89,11 +89,15 @@ solo se utiliza la ventana de 300 s explícita para la comparación.
 
 | Comando | Código/payload real | Log S | Estado LED | Evidencia |
 |---|---|---|---|---|
-| PUT CON 1 | Pendiente | | | |
-| GET | Pendiente | | | |
-| PUT CON 1 repetido | Pendiente | | | |
+| PUT CON 1 | 2.04; a1617601 = {v:1} | OPEN a 00:23:21.060 | No documentado | [C](archivos/valvula-C-apertura-repeticiones-rechazo.txt), [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
+| GET (dos consultas) | 2.05; a1617601 = {v:1} | OPEN a 00:24:00.447 y 00:25:01.146 | No documentado | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
+| PUT CON 1 repetido (dos) | 2.04; a1617601 = {v:1} | OPEN, no change a 00:24:21.582 y 00:24:48.419 | No documentado | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 | PUT CON 0 + GET | Pendiente | | | |
-| PUT CON 7 | Pendiente | | | |
+| PUT CON 7 | 4.00 según S; respuesta sin payload en C | Rechazo a 00:25:08.200 | No documentado | [C](archivos/valvula-C-apertura-repeticiones-rechazo.txt), [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
+
+- Pendiente de cierre: en la secuencia aportada todos los PUT válidos son 1; no se registró PUT 0 ni GET cerrado.
+- Los comandos CoAP ejecutados localmente en S devolvieron InvalidState porque su cliente no está iniciado; los ensayos se ejecutan desde C. No iniciar el cliente en S para resolver ese error.
+- El log S sigue mostrando Observe durante los comandos de válvula: la cancelación aún no está documentada.
 
 ## CON/NON con servidor detenido
 
@@ -131,7 +135,8 @@ radio/consumo. Copiar pérdidas reales, sin sustituirlas por valores esperados.
 |---|---|---|---|---|
 | GET /env/temp | 15 | 17 | 2 según intercambio de aplicación, sin captura RF | [GET](archivos/get-env-temp-C-S.txt) |
 | Observe NON | — | 19 | 1 datagrama previsto, sin captura RF | [S](archivos/observe-S-registro.txt) |
-| PUT /act/valve CON | Pendiente | | 2 con ACK piggyback | |
+| PUT /act/valve CON válido | 18 | 13 (incluye CBOR 4 B) | 2 con ACK piggyback, sin captura RF | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
+| GET /act/valve | 16 | 13 (incluye CBOR 4 B) | 2 previstos, sin captura RF | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 
 Añadir UDP 8 B y estimación IPv6/6LoWPAN aparte. Los totales CoAP incluyen el CBOR.
 Comparación HTTP/MQTT: citar Lab 0 y distinguir valores orientativos de mediciones.
@@ -172,6 +177,8 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Red C/S](archivos/red-C-S-resumen.txt) | Roles, ML-EID, canal y potencia, sin dataset |
 | [Observe S](archivos/observe-S-registro.txt) | Notificaciones emitidas y ventana de 300 s |
 | [Observe C](archivos/observe-C-recepcion.txt) | OBS=2 inicial y notificaciones OBS=3..40; cancelación pendiente |
+| [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre pendiente |
+| [Válvula S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) | 2.04, 2.05, no change, 4.00 y bytes medidos |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
