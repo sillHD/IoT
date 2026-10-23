@@ -2,7 +2,8 @@
 
 **Estado:** C y S operativos con consola UART/CH343; red formada y GET de
 temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
-contrastada en C; cancelación pendiente. Las demás pruebas siguen pendientes.
+contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
+confirmados; tiempo CON, NON y SED siguen pendientes.
 
 ## Sesión
 
@@ -79,11 +80,12 @@ heartbeat tras 45 s sin notificar como CON. Válvula simulada mediante LED blanc
 - Heartbeat 0 es coherente con cambios frecuentes; no hubo un intervalo de 45 s sin notificar dentro de la ventana.
 - Recepción C: [transcripción estructurada](archivos/observe-C-recepcion.txt). OBS=2 es la respuesta inicial; OBS=3..40 son 38 notificaciones consecutivas. Las 29 de la ventana de 300 s corresponden a OBS=3..31; la correspondencia temporal se establece con el log S, porque C no incluye timestamps.
 - No hay saltos en las secuencias aportadas; esto documenta la recepción de esa muestra, sin convertirla en una medición formal de PER ni de consumo.
-- Cancelación pendiente: la última línea aportada es `ot coat stop`, no `ot coap cancel`, y no hay respuesta de cancelación confirmada.
+- Cancelación posterior confirmada: C ejecutó `ot coap cancel` y S registró `(cancel)` con 2.05 a 00:29:47.864. [Evidencia](archivos/cancelacion-observe-y-timeout-CON.txt).
 
 Conteo de notificaciones distinto de paquetes de radio: heartbeat CON puede
-incluir ACK/reintentos. La duración completa de la suscripción queda pendiente;
-solo se utiliza la ventana de 300 s explícita para la comparación.
+incluir ACK/reintentos. La suscripción completa duró 1093.858 s según los
+timestamps de registro/cancelación en S; solo se usa la ventana inicial de 300 s
+para la comparación.
 
 ## Válvula, idempotencia y rechazo
 
@@ -97,13 +99,13 @@ solo se utiliza la ventana de 300 s explícita para la comparación.
 
 - Cierre confirmado en la secuencia posterior: PUT 0 con 2.04 y GET cerrado con 2.05. Apertura/cierre, idempotencia y rechazo quedan documentados; no se aportó verificación visual del LED.
 - Los comandos CoAP ejecutados localmente en S devolvieron InvalidState porque su cliente no está iniciado; los ensayos se ejecutan desde C. No iniciar el cliente en S para resolver ese error.
-- El log S sigue mostrando Observe durante los comandos de válvula: la cancelación aún no está documentada.
+- Observe siguió activo durante la prueba de válvula y se canceló después, antes de detener Thread en S.
 
 ## CON/NON con servidor detenido
 
 | Mensaje | Condición | Resultado | Tiempo/ventana observada | Evidencia |
 |---|---|---|---|---|
-| CON | S thread stop | Pendiente | | |
+| CON | S thread stop; rol disabled | Error 28: ResponseTimeout | No aportado; pendiente de cronometraje | [C/S](archivos/cancelacion-observe-y-timeout-CON.txt) |
 | NON | S detenida | Pendiente | Esperar 120 s | |
 | CON posterior | S reincorporada | Pendiente | | |
 
@@ -180,6 +182,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre pendiente |
 | [Válvula S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) | 2.04, 2.05, no change, 4.00 y bytes medidos |
 | [Cierre C/S](archivos/valvula-C-S-cierre.txt) | PUT 0 y GET confirman CLOSED y CBOR {v:0} |
+| [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON pendiente |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
