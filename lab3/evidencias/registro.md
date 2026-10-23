@@ -92,10 +92,10 @@ solo se utiliza la ventana de 300 s explícita para la comparación.
 | PUT CON 1 | 2.04; a1617601 = {v:1} | OPEN a 00:23:21.060 | No documentado | [C](archivos/valvula-C-apertura-repeticiones-rechazo.txt), [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 | GET (dos consultas) | 2.05; a1617601 = {v:1} | OPEN a 00:24:00.447 y 00:25:01.146 | No documentado | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 | PUT CON 1 repetido (dos) | 2.04; a1617601 = {v:1} | OPEN, no change a 00:24:21.582 y 00:24:48.419 | No documentado | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
-| PUT CON 0 + GET | Pendiente | | | |
+| PUT CON 0 + GET | 2.04 y 2.05; a1617600 = {v:0} | CLOSED a 00:27:11.060 (PUT) y 00:27:22.263 (GET) | No documentado | [C/S](archivos/valvula-C-S-cierre.txt) |
 | PUT CON 7 | 4.00 según S; respuesta sin payload en C | Rechazo a 00:25:08.200 | No documentado | [C](archivos/valvula-C-apertura-repeticiones-rechazo.txt), [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 
-- Pendiente de cierre: en la secuencia aportada todos los PUT válidos son 1; no se registró PUT 0 ni GET cerrado.
+- Cierre confirmado en la secuencia posterior: PUT 0 con 2.04 y GET cerrado con 2.05. Apertura/cierre, idempotencia y rechazo quedan documentados; no se aportó verificación visual del LED.
 - Los comandos CoAP ejecutados localmente en S devolvieron InvalidState porque su cliente no está iniciado; los ensayos se ejecutan desde C. No iniciar el cliente en S para resolver ese error.
 - El log S sigue mostrando Observe durante los comandos de válvula: la cancelación aún no está documentada.
 
@@ -179,6 +179,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Observe C](archivos/observe-C-recepcion.txt) | OBS=2 inicial y notificaciones OBS=3..40; cancelación pendiente |
 | [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre pendiente |
 | [Válvula S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) | 2.04, 2.05, no change, 4.00 y bytes medidos |
+| [Cierre C/S](archivos/valvula-C-S-cierre.txt) | PUT 0 y GET confirman CLOSED y CBOR {v:0} |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.

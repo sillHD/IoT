@@ -54,7 +54,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Logs adicionales de tamaños CoAP para válvula y notificaciones.
 - [ ] Compilación y carga física en el PC del usuario.
 - [x] GET de temperatura y CBOR validados en C/S.
-- [ ] Observe, válvula/idempotencia y CON/NON.
+- [x] Válvula: PUT/GET, apertura/cierre, idempotencia y payload inválido documentados.
+- [ ] Cancelación Observe y comparación CON/NON (recepción de Observe ya registrada).
 - [ ] Latencia SED a 1/5/15 s, tabla de bytes y estimación de energía.
 - [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
 
