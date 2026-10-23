@@ -3,7 +3,7 @@
 **Estado:** C y S operativos con consola UART/CH343; red formada y GET de
 temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepción
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
-confirmados; tiempo CON, NON y SED siguen pendientes.
+confirmados; timeout CON de aproximadamente 92 s. NON y SED siguen pendientes.
 
 ## Sesión
 
@@ -105,11 +105,11 @@ para la comparación.
 
 | Mensaje | Condición | Resultado | Tiempo/ventana observada | Evidencia |
 |---|---|---|---|---|
-| CON | S thread stop; rol disabled | Error 28: ResponseTimeout | No aportado; pendiente de cronometraje | [C/S](archivos/cancelacion-observe-y-timeout-CON.txt) |
+| CON | S thread stop; rol disabled | Error 28: ResponseTimeout | ≈92 s (1:32), aclaración posterior del usuario | [C/S](archivos/cancelacion-observe-y-timeout-CON.txt) |
 | NON | S detenida | Pendiente | Esperar 120 s | |
 | CON posterior | S reincorporada | Pendiente | | |
 
-Predicción de timeout a partir de reintentos y contraste con lo medido: pendiente.
+Con los parámetros por defecto descritos en la guía (espera inicial 2–3 s y cuatro retransmisiones), la suma de esperas es 31 veces la inicial: aproximadamente 62–93 s. El usuario reportó ≈92 s; es compatible con ese intervalo, sin verificar los intervalos internos mediante captura de paquetes.
 
 ## SED y latencia
 
@@ -182,7 +182,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre pendiente |
 | [Válvula S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) | 2.04, 2.05, no change, 4.00 y bytes medidos |
 | [Cierre C/S](archivos/valvula-C-S-cierre.txt) | PUT 0 y GET confirman CLOSED y CBOR {v:0} |
-| [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON pendiente |
+| [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON ≈92 s |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.

@@ -22,3 +22,6 @@ Cancelación Observe confirmada por C y por el log (cancel) en S.
 El registro Observe se aceptó en S a 00:11:34.006; la cancelación llegó a
 00:29:47.864: suscripción completa de 1093.858 s según el reloj de S. La tabla
 comparativa de Observe usa solo su ventana inicial de 300 s.
+
+Aclaración posterior del usuario: el timeout CON tardó "1:32 aproximadamente".
+Se registra como aproximadamente 92 segundos, no como medición exacta.
