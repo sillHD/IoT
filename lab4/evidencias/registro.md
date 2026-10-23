@@ -214,7 +214,7 @@ fallas de 120 s; las inyecciones se analizan por separado.
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | 760664/760692/760770 µs min/avg/max | pendiente | pendiente |
+| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | Reposo: 760659/760679/760756 µs min/avg/max | Reposo 0/78 (155 s); tráfico pendiente | Sensor back y retorno de GET; reset pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
@@ -298,7 +298,34 @@ accesible cuando fallaba el sensor. Sus orígenes de cronometraje son distintos:
 
 Después de `ot thread start`, S registra detached a 01:07:09.552 y router a
 01:07:10.564 (transición de 1.012 s). No hay reinicio eléctrico del nodo;
-CoAP/Observe posteriores a esa unión todavía no se documentaron.
+El GET posterior a esa unión y la cancelación en C se aportaron después;
+se documentan en el apartado siguiente.
+
+## GET tras retorno de Thread y lecturas en reposo
+
+[Transcripción C/S](archivos/10-GET-retorno-y-reposo-C-S-original.txt).
+C obtiene respuesta al GET CON con `a16174f94d8c` = {t:22.1875 °C} y luego
+`ot coap cancel` devuelve Done y respuesta `a16174f94d90` = {t:22.25 °C}.
+En S, a 01:13:31.826, se ve GET 2.05 con 22.25 °C, edad 0 s y Max-Age 60.
+Se acredita el retorno de respuesta CoAP; como el GET de C y esa línea S tienen
+payloads diferentes, no se emparejan como una misma transacción ni se calcula RTT.
+La línea ResponseTimeout inicial en C es contexto del bloque recibido, sin
+nuevo envío visible asociado; no se cuenta como un ensayo adicional de timeout.
+La cancelación está documentada en la CLI; no hay línea `(cancel)` de S en este
+fragmento para verificar directamente el retiro de su registro Observe.
+
+Tras `soilsense log off` y `soilsense reset`/Counters zeroed, S reporta:
+
+| Condición | Lecturas | Duración stats | Fallidas | Tasa fallas | Rechazadas | Adquisición min/avg/max |
+|---|---:|---:|---:|---:|---:|---|
+| Reposo, sin pings deliberados según secuencia del ensayo | 78 | **155 s** | 0 | **0.0 %** | 0 | 760659 / 760679 / 760756 µs |
+
+Última lectura 22.19 °C, edad 1 s. La ventana dura 155 s, no los 120 s previstos;
+se conserva íntegra y no se trunca ni se reconstruyen contadores a 120 s.
+El silencio del log no significa ausencia total de tráfico Thread de gestión.
+La tasa se calcula como failed/reads, y rejected se mantiene aparte.
+Pendiente el ensayo con tráfico; si su duración difiere, se compararán tasas
+con sus denominadores y ventanas explícitos, no solo conteos absolutos.
 
 ## Disponibilidad y recuperación
 
@@ -306,7 +333,7 @@ CoAP/Observe posteriores a esa unión todavía no se documentaron.
 |---|---|---|---|
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
 | Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
-| Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router | ≈74.1 s desde GET; detached→router 1.012 s |
+| Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout; GET posterior vuelve a responder | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router y GET 2.05 | ≈74.1 s desde GET; detached→router 1.012 s |
 | Reinicio de S | pendiente | pendiente | pendiente |
 
 ## Auditoría Trustworthiness — DDR §9
@@ -314,9 +341,9 @@ CoAP/Observe posteriores a esa unión todavía no se documentaron.
 | Característica | Evidencia por obtener | Estado |
 |---|---|---|
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
-| Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; fin de Observe documentado | No hay marca de retiro físico; falta GET tras retorno de Thread |
-| Fiabilidad | failed/reads en reposo y bajo tráfico; meta <5 % ocupado | pendiente |
-| Resiliencia | Sensor back, GET 2.05 y nuevo Observe; S vuelve de disabled a router tras thread start | Reinserción sin marca temporal; falta GET tras unión y ensayo de reset |
+| Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
+| Fiabilidad | Reposo: 0/78 fallidas y 0 rechazadas en 155 s | Falta tráfico; meta <5 % ocupado |
+| Resiliencia | Sensor back, GET 2.05 y nuevo Observe; retorno a router y GET posterior confirmado | Reinserción sin marca temporal; falta ensayo de reset |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -343,7 +370,8 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Fin de Observe documentado en historial previo; recuperación posterior de S con GET 2.05 y nuevo Observe OBS=33 confirmada.
 - [x] Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router documentados.
 - Cronometraje desde desconexión/reconexión física de DATA no disponible.
-- [ ] GET posterior al retorno de Thread pendiente.
-- [ ] Reposo/tráfico, recuperación y reset documentados.
+- [x] GET posterior al retorno de Thread responde; cancelación en C documentada.
+- [x] Reposo: 78 lecturas en 155 s, sin fallas ni rechazos.
+- [ ] Ensayo con tráfico y reset pendientes.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
