@@ -214,7 +214,7 @@ fallas de 120 s; las inyecciones se analizan por separado.
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
 |---|---|---|---|---|---|---|---|---|
-| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | Reposo: 760659/760679/760756 µs min/avg/max | Reposo 0/78 (155 s); ensayo tráfico 0/93 (186 s), ping pendiente | Sensor back y retorno de GET; reset pendiente |
+| DS18B20 | 0.06 °C impreso (nominal 0.0625 °C) | 0.12 °C pico a pico; 30 muestras visibles | pendiente: referencia no validada | ≈1.12 °C primer pico; tiempo desde soplido pendiente | 6 (5 NON + 1 CON), dos subidas observadas | Reposo: 760659/760679/760756 µs min/avg/max | Reposo 0/78 (155 s); ensayo tráfico 0/93 (186 s); ping 1199/1200 | Sensor back y retorno de GET; reset pendiente |
 
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
@@ -324,25 +324,34 @@ Tras `soilsense log off` y `soilsense reset`/Counters zeroed, S reporta:
 se conserva íntegra y no se trunca ni se reconstruyen contadores a 120 s.
 El silencio del log no significa ausencia total de tráfico Thread de gestión.
 La tasa se calcula como failed/reads, y rejected se mantiene aparte.
-Pendiente el ensayo con tráfico; si su duración difiere, se compararán tasas
-con sus denominadores y ventanas explícitos, no solo conteos absolutos.
+El ensayo con tráfico se documenta a continuación con su duración real y
+denominadores explícitos, en lugar de comparar solo conteos absolutos.
 
-## Stats S del ensayo con tráfico — resumen de ping pendiente
+## Fiabilidad con tráfico — stats S y resumen de ping C
 
-[Evidencia S](archivos/11-trafico-S-stats.txt): 93 lecturas en **186 s**, 0
+[Evidencia S](archivos/11-trafico-S-stats.txt),
+[ping C original](archivos/11-trafico-C-ping-original.txt) y
+[resumen calculado](trafico-ping-resumen.json): 93 lecturas en **186 s**, 0
 fallidas (0.0 %) y 0 rechazadas; última buena 22.31 °C, edad 0 s.
 Adquisición min/promedio/máximo: 760500/760815/764273 µs.
 
 | Ventana reportada | Duración stats | Lecturas | Fallidas | Tasa | Rechazadas |
 |---|---:|---:|---:|---:|---:|
 | Reposo | 155 s | 78 | 0 | 0.0 % | 0 |
-| Ensayo con tráfico, solo stats S recibidos | 186 s | 93 | 0 | 0.0 % | 0 |
+| Ensayo con tráfico, stats S y resumen C | 186 s | 93 | 0 | 0.0 % | 0 |
 
-La tasa de la segunda ventana es menor de 5 %, pero falta el resumen de ping C
-para acreditar el tráfico y la pérdida de ICMP. No se declara aún cumplida la
-meta de fallas bajo carga con evidencia completa. Los 186 s de stats superan
-los ≈120 s previstos de 1200 pings a 0.1 s; podrían incluir tiempo fuera de la
-carga, cuyo solapamiento no puede precisarse con este fragmento.
+C confirma **1200 enviados y 1199 recibidos**, RTT min/promedio/máximo
+**15/16.098/41 ms**. Hay **1 petición sin respuesta de 1200**, pérdida calculada
+**0.08333 %**. El original imprime `Packet loss = 0.0%`; se conserva literalmente,
+pero el análisis usa los contadores, sin atribuir una causa interna a la discrepancia.
+La pérdida de ICMP es distinta de la tasa de lecturas fallidas del sensor.
+
+En la ventana de adquisición reportada hubo 0/93 fallidas, inferior a la meta
+<5 %. El resumen C acredita el tráfico del ensayo. Los 186 s de stats superan
+los ≈120 s previstos de 1200 pings a 0.1 s; incluyen potencialmente tiempo fuera
+de la carga. El fragmento no contiene inicio/fin de ambas ventanas para delimitar
+su solapamiento. Se documenta el resultado del ensayo sin afirmar una ventana
+perfectamente sincronizada ni una medición aislada de todas las lecturas bajo carga.
 No se etiquetan las 93 lecturas como realizadas todas bajo tráfico activo.
 Las ventanas se conservan con sus duraciones y denominadores reales.
 La ausencia de fallas en ambas muestras no prueba que el tráfico nunca afecte
@@ -363,7 +372,7 @@ al sensor ni representa una estimación del riesgo fuera de estas ventanas.
 |---|---|---|
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
 | Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; GET vuelve a responder al retornar | No hay marca de retiro físico; no se mide RTT de GET |
-| Fiabilidad | Reposo 0/78 en 155 s; ventana reportada de tráfico 0/93 en 186 s, sin rechazos | Falta resumen de ping C y delimitar solapamiento de carga; meta <5 % ocupado |
+| Fiabilidad | Reposo 0/78 en 155 s; ensayo tráfico 0/93 en 186 s, sin rechazos; ping 1199/1200 y pérdida calculada 0.08333 % | Tasa de lectura observada <5 %; solapamiento exacto de carga/contadores no delimitado |
 | Resiliencia | Sensor back, GET 2.05 y nuevo Observe; retorno a router y GET posterior confirmado | Reinserción sin marca temporal; falta ensayo de reset |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
@@ -393,7 +402,7 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - Cronometraje desde desconexión/reconexión física de DATA no disponible.
 - [x] GET posterior al retorno de Thread responde; cancelación en C documentada.
 - [x] Reposo: 78 lecturas en 155 s, sin fallas ni rechazos.
-- [x] Stats S del ensayo con tráfico: 0/93 fallidas en 186 s; resumen C pendiente.
-- [ ] Aportar resumen de ping C; reset pendiente.
+- [x] Ensayo con tráfico: 0/93 lecturas fallidas en 186 s; C confirma 1199/1200 pings, pérdida calculada 0.08333 %.
+- [ ] Ensayo de reset pendiente.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
