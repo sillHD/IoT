@@ -219,12 +219,50 @@ fallas de 120 s; las inyecciones se analizan por separado.
 Paso nominal a 12 bits: 0.0625 °C, distinto de paso observado y exactitud.
 La tabla compartida de clase aún no se ha recibido.
 
+## Sensor perdido: disponibilidad, caducidad y recuperación visibles en video
+
+[Video, transcripción normalizada y método](archivos/07-desconexion-DATA-video-transcripcion.md),
+[CSV de eventos](desconexion-DATA-tiempos.csv). Video original conservado junto
+con capturas; no hay marca inequívoca del instante físico de retiro de DATA.
+
+En el episodio principal S lee por última vez 22.00 °C a 00:55:09.224.
+Primer error a 00:55:10.465 y tercer fallo/Sensor lost a 00:55:14.465:
+4.000 s entre primer y tercer fallo (5.241 s desde la última lectura).
+
+| GET en S | Edad impresa | Max-Age | Código / valor |
+|---|---:|---:|---|
+| 00:55:25.607 | 16 s | 44 s | 2.05 / 22.00 °C |
+| 00:55:40.580 | 31 s | 29 s | 2.05 / 22.00 °C |
+| 00:55:55.815 | 46 s | 14 s | 2.05 / 22.00 °C |
+| 00:56:10.801 | sin dato fresco | 10 s, reintento | 5.03 / no fresh reading |
+
+El trabajo policy anuncia caducidad a 00:56:09.860, 60.636 s desde la última
+lectura; el GET 5.03 documentado llega a 61.577 s desde esa lectura. El nodo
+permanece accesible, por lo que no es un timeout. El texto de C decodifica desde
+hex ASCII `6e6f2066726573682072656164696e67`, no desde un mapa CBOR.
+La meta de detección ≤60 s desde desconexión no puede certificarse en esta
+muestra: no hay instante físico marcado y el cliente consulta cada ≈15 s.
+Se conserva el resultado medido, sin redondearlo a un cumplimiento exacto.
+
+El historial previo visible al comienzo del video muestra fin de **2 observaciones**
+a 00:54:05.736 y `Sensor back after 32 failed reads` a 00:54:11.224. El anuncio
+`Fresh readings again: GET answers 2.05; observers must register again` ocurre
+0.518 s después, a 00:54:11.742. Es evidencia de recuperación de lectura sin
+arranque nuevo visible, pero no mide el tiempo desde reinsertar el cable.
+En C hay dos respuestas `no fresh reading` en ese historial. No se atribuye
+la multiplicidad de respuestas a una causa RF.
+
+En la desconexión principal el log dice **0 observation(s) ended**: ya no había
+observadores activos. Se distinguen las dos secuencias; el final de Observe
+proviene del episodio previo y la tabla de edad/Max-Age del episodio principal.
+La reconexión posterior a la desconexión principal aún no fue aportada.
+
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
 |---|---|---|---|
-| Sensor desconectado | pendiente | pendiente | pendiente |
-| Sensor reconectado | pendiente | pendiente | pendiente |
+| Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
+| Sensor reconectado | Historial previo; GET posterior sin timestamp S correlacionado | Sensor back y lectura 21.94 °C; policy vuelve a 2.05 | 0.518 s de lectura recuperada a anuncio policy; falta tiempo desde reinserción |
 | Nodo fuera de red | pendiente | pendiente | pendiente |
 | Reinicio de S | pendiente | pendiente | pendiente |
 
@@ -233,9 +271,9 @@ La tabla compartida de clase aún no se ha recibido.
 | Característica | Evidencia por obtener | Estado |
 |---|---|---|
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
-| Disponibilidad | GET fresco, vencimiento 5.03, timeout con nodo ausente | pendiente |
+| Disponibilidad | GET fresco y vencimiento 5.03 en video; fin de Observe en historial previo | Sensor perdido documentado; falta nodo fuera de red y tiempo desde retiro físico |
 | Fiabilidad | failed/reads en reposo y bajo tráfico; meta <5 % ocupado | pendiente |
-| Resiliencia | reconexión sensor, unión y recuperación tras reset | pendiente |
+| Resiliencia | Sensor back, lectura recuperada y anuncio 2.05 en historial del video | Reconexión manual sin marca temporal; faltan reset y nodo fuera de red |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -258,7 +296,9 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Inyección 31.5 rechazada por salto y 23 aceptada/notificada en S.
 - [x] Rechazo por rango de inject 90 documentado.
 - [ ] Offset pendiente de referencia confiable.
-- [ ] Sensor perdido y nodo inaccesible cronometrados.
+- [x] Sensor lost, GET con edad/Max-Age y 5.03 documentados con reloj S.
+- [x] Fin de Observe y recuperación de lectura documentados en historial previo del video.
+- [ ] Cronometraje desde desconexión/reconexión física no disponible; falta nodo inaccesible.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
