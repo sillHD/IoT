@@ -5,7 +5,7 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s documentado. Restauración/cierre final y análisis pendientes.
+PUT con SED a 5 s documentado. Restauración rdn y cierre final confirmados; apagado de Thread y análisis pendientes.
 
 ## Sesión
 
@@ -136,6 +136,17 @@ latencia en estos ensayos, sin convertir las fracciones teóricas en consumo med
 - S confirmó pollperiod 5000 y child; recibió PUT a 00:47:57.877 (OPEN) y 00:47:58.008 (OPEN, no change), ambos 2.04. Diferencia: 131 ms. Cada intercambio reportó 18 B request y 13 B response CoAP.
 - Dos entregas a la aplicación para una orden son compatibles con reintentos CON antes del siguiente sondeo de 5 s, frente a espera inicial CoAP de 2–3 s. La orden de fijar estado abierto es idempotente: la repetición no invierte la válvula. Un toggle repetido podría deshacer la acción. Los logs no incluyen Message ID/captura RF para contar retransmisiones físicas o deducir toda la política de deduplicación.
 
+## Restauración y cierre final
+
+S confirmó `ot mode rdn`; tras una transición detached→child volvió a atender
+PUT y GET. El PUT final cerró la válvula (2.04) y el GET confirmó CLOSED (2.05),
+ambos con CBOR `a1617600` = {v:0}. [Consolas C/S](archivos/restauracion-rdn-y-cierre-final-C-S.txt).
+
+`ot pollperiod 0` elimina el periodo manual; la consulta devolvió 236000 ms.
+Este valor automático no indica que S siga como SED: `rdn` incluye receptor
+activo en reposo (`r`). Referencia: [OpenThread, otLinkSetPollPeriod](https://openthread.io/reference/group/api-link-link#otlinksetpollperiod).
+El apagado final de Thread/interfaz sigue pendiente de confirmación.
+
 ## Presupuesto de bytes
 
 | Intercambio | Request CoAP B | Response/notify CoAP B | Paquetes básicos | Evidencia |
@@ -183,8 +194,8 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [GET C/S](archivos/get-env-temp-C-S.txt) | Primera lectura de temperatura, payload CBOR y tamaños |
 | [Red C/S](archivos/red-C-S-resumen.txt) | Roles, ML-EID, canal y potencia, sin dataset |
 | [Observe S](archivos/observe-S-registro.txt) | Notificaciones emitidas y ventana de 300 s |
-| [Observe C](archivos/observe-C-recepcion.txt) | OBS=2 inicial y notificaciones OBS=3..40; cancelación pendiente |
-| [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre pendiente |
+| [Observe C](archivos/observe-C-recepcion.txt) | OBS=2 inicial y notificaciones OBS=3..40; cancelación documentada por separado |
+| [Válvula C](archivos/valvula-C-apertura-repeticiones-rechazo.txt) | Apertura, repetición y respuesta al inválido; cierre documentado por separado |
 | [Válvula S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) | 2.04, 2.05, no change, 4.00 y bytes medidos |
 | [Cierre C/S](archivos/valvula-C-S-cierre.txt) | PUT 0 y GET confirman CLOSED y CBOR {v:0} |
 | [Cancelación y CON](archivos/cancelacion-observe-y-timeout-CON.txt) | Observe cancelado y timeout con S disabled; tiempo CON ≈92 s |
@@ -195,7 +206,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [SED 15000 ms](archivos/SED-15000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 757/8488.900/14461 ms |
 | [PUT SED 5 s](archivos/PUT-SED-5000ms-C-S.txt) | Una orden y dos entregas, segunda no change; separación de 131 ms |
 
-- [ ] Restaurar S: mode rdn y pollperiod 0.
-- [ ] Cerrar y consultar válvula.
+- [x] Restaurar S: mode rdn y pollperiod 0.
+- [x] Cerrar y consultar válvula.
 - [ ] Detener Thread y bajar interfaz en ambas.
 - [ ] Revisar evidencias sin dataset/claves y vincularlas aquí.

@@ -358,6 +358,10 @@ ot mode rdn
 ot pollperiod 0
 ```
 
+`ot pollperiod 0` elimina el periodo manual. La consulta puede devolver un
+periodo automático (en esta sesión, 236000 ms); con `rdn`, la `r` mantiene el
+receptor activo en reposo.
+
 Desde C confirma cerrado:
 
 ```text
