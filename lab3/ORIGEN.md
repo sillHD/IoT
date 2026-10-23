@@ -26,6 +26,8 @@ El código representa una simulación de válvula; la política ante pérdida de
 se documenta como diseño en el informe. No se añade un temporizador de cierre
 que cambie los ensayos del laboratorio.
 
-Pendiente de validar en hardware: compilación con el Zephyr/SDK instalado en WSL,
-flash, arranque, intercambio CoAP y mediciones. No se incluyen resultados simulados
-como evidencia experimental.
+Validado mediante logs del usuario en WSL: arranque y comunicación C/S, Observe,
+válvula simulada, CON/NON y latencia SED. Véanse el [registro](evidencias/registro.md)
+y el [informe](INFORME.md). No se aportó el RTT del GET ni un registro exitoso
+completo de carga S; la ejecución posterior está documentada. La estimación de
+energía y la política de cierre autónomo son análisis, no pruebas experimentales.

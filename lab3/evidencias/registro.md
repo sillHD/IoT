@@ -5,7 +5,7 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis pendiente.
+PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis, ADR y estimación de energía completos en el [informe](../INFORME.md); RTT del GET CoAP y metadatos de sesión no aportados.
 
 ## Sesión
 
@@ -23,7 +23,7 @@ PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de 
 |---|---|---|
 | Build USB | [Registro recibido](archivos/flash-C-usb-arranque-pendiente.txt) | Imagen disponible y cargada; CONFIG_FLASH_SIZE=4096, consola y shell en usb_serial |
 | Flash C USB | [Carga y arranque](archivos/flash-C-usb-arranque-pendiente.txt) | 602352 bytes en 0x00000000, hash de escritura verificado; sin salida Zephyr después de entry 0x40800294 |
-| Flash S | archivos/flash-S-usb.log o uart | Pendiente |
+| Flash S | [GET C/S](archivos/get-env-temp-C-S.txt) | Ejecución y comunicación verificadas; no se aportó log exitoso de flash S |
 
 ### Incidencia de arranque en C
 
@@ -159,36 +159,39 @@ se conserva su orden sin asignación inferida. [Logs de apagado](archivos/apagad
 | PUT /act/valve CON válido | 18 | 13 (incluye CBOR 4 B) | 2 con ACK piggyback, sin captura RF | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 | GET /act/valve | 16 | 13 (incluye CBOR 4 B) | 2 previstos, sin captura RF | [S](archivos/valvula-S-apertura-repeticiones-rechazo.txt) |
 
-Añadir UDP 8 B y estimación IPv6/6LoWPAN aparte. Los totales CoAP incluyen el CBOR.
-Comparación HTTP/MQTT: citar Lab 0 y distinguir valores orientativos de mediciones.
-Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
+Los totales CoAP incluyen el CBOR. El [informe, sección 5](../INFORME.md#5-presupuesto-de-bytes-y-trama)
+añade UDP, compara las referencias HTTP/MQTT del curso y comprueba el ajuste a
+trama bajo hipótesis explícitas, sin afirmar una captura RF.
 
 ## Energía — estimación
 
-- Fuente ESP32-C6, revisión/tabla/condiciones: pendiente.
-- I_RX e I_sueño en mA: pendiente.
-- Capacidad AA asumida y conexión de dos pilas (en serie no se suman mAh): pendiente.
-- Periodo elegido e hipótesis 10 ms de radio por sondeo: pendiente.
-- I_media = (0.010/T)*I_RX + (1-0.010/T)*I_sueño.
-- Vida ideal en horas = capacidad_mAh / I_media_mA.
-- Consumo del resto de la placa, LED, USB, logs y procesamiento: fuera de esta
-  estimación simplificada; no confundir radio rx-off con sueño profundo del SoC.
+Modelo completo, fuentes y límites en el [informe, sección 6](../INFORME.md#6-energía-y-autonomía-ideal-estimada).
+ESP32-C6 datasheet v1.5: RX 802.15.4 74 mA (tabla 5-9) y light-sleep
+0.180 mA (tabla 5-11). Se supone 10 ms activos por sondeo y dos AA en serie
+con capacidad útil ideal de 3000 mAh. No se midió ni verificó light-sleep del SoC.
 
-## Decisiones y preguntas
+| Periodo | Corriente estimada mA | Vida ideal días |
+|---|---:|---:|
+| 1 s | 0.918200 | 136.14 |
+| 5 s | 0.327640 | 381.52 |
+| 15 s | 0.229213 | 545.34 |
 
-- ADR-003: CoAP/CBOR frente a alternativas, usando los bytes observados: pendiente.
-- ADR-004: periodo de sondeo, latencia y energía estimada: pendiente.
-- UDP, CON/NON; Observe frente a polling; PUT idempotente frente a toggle;
-  CBOR/CDDL y evolución del contrato: respuestas pendientes.
-- ISO/IEC 30141: contratos y patrones CoAP en ASD; Thread/UDP y sondeo SED en
-  subsistema de comunicación SCD. Completar explicación con la práctica.
+[Cálculo CSV](energia-estimada.csv), reproducible con
+`python3 lab3/tools/estimate_energy.py`. No representa la autonomía de la DevKit
+USB/LED, ni incluye consumo del actuador o pérdidas de alimentación.
 
-## Seguridad y comunicación
+## Decisiones, respuestas y seguridad
 
-- Diseño ante OPEN sin CLOSE: política local, duración máxima y estado seguro
-  propuestos con justificación; pendiente. Esta política no está implementada en
-  el firmware de prácticas y no debe presentarse como validada.
-- Resumen para Edwin (tres líneas): confirmación, indisponibilidad y latencia: pendiente.
+El [informe](../INFORME.md) completa ADR-003 (CoAP/CBOR), ADR-004 (sondeo de
+5 s propuesto para respuesta de aproximadamente 5 s, pendiente de acuerdo
+operativo), contratos/CDDL, preguntas de principios y mapeo ASD/SCD.
+
+Distingue la reducción de mensajes respecto a polling a 1 Hz de una comparación
+con GET cada 60 s: la segunda no demuestra ahorro en la muestra registrada.
+
+Incluye diseño de cierre local a 60 s ante pérdida de CLOSE, como hipótesis
+pendiente de ajuste con caudal/cultivo, y resumen de tres líneas para Edwin.
+El cierre local propuesto no está implementado ni validado en este firmware.
 
 ## Índice y cierre
 
@@ -214,4 +217,6 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 - [x] Restaurar S: mode rdn y pollperiod 0.
 - [x] Cerrar y consultar válvula.
 - [x] Detener Thread y bajar interfaz en ambas.
-- [ ] Revisar evidencias sin dataset/claves y vincularlas aquí.
+- [x] Vincular las transcripciones y el informe; no se archiva el dataset compartido localmente.
+- [x] Completar análisis, estimación, ADR y diseño de cierre local.
+- [ ] Aportar RTT real del GET CoAP y metadatos de sesión; no se infieren de ICMP.

@@ -1,7 +1,7 @@
 # Lab 3 — CoAP con dos ESP32-C6
 
 [Guía paso a paso](guia.md) · [Qué enviar de las consolas](EVIDENCIAS.md) ·
-[Registro](evidencias/registro.md) · [Firmware](firmware/) · [Origen](ORIGEN.md)
+[Informe y DDR](INFORME.md) · [Registro](evidencias/registro.md) · [Firmware](firmware/) · [Origen](ORIGEN.md)
 
 - **C**: cliente CoAP y líder de Thread, representa al gateway.
 - **S**: servidor de temperatura simulada y válvula representada por el LED RGB.
@@ -52,7 +52,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 
 - [x] Firmware C/S, USB/UART, scripts y guía preparados.
 - [x] Logs adicionales de tamaños CoAP para válvula y notificaciones.
-- [ ] Compilación y carga física en el PC del usuario.
+- [x] Firmware ejecutado en ambas placas y comunicación C/S validada con logs del usuario.
+- [ ] Log exitoso de carga S no aportado; ejecución posterior sí documentada.
 - [x] GET de temperatura y CBOR validados en C/S.
 - [x] Válvula: PUT/GET, apertura/cierre, idempotencia y payload inválido documentados.
 - [x] Observe: recepción y cancelación documentadas.
@@ -61,8 +62,10 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] PUT con SED a 5 s: dos entregas, segunda no change.
 - [x] Restaurar S a rdn y confirmar válvula cerrada mediante PUT/GET.
 - [x] Apagado final de Thread/interfaz confirmado en ambas placas.
-- [ ] Análisis y estimación de energía.
-- [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
+- [x] Análisis y estimación de energía con fuentes, hipótesis y cálculo reproducible.
+- [x] ADR-003/004, respuestas, resumen y diseño de cierre local documentados.
+- [ ] RTT del GET CoAP y metadatos de sesión no aportados.
 
-La sintaxis de los scripts y los enlaces se revisan aquí. Este entorno no tiene
-Zephyr/SDK ni acceso USB a las placas: no se afirma una compilación o carga física.
+La compilación/carga y las mediciones físicas se realizaron en el WSL del usuario;
+aquí se verifican scripts, cálculos y documentación. El informe distingue esos
+resultados de las estimaciones de energía y las propuestas de diseño.
