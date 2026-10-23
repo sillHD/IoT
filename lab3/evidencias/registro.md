@@ -5,7 +5,7 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s documentado. Restauración rdn y cierre final confirmados; apagado de Thread y análisis pendientes.
+PUT con SED a 5 s documentado. Restauración rdn, válvula cerrada y apagado de Thread/interfaz en ambas placas confirmados. Análisis pendiente.
 
 ## Sesión
 
@@ -145,7 +145,10 @@ ambos con CBOR `a1617600` = {v:0}. [Consolas C/S](archivos/restauracion-rdn-y-ci
 `ot pollperiod 0` elimina el periodo manual; la consulta devolvió 236000 ms.
 Este valor automático no indica que S siga como SED: `rdn` incluye receptor
 activo en reposo (`r`). Referencia: [OpenThread, otLinkSetPollPeriod](https://openthread.io/reference/group/api-link-link#otlinksetpollperiod).
-El apagado final de Thread/interfaz sigue pendiente de confirmación.
+El apagado final quedó confirmado en ambos bloques: `ot thread stop` y
+`ot ifconfig down` devolvieron Done, con rol disabled a 00:56:27.932 y
+00:57:12.196, respectivamente. Los bloques recibidos no identifican C/S;
+se conserva su orden sin asignación inferida. [Logs de apagado](archivos/apagado-final-ambas-placas.txt).
 
 ## Presupuesto de bytes
 
@@ -206,7 +209,9 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [SED 15000 ms](archivos/SED-15000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 757/8488.900/14461 ms |
 | [PUT SED 5 s](archivos/PUT-SED-5000ms-C-S.txt) | Una orden y dos entregas, segunda no change; separación de 131 ms |
 
+| [Apagado final](archivos/apagado-final-ambas-placas.txt) | Thread disabled e interfaz apagada en ambos bloques recibidos |
+
 - [x] Restaurar S: mode rdn y pollperiod 0.
 - [x] Cerrar y consultar válvula.
-- [ ] Detener Thread y bajar interfaz en ambas.
+- [x] Detener Thread y bajar interfaz en ambas.
 - [ ] Revisar evidencias sin dataset/claves y vincularlas aquí.

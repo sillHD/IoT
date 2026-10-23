@@ -60,7 +60,8 @@ No copies el dataset activo a las evidencias: contiene la clave de red.
 - [x] Latencia SED a 1/5/15 s: 10/10 pings en cada ensayo.
 - [x] PUT con SED a 5 s: dos entregas, segunda no change.
 - [x] Restaurar S a rdn y confirmar válvula cerrada mediante PUT/GET.
-- [ ] Apagado final de Thread/interfaz, análisis y estimación de energía.
+- [x] Apagado final de Thread/interfaz confirmado en ambas placas.
+- [ ] Análisis y estimación de energía.
 - [ ] ADR-003/004, respuestas, resumen y diseño de seguridad.
 
 La sintaxis de los scripts y los enlaces se revisan aquí. Este entorno no tiene
