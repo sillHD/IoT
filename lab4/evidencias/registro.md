@@ -176,6 +176,33 @@ El último renglón de S, a 00:37:41.729, es un heartbeat truncado y no tiene
 respuesta correspondiente en el bloque C; se conserva, pero no se suma a las
 seis notificaciones completas y emparejadas. No se aportó cancelación Observe.
 
+## Plausibilidad — salto rechazado y dato plausible aceptado
+
+[Log original S](archivos/06-inject-S-original.txt).
+
+| Acción | Resultado registrado |
+|---|---|
+| inject 31.5 | Rejected a 00:45:25.984: salto +9.6 °C frente a lectura reciente de 21.94 °C |
+| inject 23 | Aceptado a 00:45:34.536 como `inject: 23.00 C` |
+| Observe tras inyección | S registra NON con 23.00 °C a 00:45:35.213, threshold 6 |
+| Nueva lectura física | 21.88 °C a 00:45:35.225, 689 ms después de la inyección |
+| Observe tras lectura real | S registra NON con 21.88 °C a 00:45:36.215, threshold 7 |
+| Stats final | 469 lecturas en 938 s; 0 fallidas, 2 rechazadas; última buena 21.88 °C, edad 1 s |
+| Adquisición min/promedio/máximo | 760272 / 760686 / 761385 µs |
+
+El filtro de salto funcionó en la muestra. Un valor artificial plausible pasó
+los controles y llegó a la notificación del servidor; no hay bloque C de esta
+secuencia para confirmar su recepción. No es una lectura física de 23 °C.
+La plausibilidad no demuestra veracidad: una referencia independiente o
+redundancia puede detectar discrepancias; autenticación protege procedencia,
+pero no vuelve exacto un sensor defectuoso. Seguridad frente a atacantes se
+aborda en Lab 6.
+
+El contador muestra dos rechazos acumulados, pero el fragmento solo identifica
+uno (31.5). No se infiere que el otro corresponda a `inject 90`: su comando y
+mensaje de rechazo por rango aún no se han aportado. Los contadores no son el
+ensayo controlado de fallas de 120 s; las inyecciones se analizan por separado.
+
 ## Tabla de clase — nuestra fila, parcial
 
 | Sensor | Resolución observada | Ruido 60 s | Offset | Subida / mitad de subida | Notificaciones | Tiempo lectura | Fallas reposo / tráfico | Recuperación |
@@ -221,7 +248,8 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [x] Curva térmica y seis notificaciones emparejadas en C/S documentadas.
 - [x] Dos soplidos confirmados por el usuario.
 - [ ] Inicio/fin de los soplidos no medidos; tiempo de media subida desde el estímulo no determinado.
-- [ ] Offset pendiente de referencia confiable; inyecciones pendientes.
+- [x] Inyección 31.5 rechazada por salto y 23 aceptada/notificada en S.
+- [ ] Aportar rechazo por rango de inject 90; offset pendiente de referencia confiable.
 - [ ] Sensor perdido y nodo inaccesible cronometrados.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
