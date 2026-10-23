@@ -5,7 +5,8 @@ Red C leader/S router y GET 2.05 con Max-Age 59 validados. Ruido registrado:
 21.50–21.62 °C (0.12 °C pico a pico), paso impreso 0.06 °C. Curva de respuesta
 y seis notificaciones Observe documentadas. Sensor perdido, Max-Age decreciente
 y GET 5.03 verificados en video; recuperación, GET 2.05 y nuevo Observe OBS=33
-confirmados. Demás ensayos pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
+confirmados. Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router
+documentados. Demás ensayos pendientes. [Primera evidencia](evidencias/archivos/01-stats-inicial-S.txt).
 
 [Guía de ejecución](guia.md) · [Evidencias por enviar](EVIDENCIAS.md) ·
 [Registro de resultados](evidencias/registro.md) · [Origen](ORIGEN.md)

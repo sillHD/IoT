@@ -278,13 +278,35 @@ de GET 2.05 y registro Observe explícito posterior. Los 11.703 s entre primera
 lectura y GET incluyen la intervención del usuario y no son RTT ni tiempo de
 reconexión. No se muestra aún notificación posterior a OBS=33.
 
+## Nodo fuera de Thread — timeout y retorno al rol router
+
+[Video, capturas, transcripción y método](archivos/09-nodo-fuera-red-video-transcripcion.md),
+[CSV de eventos](nodo-fuera-red-tiempos.csv).
+
+S ejecutó `ot thread stop` y registró disabled a 01:05:41.503, mientras el
+DS18B20 continuaba leyendo cada 2 s. C envió un GET CON y no recibió respuesta:
+`coap receive response error 28: ResponseTimeout` aparece **≈74.1 s** después
+del marcador visible de envío (video 13.500→87.600 s, 60 fps). No se presenta
+como cronometraje del Enter físico ni RTT de red.
+
+No llegan nuevas lecturas Observe durante la solicitud; S registra errores de
+notificación -1 a 01:05:44.438 y 01:06:29.483. Los tamaños 19 B y contadores del
+log no acreditan entrega ni tráfico RF cuando el envío falla. El silencio de
+esta prueba contrasta con el texto de error y 5.03 que sí respondió el nodo
+accesible cuando fallaba el sensor. Sus orígenes de cronometraje son distintos:
+74.1 s desde GET en esta prueba y 61.577 s desde última lectura en la anterior.
+
+Después de `ot thread start`, S registra detached a 01:07:09.552 y router a
+01:07:10.564 (transición de 1.012 s). No hay reinicio eléctrico del nodo;
+CoAP/Observe posteriores a esa unión todavía no se documentaron.
+
 ## Disponibilidad y recuperación
 
 | Condición | Evidencia en C | Evidencia en S | Tiempo |
 |---|---|---|---|
 | Sensor desconectado | Recibe 22.00 °C y después texto no fresh reading | Edad 16/31/46 s con Max-Age 44/29/14; luego 5.03 | GET 5.03 a 61.577 s desde última lectura; instante de retiro no marcado |
 | Sensor reconectado | GET 2.05 y nuevo Observe OBS=33, CBOR 22.125 °C | Sensor back tras 193 fallas, lectura 22.00 °C y policy fresca | 0.964 s de lectura recuperada a policy; reinserción física sin marca temporal |
-| Nodo fuera de red | pendiente | pendiente | pendiente |
+| Nodo fuera de red | Silencio de Observe y GET CON con ResponseTimeout | Thread disabled; sensor sigue leyendo; notificaciones fallan; luego vuelve router | ≈74.1 s desde GET; detached→router 1.012 s |
 | Reinicio de S | pendiente | pendiente | pendiente |
 
 ## Auditoría Trustworthiness — DDR §9
@@ -292,9 +314,9 @@ reconexión. No se muestra aún notificación posterior a OBS=33.
 | Característica | Evidencia por obtener | Estado |
 |---|---|---|
 | Integridad ante fallas | referencia, ruido, inyecciones, edad y filtros | pendiente |
-| Disponibilidad | GET fresco y vencimiento 5.03 en video; fin de Observe en historial previo | Sensor perdido documentado; falta nodo fuera de red y tiempo desde retiro físico |
+| Disponibilidad | GET 5.03 con sensor perdido; timeout ≈74.1 s con S fuera de Thread; fin de Observe documentado | No hay marca de retiro físico; falta GET tras retorno de Thread |
 | Fiabilidad | failed/reads en reposo y bajo tráfico; meta <5 % ocupado | pendiente |
-| Resiliencia | Sensor back sin reinicio visible; GET 2.05 y nuevo Observe OBS=33 verificados | Reconexión manual sin marca temporal; faltan reset y nodo fuera de red |
+| Resiliencia | Sensor back, GET 2.05 y nuevo Observe; S vuelve de disabled a router tras thread start | Reinserción sin marca temporal; falta GET tras unión y ensayo de reset |
 | Seguridad operativa | diseño ante 5.03/silencio con plazo y estado por defecto | por documentar |
 | Confidencialidad e integridad frente a atacantes | controles de seguridad | → Lab 6 |
 | Cumplimiento | contratos y trazabilidad; sin afirmar certificación | por documentar |
@@ -319,7 +341,9 @@ Resumen para Edwin: se redactará al medir ambos modos de falla.
 - [ ] Offset pendiente de referencia confiable.
 - [x] Sensor lost, GET con edad/Max-Age y 5.03 documentados con reloj S.
 - [x] Fin de Observe documentado en historial previo; recuperación posterior de S con GET 2.05 y nuevo Observe OBS=33 confirmada.
-- [ ] Cronometraje desde desconexión/reconexión física no disponible; falta nodo inaccesible.
+- [x] Nodo fuera de Thread: timeout GET CON ≈74.1 s y retorno a router documentados.
+- Cronometraje desde desconexión/reconexión física de DATA no disponible.
+- [ ] GET posterior al retorno de Thread pendiente.
 - [ ] Reposo/tráfico, recuperación y reset documentados.
 - [ ] Comparación de clase e informe completados.
 - [ ] Cierre físico de la sesión confirmado.
