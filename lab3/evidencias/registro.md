@@ -5,7 +5,7 @@ temperatura/CBOR validados. Ventana Observe de 300 s registrada en S y recepció
 contrastada en C y cancelación confirmada. Válvula funcional y timeout CON
 confirmados; timeout CON de aproximadamente 92 s y NON sin mensaje adicional
 reportado. Reconexión de S, CON posterior y latencia SED a 1/5/15 s validados;
-PUT con SED a 5 s y análisis final pendientes.
+PUT con SED a 5 s documentado. Restauración/cierre final y análisis pendientes.
 
 ## Sesión
 
@@ -132,9 +132,9 @@ latencia en estos ensayos, sin convertir las fracciones teóricas en consumo med
 
 ## PUT con SED a cinco segundos
 
-- Comando y respuesta C: pendiente.
-- PUT observados en logs S, tiempos y no change: pendiente.
-- Explicación de reintentos/deduplicación/idempotencia: pendiente según resultados.
+- C envió una orden `PUT act/valve con 1` y recibió `a1617601` ({v:1}). [Evidencia C/S](archivos/PUT-SED-5000ms-C-S.txt).
+- S confirmó pollperiod 5000 y child; recibió PUT a 00:47:57.877 (OPEN) y 00:47:58.008 (OPEN, no change), ambos 2.04. Diferencia: 131 ms. Cada intercambio reportó 18 B request y 13 B response CoAP.
+- Dos entregas a la aplicación para una orden son compatibles con reintentos CON antes del siguiente sondeo de 5 s, frente a espera inicial CoAP de 2–3 s. La orden de fijar estado abierto es idempotente: la repetición no invierte la válvula. Un toggle repetido podría deshacer la acción. Los logs no incluyen Message ID/captura RF para contar retransmisiones físicas o deducir toda la política de deduplicación.
 
 ## Presupuesto de bytes
 
@@ -193,6 +193,7 @@ Ajuste a una trama 802.15.4: indicar hipótesis o captura si se realiza.
 | [SED 1000 ms](archivos/SED-1000ms-C-S.txt) | Modo, sondeo, padre y 10/10 pings; RTT 16/465.600/916 ms |
 | [SED 5000 ms](archivos/SED-5000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 196/2119.000/4039 ms |
 | [SED 15000 ms](archivos/SED-15000ms-C-S.txt) | Sondeo y padre confirmados; 10/10 pings, RTT 757/8488.900/14461 ms |
+| [PUT SED 5 s](archivos/PUT-SED-5000ms-C-S.txt) | Una orden y dos entregas, segunda no change; separación de 131 ms |
 
 - [ ] Restaurar S: mode rdn y pollperiod 0.
 - [ ] Cerrar y consultar válvula.
