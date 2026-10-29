@@ -15,7 +15,15 @@ mkdir -p "$ZEPHYR_WORKSPACE"
 source "$ZEPHYR_WORKSPACE/.venv/bin/activate"
 python -m pip install --upgrade pip west
 if [[ ! -d "$ZEPHYR_WORKSPACE/.west" ]]; then
-    west init -m https://github.com/zephyrproject-rtos/zephyr --mr "$ZEPHYR_REVISION" "$ZEPHYR_WORKSPACE"
+    # git clone --branch cannot resolve a raw commit SHA. Fetch it explicitly,
+    # then initialize west from the checked-out local manifest repository.
+    if [[ ! -d "$ZEPHYR_WORKSPACE/zephyr/.git" ]]; then
+        git init "$ZEPHYR_WORKSPACE/zephyr"
+        git -C "$ZEPHYR_WORKSPACE/zephyr" remote add origin https://github.com/zephyrproject-rtos/zephyr
+        git -C "$ZEPHYR_WORKSPACE/zephyr" fetch --depth 1 origin "$ZEPHYR_REVISION"
+        git -C "$ZEPHYR_WORKSPACE/zephyr" checkout --detach FETCH_HEAD
+    fi
+    west init -l "$ZEPHYR_WORKSPACE/zephyr"
 fi
 cd -- "$ZEPHYR_WORKSPACE"
 export ZEPHYR_BASE="$ZEPHYR_WORKSPACE/zephyr"
