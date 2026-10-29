@@ -6,4 +6,5 @@ case "$1" in S|C|BR) ;; RCP) fail "El RCP no tiene shell. Verifícalo desde BR c
 setup_workspace
 check_port "$2"
 printf 'Monitor %s en %s a 115200 baudios. Salir Ctrl+]. No guardes credenciales ni datasets.\n' "$1" "$PORT"
-west espressif monitor -p "$PORT"
+# A serial console does not need a west build configuration.
+python -m serial.tools.miniterm "$PORT" 115200 --raw
