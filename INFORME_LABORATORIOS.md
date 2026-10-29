@@ -173,7 +173,10 @@ ensayo de inyección mostró que un valor falso plausible puede ser aceptado.
 
 ### Lab 5: Border Router
 
-**To Daniela:** no iniciado. No se ha validado acceso entre Thread y redes externas.
+**To Daniela:** preparación de firmware y guía iniciada el 29 de octubre de 2026
+para S3 N16R8 y C6 RCP, conservando S/C con DS18B20.
+[Preparativos Lab 5](lab5/README.md). No se ha validado aún acceso entre Thread
+y redes externas; las métricas siguen sin medir.
 
 ### Lab 6: Security
 
