@@ -1,8 +1,9 @@
 # Lab 5 — Border Router con ESP32-S3 N16R8 y ESP32-C6
 
-**Estado:** cuatro imágenes cargadas; CoAP PC→S 10/10 (mediana 33 ms),
+**Estado:** laboratorio y evidencias cerrados por solicitud del equipo; cuatro imágenes cargadas; CoAP PC→S 10/10 (mediana 33 ms),
 NAT64 10/10 y control C→S sin BR confirmados. Acceso PC recuperado tras restaurar
-BR según confirmación del usuario. Ver [resultados y pendientes](evidencias/registro.md).
+BR según confirmación del usuario. Dashboard móvil y potencia 0 dBm confirmados. Ver [informe](INFORME.md) y
+[resultados y límites](evidencias/registro.md).
 
 [Guía completa](guia.md) · [Carga por placa](CARGA_FIRMWARE.md) ·
 [Evidencias](EVIDENCIAS.md) · [Registro](evidencias/registro.md) · [Origen](ORIGEN.md)

@@ -1,8 +1,8 @@
 # Registro experimental — Lab 5 Border Router
 
-Estado: cuatro firmwares cargados; conectividad, CoAP, NAT64 y continuidad
-interna probados. Acceso PC recuperado tras restaurar BR, confirmado por el
-usuario. Documentación de cierre y evidencias adicionales pendientes.
+Estado: evidencias cerradas por solicitud del equipo. Cuatro firmwares cargados;
+conectividad, CoAP, NAT64, dashboard y continuidad interna probados. Acceso PC
+recuperado tras restaurar BR. Las limitaciones de documentación se conservan.
 
 ## Procedencia
 
@@ -30,7 +30,8 @@ Henao Rojas.
   GND común, alimentaciones USB separadas. Comunicación confirmada por CLI.
 - `ot rcp version`: `OPENTHREAD/e4d97681c; Zephyr; Oct 29 2026 18:44:09`.
 - `ot version`: `OPENTHREAD/e4d97681c; Zephyr; Oct 29 2026 19:19:31`.
-- Canal Thread 25 confirmado; potencia real `ot txpower` pendiente para Lab 5.
+- Canal Thread 25 confirmado; potencia 0 dBm confirmada por el usuario al cierre.
+  No se recibió la salida de txpower ni desglose por placa.
 - Errores iniciales: sensor no conectado, puertos incorrectos/USB no adjunto,
   comprobación FLASH_SIZE S3 corregida. Carga S3 final verificada por hash.
   Aviso SHA-256 del arranque presente; no se declara solucionado.
@@ -113,7 +114,8 @@ Capturas aportadas en chat: una con `NetworkError` tras dos notificaciones y
 otra posterior `Connected`, tres notificaciones, último CBOR `a16174f94d94`
 (22,3125 °C), 6 B. Causa del error transitorio no identificada.
 Usuario confirma funcionamiento de Open/Close y LED. No se aportaron logs de
-PUT correspondientes ni confirmación inequívoca de acceso desde teléfono.
+PUT correspondientes. Al cierre, el usuario confirmó funcionamiento del
+dashboard desde el celular; confirmación verbal, sin captura móvil original archivada.
 Las capturas están en el chat; no se declara que sus PNG estén guardados en Git.
 
 ## BR apagado y retorno
@@ -133,13 +135,26 @@ Las capturas están en el chat; no se declara que sus PNG estén guardados en Gi
 - BR usa ajustes RAM: reiniciar exigió restaurar Wi-Fi y el mismo dataset.
   No se afirma reconexión autónoma ni persistencia del dataset en BR.
 
-## Pendientes documentales y de cierre
+## Cierre y límites de la evidencia
 
-- [ ] Foto del montaje y archivos originales de capturas/videos en Imagen/.
-- [ ] Copiar logs completos de build/flash desde WSL, sin secretos.
-- [ ] Confirmar teléfono, condiciones físicas, fecha del ensayo y txpower real.
-- [ ] Confirmación/salida de wifi ps off; serie inicial de diez si se requiere comparación homogénea.
-- [x] Respuesta GET de retorno PC recibida: 2.05 Content, 23,5 °C.
-- [ ] Salidas C durante corte; tiempos de recuperación no medidos.
-- [ ] Válvula cerrada y consultada al cierre, y apagado ordenado confirmado.
-- [ ] Completar análisis/ADR del Lab 5 conservando IDs existentes del informe.
+El usuario solicitó cerrar las evidencias y confirmó dashboard desde celular y
+potencia 0 dBm. Esto cierra la documentación disponible; no certifica que se
+haya ejecutado un apagado físico de las placas.
+
+- CoAP directo, NAT64, ping y retorno PC: resultados recibidos y registrados.
+- Actuación local sin BR y dashboard móvil: confirmados por el usuario.
+- Foto de montaje, originales de capturas/videos y logs completos de build/flash:
+  no incorporados; se conservan transcripciones/resúmenes del chat.
+- Fecha exacta/condiciones físicas y desglose txpower por placa: no documentados.
+- wifi ps off: sin salida o confirmación; series iniciales de cuatro muestras y
+  posteriores de diez, sin afirmar comparación experimental homogénea.
+- GET/PUT de C durante corte: sin transcripción; no se midió recuperación.
+- Cierre final de válvula/GET y apagado físico: no confirmados.
+- No se declara DTLS, autorización de actuadores ni válvula real: control probado
+  mediante LED. La salida a Internet de NAT64 es una prueba adicional; el control
+  interno C→S continúa sin BR y no necesita un servicio de nube.
+
+Conclusión: la arquitectura conecta el sensor Thread a Windows y al dashboard
+móvil mediante BR, y preserva actuación interna durante su ausencia. La
+restauración del BR fue manual con el mismo dataset; no se probó recuperación
+autónoma. Véase [informe](../INFORME.md).

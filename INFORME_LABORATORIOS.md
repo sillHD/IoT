@@ -69,6 +69,7 @@ no se deducen identidades físicas permanentes de `/dev/ttyACM0` o de una letra.
 | Lab 2 | Firmware, guía y plantilla A/B; sin resultados propios: [registro](lab2/evidencias/registro.md) |
 | Lab 3 | Finalizado por decisión del equipo, con tiempos visuales y estimaciones identificadas: [informe](lab3/INFORME.md) |
 | Lab 4 | Finalizado por decisión del equipo, con brechas de referencia, sincronización y apagado final: [informe](lab4/INFORME.md) |
+| Lab 5 | Finalizado por decisión del equipo; BR, NAT64, CoAP y dashboard móvil: [informe](lab5/INFORME.md) |
 
 Para Lab 3 el equipo indicó fecha 15 de octubre de 2026 y distancia aproximada
 2 m sin obstáculos. Su video de temporización tiene nombre de origen del 22 de
@@ -179,7 +180,8 @@ mediana 33 ms (30–49 ms), primer payload 22,375 °C. Ping C→S: 13,3 ms de me
 PC→BR: 8 ms; PC→S: 32 ms según resumen Windows. NAT64 hacia 8.8.8.8:
 10/10 respuestas, media 53 ms. Sin BR, GET externo falla y el usuario confirma
 control interno del LED; al restaurarlo, GET desde PC devuelve `2.05 Content` y temperatura 23,5 °C.
-Dashboard recibe Observe y controles funcionan; evidencia de teléfono pendiente. No se recibió confirmación explícita de `wifi ps off`; no se
+Lab 5 finalizado por solicitud del equipo. Dashboard móvil y controles confirmados;
+potencia 0 dBm reportada por el usuario, sin desglose por placa. No se recibió confirmación explícita de `wifi ps off`; no se
 atribuye causalmente la mejora a ese ajuste. No se midió tiempo de recuperación.
 [Registro experimental, muestras y límites](lab5/evidencias/registro.md).
 
@@ -525,7 +527,7 @@ respuesta inicial al nuevo registro, no una notificación periódica posterior.
 
 - [ ] **Lab 1:** verificado que la interferencia no afecta vecinos. Hay escaneo de energía documentado, pero no una medición de impacto en terceros; no se marca verificado por ausencia de quejas.
 - [x] **Lab 4:** definido un estado por defecto ante datos ausentes, como diseño de seguridad; no implementado ni probado en actuador real.
-- [ ] **Lab 5:** sistema integrado local sin nube. Las pruebas actuales usan redes/servicios locales, pero la validación del Lab 5 y su arquitectura completa están pendientes.
+- [x] **Lab 5:** acceso local PC/móvil mediante Border Router, CoAP y CBOR; actuación interna C→S confirmada sin BR. NAT64 a Internet probado por separado; límites de documentación en el registro.
 - [ ] **Lab 6:** cifrado/autenticación de aplicación validados. No se equiparan claves Thread o capacidades hardware con un ensayo DTLS completado.
 - [ ] **Lab 8:** plan de fin de vida. No realizado.
 
@@ -612,7 +614,7 @@ final, seguridad desplegada ni conexión Thread↔Internet.
 | Secondary Capability (transferring) | Data | HTTP, pub/sub MQTT o GET/Observe/PUT CoAP según etapa |
 | Secondary Capability (storage) | Data | NVS de ajustes; lectura/contadores/observadores en RAM; evidencias en Git |
 | Interface (network) | Interface | Wi-Fi o 802.15.4/Thread según firmware |
-| Interface (human UI) | Interface | CLI/serial y dashboards del Lab 0; dashboard integrado pendiente |
+| Interface (human UI) | Interface | CLI/serial, dashboards del Lab 0 y dashboard CoAP móvil del Lab 5 |
 | Interface (application) | Interface | Contratos HTTP/MQTT y recursos CoAP/CBOR descritos en sección 4 |
 | Supplemental (security) | Supporting | Protección de secretos en documentación; seguridad de aplicación pendiente de Lab 6 |
 | Supplemental (orchestration) | Supporting | Operación manual mediante scripts/CLI; sin orquestación de sistema final |
