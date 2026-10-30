@@ -33,7 +33,25 @@ mkdir -p "$LAB5_DIR/evidencias/archivos"
 rm -f -- "$BUILD_DIR/iot-lab5-target.txt"
 west build -p always -b "$BOARD" -s "$SOURCE_DIR" -d "$BUILD_DIR" \
     -- "${cmake_args[@]}" 2>&1 | tee "$LAB5_DIR/evidencias/archivos/build-$BUILD_LABEL.log"
-require_config "CONFIG_FLASH_SIZE=$FLASH_KB"
+if [[ "$ROLE" == BR ]]; then
+    # Xtensa S3 need not expose CONFIG_FLASH_SIZE; validate the actual DTS map.
+    python - "$BUILD_DIR/zephyr/zephyr.dts" <<'PY_DTS'
+import pathlib
+import re
+import sys
+text = pathlib.Path(sys.argv[1]).read_text()
+node = re.search(r'\bflash0:\s*flash@0\s*\{(.*?)(?=\bpartitions\s*\{)', text, re.S)
+if not node:
+    sys.exit("No se encontró flash0 en zephyr.dts")
+reg = re.search(r'\breg\s*=\s*<\s*(0x[0-9a-fA-F]+|[0-9]+)\s+(0x[0-9a-fA-F]+|[0-9]+)\s*>', node.group(1))
+if not reg or tuple(int(v, 0) for v in reg.groups()) != (0, 8 * 1024 * 1024):
+    sys.exit("flash0 debe tener base 0 y tamaño 8 MB")
+PY_DTS
+    require_config 'CONFIG_ESPTOOLPY_FLASHSIZE_8MB=y'
+    require_config 'CONFIG_ESP_SPIRAM_SIZE=8388608'
+else
+    require_config "CONFIG_FLASH_SIZE=$FLASH_KB"
+fi
 case "$ROLE" in
     S|C) require_config 'CONFIG_OPENTHREAD_SLAAC=y' ;;
     RCP) require_config 'CONFIG_OPENTHREAD_COPROCESSOR_RCP=y' ;;
