@@ -178,9 +178,8 @@ DS18B20. Windows accede a S mediante OMR y ruta IPv6 manual: 10/10 GET CoAP,
 mediana 33 ms (30–49 ms), primer payload 22,375 °C. Ping C→S: 13,3 ms de media;
 PC→BR: 8 ms; PC→S: 32 ms según resumen Windows. NAT64 hacia 8.8.8.8:
 10/10 respuestas, media 53 ms. Sin BR, GET externo falla y el usuario confirma
-control interno del LED; al restaurarlo confirma retorno del acceso PC.
-Dashboard recibe Observe y controles funcionan; teléfono y logs de retorno
-pendientes. No se recibió confirmación explícita de `wifi ps off`; no se
+control interno del LED; al restaurarlo, GET desde PC devuelve `2.05 Content` y temperatura 23,5 °C.
+Dashboard recibe Observe y controles funcionan; evidencia de teléfono pendiente. No se recibió confirmación explícita de `wifi ps off`; no se
 atribuye causalmente la mejora a ese ajuste. No se midió tiempo de recuperación.
 [Registro experimental, muestras y límites](lab5/evidencias/registro.md).
 

@@ -125,7 +125,11 @@ Las capturas están en el chat; no se declara que sus PNG estén guardados en Gi
   códigos de respuesta ni GET exitoso interno en esa fase.
 - Tras volver a conectar y resolver attach/puerto S3 (`/dev/ttyACM5` en ese
   momento), el usuario confirmó que vuelve el acceso del PC. No se recibió
-  salida del GET de retorno ni tiempo de recuperación.
+  inicialmente salida del GET de retorno. Posteriormente aportó `2.05 Content`
+  y `Payload: {"temperature": 23.5}`: [transcripción](archivos/10-recuperacion-PC.txt).
+  Esta salida difiere del cliente anterior (que mostraba CBOR y RTT); no permite
+  verificar el formato de transmisión ni la revisión del cliente utilizada.
+  Temperatura reportada 23,5 °C; tiempo de recuperación no medido.
 - BR usa ajustes RAM: reiniciar exigió restaurar Wi-Fi y el mismo dataset.
   No se afirma reconexión autónoma ni persistencia del dataset en BR.
 
@@ -135,6 +139,7 @@ Las capturas están en el chat; no se declara que sus PNG estén guardados en Gi
 - [ ] Copiar logs completos de build/flash desde WSL, sin secretos.
 - [ ] Confirmar teléfono, condiciones físicas, fecha del ensayo y txpower real.
 - [ ] Confirmación/salida de wifi ps off; serie inicial de diez si se requiere comparación homogénea.
-- [ ] Salidas C durante corte y GET de retorno PC; tiempos no medidos.
+- [x] Respuesta GET de retorno PC recibida: 2.05 Content, 23,5 °C.
+- [ ] Salidas C durante corte; tiempos de recuperación no medidos.
 - [ ] Válvula cerrada y consultada al cierre, y apagado ordenado confirmado.
 - [ ] Completar análisis/ADR del Lab 5 conservando IDs existentes del informe.
