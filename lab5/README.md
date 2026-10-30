@@ -1,5 +1,7 @@
 # Lab 5 — Border Router con ESP32-S3 N16R8 y ESP32-C6
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 **Estado:** laboratorio y evidencias cerrados por solicitud del equipo; cuatro imágenes cargadas; CoAP PC→S 10/10 (mediana 33 ms),
 NAT64 10/10 y control C→S sin BR confirmados. Acceso PC recuperado tras restaurar
 BR según confirmación del usuario. Dashboard móvil y potencia 0 dBm confirmados. Ver [informe](INFORME.md) y

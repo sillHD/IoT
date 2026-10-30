@@ -1,5 +1,7 @@
 # Lab 1 — caracterización de radio
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 Guía detallada: [`guia.md`](guia.md) · SOP opcional: [`sops/sop01_advanced_mac.md`](sops/sop01_advanced_mac.md) · Firmware: [`firmware/`](firmware/) · Evidencias: [`evidencias/registro.md`](evidencias/registro.md)
 
 ## Actividades y evidencia

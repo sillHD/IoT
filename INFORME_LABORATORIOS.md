@@ -1,5 +1,7 @@
 # Design & Decision Record (DDR)
 
+[DDR por laboratorio](DDR/README.md) · [Resumen externo copiado](Resumen_General/README.md) · [Procedencia y diferencias](Resumen_General/ORIGEN.md)
+
 **GreenField Technologies | IoT Systems Design — SoilSense**
 **Informe consolidado: Lab 0 HTTP, Lab 0 MQTT y Labs 1–4**
 

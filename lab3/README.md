@@ -1,5 +1,7 @@
 # Lab 3 — CoAP con dos ESP32-C6
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 **Estado: finalizado por decisión de los integrantes.** Se conservan las
 limitaciones de medición y trazabilidad descritas en el informe.
 

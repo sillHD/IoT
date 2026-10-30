@@ -1,5 +1,7 @@
 # Lab 4 — DS18B20 real con dos ESP32-C6
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 **Estado: finalizado por decisión del usuario.** Se conservan las limitaciones
 de medición y trazabilidad del informe; no se recibió confirmación de apagado
 final de las placas.

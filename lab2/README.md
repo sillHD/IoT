@@ -1,5 +1,7 @@
 # Lab 2 — adaptación para dos ESP32-C6
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 [Firmware](firmware/) · [Instrucciones A/B](guia.md) · [Registro](evidencias/registro.md) · [Origen](ORIGEN.md)
 
 La misma imagen se carga en **A y B**. A crea la red y B se une usando su dataset.

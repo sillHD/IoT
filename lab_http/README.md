@@ -1,5 +1,7 @@
 # Lab HTTP — IoT mínimo con Zephyr
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · Dashboard: [`tools/dashboard_http.py`](tools/dashboard_http.py) · Evidencias: [`evidencias/registro.md`](evidencias/registro.md)
 
 ## Tareas

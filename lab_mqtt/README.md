@@ -1,5 +1,7 @@
 # Lab MQTT — telemetría publish/subscribe
 
+**[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
+
 Guía detallada: [`guia.md`](guia.md) · Firmware: [`firmware/`](firmware/) · Dashboard: [`tools/dashboard_mqtt.py`](tools/dashboard_mqtt.py) · Evidencias: [`evidencias/registro.md`](evidencias/registro.md)
 
 ## Tareas de desarrollo
