@@ -5,6 +5,7 @@ Este repositorio concentra las tareas, firmware y evidencias de las prácticas.
 **[Informe unificado de laboratorios — DDR](INFORME_LABORATORIOS.md)**: HTTP, MQTT
 y Labs 1–5, siguiendo las diez secciones de la plantilla del curso.
 
+**[Presentación Labs 1–5 sin reflashear](PRESENTACION_LABS_1_5.md)** ·
 **[DDR individual de cada práctica](DDR/README.md)** ·
 **[Resumen general copiado de IoT-Labs-DHR](Resumen_General/README.md)**
 ([fuente y diferencias](Resumen_General/ORIGEN.md)).

@@ -88,7 +88,9 @@ reales. No se atribuye a Lab 4 esta configuración nueva ni se altera su evidenc
 
 ## 4. Cargar S y C
 
-Con S conectada por **CH343/UART** y el DS18B20 en GPIO18:
+Con S conectada por **CH343/UART** y el DS18B20 en GPIO18. Esta compilación
+incluye ambos modos de temperatura; no hay que volver a cargar para cambiar
+de Lab 3 simulado a Lab 4/5 físico:
 
 ```bash
 bash ~/IoT/lab5/tools/flash.sh S <PUERTO_S> uart
@@ -100,9 +102,15 @@ Con C por **CH343/UART**:
 bash ~/IoT/lab5/tools/flash.sh C <PUERTO_C> uart
 ```
 
-Puedes conectar una sola por vez para evitar confusiones. La imagen de S debe
-reconocer `ds18b20`; C usa el modo sin sensor (simulado), como cliente. Cada una
-recibe su propio binario, no una copia indiscriminada de la imagen S.
+Puedes conectar una sola por vez para evitar confusiones. S usa por defecto el DS18B20. Cambia su fuente sin reflashear:
+
+- `soilsense source off`: detiene el muestreo (útil en Labs 1–2 y en C cliente).
+- `soilsense source simulated`: temperatura simulada de Lab 3.
+- `soilsense source ds18b20`: sensor físico para Labs 4–5 (solo S).
+
+El cambio invalida la última muestra y reinicia sus contadores. Espera al menos
+una lectura nueva antes de consultar CoAP. C se compila sin sensor físico y puede
+usar `off` o `simulated`. S y C reciben sus binarios respectivos una sola vez.
 
 Después abre una ventana por consola:
 
@@ -120,7 +128,19 @@ No crees una red independiente en C: este laboratorio la creará en BR.
 USB nativo solo para S/C: sustituye uart por usb tanto en build como en flash
 y usa el conector ESP32C6. No mezcles consola USB y conector CH343.
 
-## 5. Cargar RCP
+## 5. Firmware para presentar Labs 1–5 sin reflashear
+
+Las imágenes C/S incluyen el shell OpenThread necesario para escaneo, red,
+direcciones, pings y contadores (Labs 1–2), CoAP/CBOR (Lab 3), DS18B20 y frescura
+(Labs 4–5). Para Lab 3, selecciona la fuente simulada en S; para Labs 4–5 usa
+`ds18b20`. Cambia de práctica con CLI/dataset y alimentación del BR, no con
+firmware nuevo. La guía de demostración y los límites de cada laboratorio están
+en [`PRESENTACION_LABS_1_5.md`](../PRESENTACION_LABS_1_5.md).
+
+Las imágenes RCP y S3 siguen siendo específicas del Border Router; permanecen
+cargadas para Lab 5 y no reemplazan C/S.
+
+## 6. Cargar RCP
 
 Antes de montar el enlace entre placas, con la tercera C6 conectada por USB:
 
@@ -132,7 +152,7 @@ bash ~/IoT/lab5/tools/flash.sh RCP <PUERTO_RCP>
 ni en el cliente. El tráfico Spinel del RCP va por UART1 GPIO4/5, no por el
 monitor de comandos. La verificación funcional se realiza desde BR.
 
-## 6. Cargar la S3 N16R8
+## 7. Cargar la S3 N16R8
 
 Conecta el puerto **UART** de la S3 al PC; no uses su USB nativo para esperar
 la consola de este perfil:
@@ -145,7 +165,7 @@ La compilación está configurada para 8 MB de PSRAM octal y un mapa conservador
 de los primeros 8 MB de flash (la N16R8 tiene 16 MB físicos). No se confunde
 PSRAM con flash. No cargues este binario en una ESP32-C6.
 
-## 7. Cablear BR↔RCP sin alimentación
+## 8. Cablear BR↔RCP sin alimentación
 
 Desconecta ambas placas de USB antes de poner los jumpers:
 
@@ -163,7 +183,7 @@ Al encender, alimenta el **RCP antes o al mismo tiempo que BR**, como exige el
 SOP: una S3 encendida con RCP sin alimentar puede provocar alimentación por el
 pin de señal y brownout. Mantén S y C alimentadas independientemente.
 
-## 8. Primera verificación del conjunto
+## 9. Primera verificación del conjunto
 
 Abre el monitor de BR:
 

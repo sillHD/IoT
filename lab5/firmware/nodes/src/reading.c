@@ -11,6 +11,7 @@
 #include <zephyr/drivers/sensor.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/random/random.h>
+#include <zephyr/sys/atomic.h>
 #include <zephyr/shell/shell.h>
 
 #include "app.h"
@@ -32,6 +33,15 @@ static struct k_spinlock lock;
 static struct reading last;
 static float last_rh = NAN;
 static bool log_samples;
+/* S defaults to the physical sensor; C has no sensor overlay and uses simulation. */
+static atomic_t sampling_enabled = ATOMIC_INIT(1);
+#if DT_HAS_ALIAS(temp_sensor)
+static atomic_t use_physical_sensor = ATOMIC_INIT(1);
+#else
+static atomic_t use_physical_sensor = ATOMIC_INIT(0);
+#endif
+
+static void reset_stats(void);
 
 static struct {
 	uint32_t reads;
@@ -57,8 +67,11 @@ struct reading reading_get(void)
 
 const char *reading_sensor_name(void)
 {
+	if (!atomic_get(&sampling_enabled)) {
+		return "off";
+	}
 #if DT_HAS_ALIAS(temp_sensor)
-	return sensor->name;
+	return atomic_get(&use_physical_sensor) ? sensor->name : "simulated";
 #else
 	return "simulated";
 #endif
@@ -107,7 +120,7 @@ static void check_and_store(float t, float rh, const char *source)
 }
 
 #if DT_HAS_ALIAS(temp_sensor)
-static void read_sensor(void)
+static void read_sensor_physical(void)
 {
 	struct sensor_value v, h;
 	float rh = NAN;
@@ -157,9 +170,10 @@ static void read_sensor(void)
 	}
 	check_and_store(sensor_value_to_float(&v), rh, sensor->name);
 }
-#else
+#endif
+
 /* Lab 3's simulated sensor: 24.5 °C ± 1 °C over 60 s, plus ±0.1 °C noise */
-static void read_sensor(void)
+static void read_sensor_simulated(void)
 {
 	float noise = ((int32_t)(sys_rand32_get() % 201) - 100) / 1000.0f;
 	float phase = (float)(k_uptime_get() % 60000) / 60000.0f;
@@ -167,9 +181,20 @@ static void read_sensor(void)
 	K_SPINLOCK(&lock) {
 		stats.reads++;
 	}
-	check_and_store(24.5f + sinf(2.0f * 3.14159265f * phase) + noise, NAN, "simulated");
+	check_and_store(24.5f + sinf(2.0f * 3.14159265f * phase) + noise, NAN,
+			"simulated");
 }
+
+static void read_sensor(void)
+{
+#if DT_HAS_ALIAS(temp_sensor)
+	if (atomic_get(&use_physical_sensor)) {
+		read_sensor_physical();
+		return;
+	}
 #endif
+	read_sensor_simulated();
+}
 
 static void reset_stats(void)
 {
@@ -188,7 +213,9 @@ static void sampler(void *p1, void *p2, void *p3)
 	LOG_INF("Reading %s every %d s", reading_sensor_name(), SAMPLE_MS / MSEC_PER_SEC);
 
 	while (true) {
-		read_sensor();
+		if (atomic_get(&sampling_enabled)) {
+			read_sensor();
+		}
 		next += SAMPLE_MS;
 		k_sleep(K_TIMEOUT_ABS_MS(next));
 	}
@@ -234,6 +261,37 @@ static int cmd_stats(const struct shell *sh, size_t argc, char **argv)
 	return 0;
 }
 
+static int cmd_source(const struct shell *sh, size_t argc, char **argv)
+{
+	ARG_UNUSED(argc);
+	if (strcmp(argv[1], "off") == 0) {
+		atomic_set(&sampling_enabled, 0);
+	} else if (strcmp(argv[1], "simulated") == 0) {
+		atomic_set(&use_physical_sensor, 0);
+		atomic_set(&sampling_enabled, 1);
+#if DT_HAS_ALIAS(temp_sensor)
+	} else if (strcmp(argv[1], "ds18b20") == 0) {
+		atomic_set(&use_physical_sensor, 1);
+		atomic_set(&sampling_enabled, 1);
+#endif
+	} else {
+#if DT_HAS_ALIAS(temp_sensor)
+		shell_error(sh, "Usage: soilsense source off|simulated|ds18b20");
+#else
+		shell_error(sh, "Usage: soilsense source off|simulated (no physical sensor)");
+#endif
+		return -EINVAL;
+	}
+	K_SPINLOCK(&lock) {
+		last.valid = false;
+		last_rh = NAN;
+	}
+	reset_stats();
+	shell_print(sh, "source: %s; counters cleared; waiting for next sample",
+		    reading_sensor_name());
+	return 0;
+}
+
 static int cmd_reset(const struct shell *sh, size_t argc, char **argv)
 {
 	reset_stats();
@@ -272,6 +330,7 @@ static int cmd_inject(const struct shell *sh, size_t argc, char **argv)
 SHELL_STATIC_SUBCMD_SET_CREATE(soilsense_cmds,
 	SHELL_CMD_ARG(stats, NULL, "Last reading, failure counts and read time", cmd_stats, 1, 0),
 	SHELL_CMD_ARG(reset, NULL, "Zero the counters", cmd_reset, 1, 0),
+	SHELL_CMD_ARG(source, NULL, "Select source: off|simulated|ds18b20", cmd_source, 2, 0),
 	SHELL_CMD_ARG(log, NULL, "Print every reading: log on|off", cmd_log, 2, 0),
 	SHELL_CMD_ARG(inject, NULL, "Pass one made-up reading through the checks: inject <C>",
 		      cmd_inject, 2, 0),

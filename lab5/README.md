@@ -2,12 +2,14 @@
 
 **[DDR de esta práctica](DDR.md)** · [Índice de DDR](../DDR/README.md)
 
-**Estado:** laboratorio y evidencias cerrados por solicitud del equipo; cuatro imágenes cargadas; CoAP PC→S 10/10 (mediana 33 ms),
+**Estado:** laboratorio cerrado por solicitud del equipo; CoAP PC→S 10/10 (mediana 33 ms),
 NAT64 10/10 y control C→S sin BR confirmados. Acceso PC recuperado tras restaurar
-BR según confirmación del usuario. Dashboard móvil y potencia 0 dBm confirmados. Ver [informe](INFORME.md) y
+BR según confirmación del usuario. Dashboard móvil y potencia 0 dBm confirmados. La actualización del firmware C/S con selector de fuente está preparada; requiere
+compilar y cargar S/C antes de la presentación. Ver [informe](INFORME.md) y
 [resultados y límites](evidencias/registro.md).
 
-[Guía completa](guia.md) · [Carga por placa](CARGA_FIRMWARE.md) ·
+[Guía completa](guia.md) · [Presentación Labs 1–5 sin reflashear](../PRESENTACION_LABS_1_5.md) ·
+[Carga por placa](CARGA_FIRMWARE.md) ·
 [Evidencias](EVIDENCIAS.md) · [Registro](evidencias/registro.md) · [Origen](ORIGEN.md)
 
 | Etiqueta física | Placa | Función | Imagen |
@@ -42,7 +44,7 @@ ocupar varios GB. Se necesitan las dependencias del sistema de Zephyr ya usadas
 en WSL, conexión a Internet y Python con venv. No se ejecuta checkout en
 `~/zephyrproject`. Si encuentra otra revisión en la ruta seleccionada, se detiene.
 
-## Compilar las cuatro imágenes
+## Imágenes por rol; C/S son reutilizables en Labs 1–5
 
 ```bash
 cd ~/IoT
@@ -53,7 +55,9 @@ bash lab5/tools/build.sh BR N16R8
 ```
 
 Los builds y sus marcadores van a directorios distintos dentro del workspace
-nuevo. Los logs se guardan en `lab5/evidencias/archivos/`.
+nuevo. S/C usan las imágenes de aplicación para Labs 1–5: S puede alternar en
+ejecución muestreo apagado, fuente simulada y DS18B20. RCP y S3 conservan imágenes propias para BR. S/C usan las imágenes de aplicación para Labs 1–5: S puede alternar en
+ejecución muestreo apagado, fuente simulada y DS18B20. RCP y S3 conservan imágenes propias para BR. Los logs se guardan en `lab5/evidencias/archivos/`.
 Los scripts verifican revisión y configuración, pero no pueden demostrar la
 capacidad física de PSRAM antes del arranque.
 
