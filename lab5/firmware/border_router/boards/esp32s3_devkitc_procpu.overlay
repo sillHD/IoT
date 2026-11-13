@@ -5,6 +5,9 @@
 	chosen {
 		zephyr,hdlc-rcp-if = &hdlc_rcp_if;
 		zephyr,ot-uart = &uart1;
+		/* The user shell/console goes through the board's CH343 UART0. */
+		zephyr,console = &uart0;
+		zephyr,shell-uart = &uart0;
 	};
 
 	hdlc_rcp_if: hdlc_rcp_if {
@@ -30,6 +33,15 @@
 	status = "okay";
 	current-speed = <460800>;
 	pinctrl-0 = <&uart1_rcp>;
+	pinctrl-names = "default";
+};
+
+/* UART0 is routed by the ESP32-S3-DevKitC to CH343 (GPIO43 TX/GPIO44 RX). */
+&uart0 {
+	status = "okay";
+	current-speed = <115200>;
+	/delete-property/ hw-flow-control;
+	pinctrl-0 = <&uart0_default>;
 	pinctrl-names = "default";
 };
 

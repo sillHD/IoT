@@ -5,10 +5,11 @@
 **Estado:** laboratorio cerrado por solicitud del equipo; CoAP PC→S 10/10 (mediana 33 ms),
 NAT64 10/10 y control C→S sin BR confirmados. Acceso PC recuperado tras restaurar
 BR según confirmación del usuario. Dashboard móvil y potencia 0 dBm confirmados. La actualización del firmware C/S con selector de fuente está preparada; requiere
-compilar y cargar S/C antes de la presentación. Ver [informe](INFORME.md) y
+compilar y cargar S/C antes de la presentación. La exposición se centrará solo en
+Lab 5; ver [guion, resumen de Labs 1–5 y flasheo](PRESENTACION.md), [informe](INFORME.md) y
 [resultados y límites](evidencias/registro.md).
 
-[Guía completa](guia.md) · [Presentación Labs 1–5 sin reflashear](../PRESENTACION_LABS_1_5.md) ·
+[Guía completa](guia.md) · [Guion de exposición](PRESENTACION.md) ·
 [Carga por placa](CARGA_FIRMWARE.md) ·
 [Evidencias](EVIDENCIAS.md) · [Registro](evidencias/registro.md) · [Origen](ORIGEN.md)
 

@@ -1,5 +1,9 @@
 # Presentación de los Labs 1–5 sin reflashear entre prácticas
 
+> **Propuesta reemplazada.** El equipo presentará solo el Lab 5. Usa
+> [`lab5/PRESENTACION.md`](lab5/PRESENTACION.md) para el resumen contextual,
+> flasheo y diálogo actualizados.
+
 Esta configuración conserva las etiquetas y funciones físicas:
 
 | Etiqueta | Placa | Función durante las demostraciones |

@@ -55,7 +55,31 @@ fi
 case "$ROLE" in
     S|C) require_config 'CONFIG_OPENTHREAD_SLAAC=y' ;;
     RCP) require_config 'CONFIG_OPENTHREAD_COPROCESSOR_RCP=y' ;;
-    BR) require_config 'CONFIG_ESP_SPIRAM=y'; require_config 'CONFIG_SPIRAM_MODE_OCT=y'; require_config 'CONFIG_OPENTHREAD_SETTINGS_RAM=y' ;;
+    BR)
+        require_config 'CONFIG_ESP_SPIRAM=y'
+        require_config 'CONFIG_SPIRAM_MODE_OCT=y'
+        require_config 'CONFIG_OPENTHREAD_SETTINGS_RAM=y'
+        require_config 'CONFIG_UART_CONSOLE=y'
+        require_config 'CONFIG_SHELL_BACKEND_SERIAL=y'
+        python - "$BUILD_DIR/zephyr/zephyr.dts" <<'PY_UART'
+import pathlib
+import re
+import sys
+
+text = pathlib.Path(sys.argv[1]).read_text()
+chosen = re.search(r'\bchosen\s*\{([^}]*)\}', text, re.S)
+if not chosen:
+    sys.exit("No se encontró el nodo chosen en zephyr.dts")
+for key in ("zephyr,console", "zephyr,shell-uart"):
+    if not re.search(rf"\b{re.escape(key)}\s*=\s*&uart0\b", chosen.group(1)):
+        sys.exit(f"{key} debe apuntar a uart0 (CH343/UART0)")
+uart0 = re.search(r'\buart0:\s*serial@[^\s]+\s*\{(.*?)\n\s*\};', text, re.S)
+if not uart0:
+    sys.exit("No se encontró uart0 en zephyr.dts")
+if re.search(r'\bhw-flow-control\s*;', uart0.group(1)):
+    sys.exit("UART0/CH343 no debe usar control de flujo RTS/CTS")
+PY_UART
+        ;;
 esac
 [[ -f "$BUILD_DIR/zephyr/zephyr.bin" ]] || fail "No se generó zephyr.bin."
 artifact_sha="$(sha256sum "$BUILD_DIR/zephyr/zephyr.bin")"

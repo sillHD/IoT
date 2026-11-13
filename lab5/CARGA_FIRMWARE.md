@@ -128,21 +128,25 @@ No crees una red independiente en C: este laboratorio la creará en BR.
 USB nativo solo para S/C: sustituye uart por usb tanto en build como en flash
 y usa el conector ESP32C6. No mezcles consola USB y conector CH343.
 
-## 5. Firmware para presentar Labs 1–5 sin reflashear
+## 5. Firmware para la exposición del Lab 5
 
-Las imágenes C/S incluyen el shell OpenThread necesario para escaneo, red,
-direcciones, pings y contadores (Labs 1–2), CoAP/CBOR (Lab 3), DS18B20 y frescura
-(Labs 4–5). Para Lab 3, selecciona la fuente simulada en S; para Labs 4–5 usa
-`ds18b20`. Cambia de práctica con CLI/dataset y alimentación del BR, no con
-firmware nuevo. La guía de demostración y los límites de cada laboratorio están
-en [`PRESENTACION_LABS_1_5.md`](../PRESENTACION_LABS_1_5.md).
+La exposición utiliza las cuatro imágenes descritas arriba: S (sensor), C
+(cliente), RCP (radio) y BR/S4 (Border Router). No hace falta recorrer ni cambiar
+de firmware para presentar los Labs 1–4.
 
-Las imágenes RCP y S3 siguen siendo específicas del Border Router; permanecen
-cargadas para Lab 5 y no reemplazan C/S.
+El código C/S recibió un selector de fuente después de la carga anterior. Para
+usar la revisión actual, vuelve a compilar y cargar **S y C** con los pasos de
+las secciones 3 y 4. RCP y BR/S4 ya tuvieron carga y verificación funcional;
+consérvalos si siguen arrancando correctamente. Reconstrúyelos y cárgalos solo
+si sus imágenes se borraron/cambiaron o falla la verificación funcional.
+
+Guion de exposición, recapitulación de Labs 1–5 y diálogo: [PRESENTACION.md](PRESENTACION.md).
 
 ## 6. Cargar RCP
 
-Antes de montar el enlace entre placas, con la tercera C6 conectada por USB:
+Antes de montar el enlace entre placas, conecta la tercera C6 al PC para
+flashearla. Se puede usar su USB nativo ESP32-C6 o el CH343/UART; identifica el
+puerto que enumera y úsalo en el comando:
 
 ```bash
 bash ~/IoT/lab5/tools/flash.sh RCP <PUERTO_RCP>
@@ -152,14 +156,21 @@ bash ~/IoT/lab5/tools/flash.sh RCP <PUERTO_RCP>
 ni en el cliente. El tráfico Spinel del RCP va por UART1 GPIO4/5, no por el
 monitor de comandos. La verificación funcional se realiza desde BR.
 
-## 7. Cargar la S3 N16R8
+## 7. Cargar y monitorizar S4 (S3 N16R8)
 
-Conecta el puerto **UART** de la S3 al PC; no uses su USB nativo para esperar
-la consola de este perfil:
+La consola Zephyr y el shell de BR se seleccionan explícitamente en **UART0**.
+En ESP32-S3-DevKitC, UART0 está conectado al CH343 por GPIO43 TX y GPIO44 RX.
+Conecta el USB del CH343 al PC; ese COM/dispositivo serial es el recomendado
+para flashear y abrir el monitor de S4:
 
 ```bash
 bash ~/IoT/lab5/tools/flash.sh BR <PUERTO_BR> N16R8
 ```
+
+El USB nativo Serial/JTAG es otro dispositivo y puede emitir mensajes tempranos
+del ROM/ESP-IDF, pero no es el backend del shell Zephyr de esta imagen. No elijas
+el puerto solo porque aparezca como `ttyACM*` o `ttyUSB*`: identifica en Windows
+el dispositivo CH343 de S4 y adjunta ese BUSID a WSL.
 
 La compilación está configurada para 8 MB de PSRAM octal y un mapa conservador
 de los primeros 8 MB de flash (la N16R8 tiene 16 MB físicos). No se confunde
