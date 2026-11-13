@@ -73,11 +73,11 @@ if not chosen:
 for key in ("zephyr,console", "zephyr,shell-uart"):
     if not re.search(rf"\b{re.escape(key)}\s*=\s*&uart0\b", chosen.group(1)):
         sys.exit(f"{key} debe apuntar a uart0 (CH343/UART0)")
-uart0 = re.search(r'\buart0:\s*serial@[^\s]+\s*\{(.*?)\n\s*\};', text, re.S)
-if not uart0:
-    sys.exit("No se encontró uart0 en zephyr.dts")
-if re.search(r'\bhw-flow-control\s*;', uart0.group(1)):
-    sys.exit("UART0/CH343 no debe usar control de flujo RTS/CTS")
+# The exact compatible node name (uart@.../serial@...) is SoC-version specific.
+# The overlay deletes flow control from UART0, and neither the console nor the
+# Spinel UART should use RTS/CTS in this three-wire lab setup.
+if re.search(r'\bhw-flow-control\s*;', text):
+    sys.exit("El DTS final no debe habilitar control de flujo RTS/CTS")
 PY_UART
         ;;
 esac
