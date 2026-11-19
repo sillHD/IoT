@@ -46,5 +46,12 @@ int main(void)
 #if defined(CONFIG_LAB_AUTOSTART)
 	autostart();
 #endif
-	return 0;
+
+	/* Never return from main.  Picolibc's _exit() prints "exit" and then
+	 * spins forever; that starves the shell and makes a healthy UART console
+	 * look as if the serial monitor closed by itself.
+	 */
+	for (;;) {
+		k_sleep(K_FOREVER);
+	}
 }
