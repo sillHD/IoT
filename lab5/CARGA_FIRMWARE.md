@@ -162,6 +162,12 @@ La consola Zephyr y el shell de BR se seleccionan explícitamente en el
 **USB nativo CDC-ACM** del ESP32-S3. UART0/CH343 ya no es el backend del shell;
 UART1 sigue reservado para Spinel hacia el RCP.
 
+Esta imagen usa el stack USB nuevo de Zephyr. En ESP32-S3 no se usa la API
+heredada `usb_enable()`: su controlador antiguo interpreta la fuente USB 38
+como una IRQ de CPU y falla al generar la tabla ISR, cuyo máximo es 31. La
+inicialización CDC-ACM ocurre automáticamente antes de `main()` mediante
+`CONFIG_CDC_ACM_SERIAL_INITIALIZE_AT_BOOT`.
+
 Para cargar, el método más estable es conectar temporalmente el CH343 y usar el
 puerto que enumere. El binario puede cargarse también mediante USB Serial/JTAG
 si se pone la placa en modo descarga, pero al arrancar la aplicación ese mismo

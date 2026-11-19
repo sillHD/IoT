@@ -5,15 +5,12 @@
  * and the Wi-Fi credentials stay in flash, and both are rejoined at boot, so a
  * power cut needs nobody at the console.
  */
-#include <errno.h>
-
 #include <zephyr/device.h>
 #include <zephyr/devicetree.h>
 #include <zephyr/drivers/uart.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
 #include <zephyr/sys/printk.h>
-#include <zephyr/usb/usb_device.h>
 
 #define USB_CONSOLE_NODE DT_CHOSEN(zephyr_console)
 
@@ -57,20 +54,12 @@ int main(void)
 {
 	const struct device *const console = DEVICE_DT_GET(USB_CONSOLE_NODE);
 	uint32_t dtr = 0U;
-	int ret;
 
-	/* Nothing may print through the CDC console before the USB controller is
-	 * enabled.  On failure there is no usable console on which to report the
-	 * error, so keep the firmware alive for inspection instead of returning.
+	/* CONFIG_CDC_ACM_SERIAL_INITIALIZE_AT_BOOT initializes and enables USB
+	 * before main().  On failure there is no usable console on which to report
+	 * the error, so keep the firmware alive instead of returning.
 	 */
 	if (!device_is_ready(console)) {
-		for (;;) {
-			k_sleep(K_FOREVER);
-		}
-	}
-
-	ret = usb_enable(NULL);
-	if (ret != 0 && ret != -EALREADY) {
 		for (;;) {
 			k_sleep(K_FOREVER);
 		}
