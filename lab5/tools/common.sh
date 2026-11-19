@@ -29,7 +29,7 @@ select_target() {
             ;;
         BR)
             case "$PROFILE" in N16R8|N8R8) ;; *) fail "Uso: BR N16R8 (confirmada) o BR N8R8. Requiere PSRAM octal de 8 MB." ;; esac
-            CONSOLE=uart
+            CONSOLE=usb-cdc
             SOURCE_DIR="$LAB5_DIR/firmware/border_router"
             BOARD=esp32s3_devkitc/esp32s3/procpu
             # Both supported modules have at least 8 MB flash; map only that range.

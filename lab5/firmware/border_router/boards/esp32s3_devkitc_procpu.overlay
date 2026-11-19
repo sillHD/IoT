@@ -5,9 +5,9 @@
 	chosen {
 		zephyr,hdlc-rcp-if = &hdlc_rcp_if;
 		zephyr,ot-uart = &uart1;
-		/* The user shell/console goes through the board's CH343 UART0. */
-		zephyr,console = &uart0;
-		zephyr,shell-uart = &uart0;
+		/* User console/shell: native ESP32-S3 USB, not CH343/UART0. */
+		zephyr,console = &cdc_acm_uart0;
+		zephyr,shell-uart = &cdc_acm_uart0;
 	};
 
 	hdlc_rcp_if: hdlc_rcp_if {
@@ -36,13 +36,13 @@
 	pinctrl-names = "default";
 };
 
-/* UART0 is routed by the ESP32-S3-DevKitC to CH343 (GPIO43 TX/GPIO44 RX). */
-&uart0 {
+/* Zephyr USB CDC-ACM UART emulation on the ESP32-S3 native USB peripheral. */
+&zephyr_udc0 {
 	status = "okay";
-	current-speed = <115200>;
-	/delete-property/ hw-flow-control;
-	pinctrl-0 = <&uart0_default>;
-	pinctrl-names = "default";
+
+	cdc_acm_uart0: cdc_acm_uart0 {
+		compatible = "zephyr,cdc-acm-uart";
+	};
 };
 
 &psram0 {

@@ -5,8 +5,20 @@
  * and the Wi-Fi credentials stay in flash, and both are rejoined at boot, so a
  * power cut needs nobody at the console.
  */
+#include <errno.h>
+
+#include <zephyr/device.h>
+#include <zephyr/devicetree.h>
+#include <zephyr/drivers/uart.h>
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/sys/printk.h>
+#include <zephyr/usb/usb_device.h>
+
+#define USB_CONSOLE_NODE DT_CHOSEN(zephyr_console)
+
+BUILD_ASSERT(DT_NODE_HAS_COMPAT(USB_CONSOLE_NODE, zephyr_cdc_acm_uart),
+	     "zephyr,console must point to a zephyr,cdc-acm-uart node");
 
 #if defined(CONFIG_LAB_AUTOSTART)
 #include <zephyr/net/net_if.h>
@@ -43,8 +55,46 @@ static void autostart(void)
 
 int main(void)
 {
+	const struct device *const console = DEVICE_DT_GET(USB_CONSOLE_NODE);
+	uint32_t dtr = 0U;
+	int ret;
+
+	/* Nothing may print through the CDC console before the USB controller is
+	 * enabled.  On failure there is no usable console on which to report the
+	 * error, so keep the firmware alive for inspection instead of returning.
+	 */
+	if (!device_is_ready(console)) {
+		for (;;) {
+			k_sleep(K_FOREVER);
+		}
+	}
+
+	ret = usb_enable(NULL);
+	if (ret != 0 && ret != -EALREADY) {
+		for (;;) {
+			k_sleep(K_FOREVER);
+		}
+	}
+
+	/* Wait until a host terminal opens the CDC port.  USB remains enumerated
+	 * while waiting, and printk output is not lost before DTR is asserted.
+	 */
+	while (dtr == 0U) {
+		(void)uart_line_ctrl_get(console, UART_LINE_CTRL_DTR, &dtr);
+		k_sleep(K_MSEC(100));
+	}
+
+	printk("SoilSense Border Router: native USB CDC-ACM console ready\n");
+
 #if defined(CONFIG_LAB_AUTOSTART)
 	autostart();
 #endif
-	return 0;
+
+	/* The shell and network services have their own threads, but keeping main
+	 * alive also makes the console lifetime explicit and prevents an accidental
+	 * return from being confused with a serial disconnect.
+	 */
+	for (;;) {
+		k_sleep(K_FOREVER);
+	}
 }

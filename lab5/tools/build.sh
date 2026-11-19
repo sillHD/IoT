@@ -61,6 +61,11 @@ case "$ROLE" in
         require_config 'CONFIG_OPENTHREAD_SETTINGS_RAM=y'
         require_config 'CONFIG_UART_CONSOLE=y'
         require_config 'CONFIG_SHELL_BACKEND_SERIAL=y'
+        require_config 'CONFIG_USB_DEVICE_STACK=y'
+        require_config 'CONFIG_USB_DEVICE_STACK_NEXT=n'
+        require_config 'CONFIG_USB_CDC_ACM=y'
+        require_config 'CONFIG_USB_DEVICE_INITIALIZE_AT_BOOT=n'
+        require_config 'CONFIG_UART_LINE_CTRL=y'
         python - "$BUILD_DIR/zephyr/zephyr.dts" <<'PY_UART'
 import pathlib
 import re
@@ -71,13 +76,13 @@ chosen = re.search(r'\bchosen\s*\{([^}]*)\}', text, re.S)
 if not chosen:
     sys.exit("No se encontró el nodo chosen en zephyr.dts")
 for key in ("zephyr,console", "zephyr,shell-uart"):
-    if not re.search(rf"\b{re.escape(key)}\s*=\s*&uart0\b", chosen.group(1)):
-        sys.exit(f"{key} debe apuntar a uart0 (CH343/UART0)")
-# The exact compatible node name (uart@.../serial@...) is SoC-version specific.
-# The overlay deletes flow control from UART0, and neither the console nor the
-# Spinel UART should use RTS/CTS in this three-wire lab setup.
-if re.search(r'\bhw-flow-control\s*;', text):
-    sys.exit("El DTS final no debe habilitar control de flujo RTS/CTS")
+    if not re.search(rf"\b{re.escape(key)}\s*=\s*&cdc_acm_uart0\b", chosen.group(1)):
+        sys.exit(f"{key} debe apuntar a cdc_acm_uart0 (USB nativo)")
+cdc = re.search(r'\bcdc_acm_uart0:\s*cdc_acm_uart0\s*\{([^}]*)\}', text, re.S)
+if not cdc or not re.search(
+    r'\bcompatible\s*=\s*"zephyr,cdc-acm-uart"\s*;', cdc.group(1)
+):
+    sys.exit("No se encontró el dispositivo zephyr,cdc-acm-uart")
 PY_UART
         ;;
 esac

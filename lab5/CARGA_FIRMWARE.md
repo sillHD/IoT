@@ -76,7 +76,7 @@ bash lab5/tools/build.sh BR N16R8
 | S, DS18B20, UART | `build-iot-lab5-S-ds18b20-uart` |
 | C, sin sensor, UART | `build-iot-lab5-C-none-uart` |
 | RCP | `build-iot-lab5-RCP-c6-spinel` |
-| S3 N16R8 | `build-iot-lab5-BR-N16R8-uart` |
+| S3 N16R8, USB CDC nativo | `build-iot-lab5-BR-N16R8-usb-cdc` |
 
 No continúes si falla una compilación. Los scripts solo crean el marcador de
 carga después de comprobar la configuración y el binario; guardan su SHA-256
@@ -158,19 +158,29 @@ monitor de comandos. La verificación funcional se realiza desde BR.
 
 ## 7. Cargar y monitorizar S4 (S3 N16R8)
 
-La consola Zephyr y el shell de BR se seleccionan explícitamente en **UART0**.
-En ESP32-S3-DevKitC, UART0 está conectado al CH343 por GPIO43 TX y GPIO44 RX.
-Conecta el USB del CH343 al PC; ese COM/dispositivo serial es el recomendado
-para flashear y abrir el monitor de S4:
+La consola Zephyr y el shell de BR se seleccionan explícitamente en el
+**USB nativo CDC-ACM** del ESP32-S3. UART0/CH343 ya no es el backend del shell;
+UART1 sigue reservado para Spinel hacia el RCP.
+
+Para cargar, el método más estable es conectar temporalmente el CH343 y usar el
+puerto que enumere. El binario puede cargarse también mediante USB Serial/JTAG
+si se pone la placa en modo descarga, pero al arrancar la aplicación ese mismo
+conector se reenumera como un dispositivo CDC-ACM distinto:
 
 ```bash
 bash ~/IoT/lab5/tools/flash.sh BR <PUERTO_BR> N16R8
 ```
 
-El USB nativo Serial/JTAG es otro dispositivo y puede emitir mensajes tempranos
-del ROM/ESP-IDF, pero no es el backend del shell Zephyr de esta imagen. No elijas
-el puerto solo porque aparezca como `ttyACM*` o `ttyUSB*`: identifica en Windows
-el dispositivo CH343 de S4 y adjunta ese BUSID a WSL.
+Después del reset, conecta el cable de datos al conector USB nativo de S4. En
+Windows ejecuta de nuevo `usbipd list`: debe aparecer el CDC de producto
+`SoilSense Border Router`. Comparte y adjunta **ese BUSID**. El puerto WSL puede
+cambiar, por ejemplo de `/dev/ttyACM0` a `/dev/ttyACM1`; vuelve a consultarlo y
+abre el monitor sobre el puerto nuevo. Si el reset lo devuelve a `Shared`, repite
+`usbipd attach --wsl --busid ...`.
+
+El baud rate indicado por el monitor (115200) es un parámetro lógico de CDC y
+no fija la velocidad física de USB. No abras simultáneamente el mismo puerto en
+Windows y WSL.
 
 La compilación está configurada para 8 MB de PSRAM octal y un mapa conservador
 de los primeros 8 MB de flash (la N16R8 tiene 16 MB físicos). No se confunde
@@ -196,7 +206,7 @@ pin de señal y brownout. Mantén S y C alimentadas independientemente.
 
 ## 9. Primera verificación del conjunto
 
-Abre el monitor de BR:
+Con el CDC nativo ya adjunto a WSL, abre el monitor de BR:
 
 ```bash
 bash ~/IoT/lab5/tools/monitor.sh BR <PUERTO_BR>

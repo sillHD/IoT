@@ -15,10 +15,11 @@ pero no implica repetir ni declarar como nuevas las pruebas anteriores.
 
 En los scripts, **S4 se llama `BR`**. Hay cuatro imágenes, una para cada placa.
 
-Para esta configuración, S, C y S4 usan consola UART por CH343; RCP no ofrece
-consola. En S4 el shell sale por UART0 (GPIO43 TX/GPIO44 RX). Para flashear RCP
-se puede usar su USB nativo o CH343. Verifica qué puerto enumera cada conexión
-antes de usar `west flash` o abrir un monitor.
+Para esta configuración, S y C usan consola UART por CH343; S4 usa el USB nativo
+CDC-ACM administrado por Zephyr y RCP no ofrece consola. UART1 de S4 queda
+dedicado al enlace Spinel. Para flashear RCP se puede usar su USB nativo o
+CH343. Verifica qué puerto enumera cada conexión antes de usar `west flash` o
+abrir un monitor.
 
 ## Resumen oral de los Labs 1–5
 
@@ -55,8 +56,9 @@ de las pruebas que sí se ejecutaron.
    Identificar el puerto actual después de cada conexión; no asumir que conserva
    el mismo `/dev/ttyACM*`.
 3. Tener S4 identificada como ESP32-S3 N16R8 y RCP como la tercera ESP32-C6.
-   No intercambiar sus firmwares. Para la consola de S4 usa su conector CH343;
-   su USB nativo Serial/JTAG puede reenumerarse al reset y no es el shell UART0.
+   No intercambiar sus firmwares. S4 se puede flashear por CH343, pero su consola
+   de aplicación usa el conector USB nativo y se reenumera como CDC-ACM después
+   del reset; vuelve a adjuntarlo a WSL con `usbipd`.
 4. Mantener el DS18B20 conectado a S: VDD a 3V3, GND común, DATA a GPIO18 y
    pull-up de 4.7 kΩ entre DATA y 3V3.
 

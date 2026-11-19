@@ -24,7 +24,7 @@ Son **tres ESP32-C6 y una ESP32-S3**, cuatro placas en total. La disponibilidad
 física de la tercera C6 se comprueba antes del montaje; no se reemplaza C o S
 con el RCP durante los ensayos que requieren ambos extremos.
 
-Se usa UART/CH343 para C6 y el conector UART de S3. El RCP no tiene shell.
+Se usa UART/CH343 para C6 y USB nativo CDC-ACM para la consola de S3. El RCP no tiene shell.
 La S3 usa PSRAM octal de 8 MB; la imagen usa los primeros 8 MB de flash de la
 N16R8. Los C6 usan un mapa de 4 MB. Se conservan por separado los Labs 0–4.
 
