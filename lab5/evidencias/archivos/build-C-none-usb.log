@@ -1,0 +1,1259 @@
+-- west build: making build dir /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb pristine
+-- west build: generating a build system
+Loading Zephyr default modules (Zephyr base).
+-- Application: /home/ismael/IoT/lab5/firmware/nodes
+-- CMake version: 3.28.3
+-- Found Python3: /home/ismael/zephyrproject-lab5/.venv/bin/python (found suitable version "3.12.3", minimum required is "3.12") found components: Interpreter 
+-- Cache files will be written to: /home/ismael/.cache/zephyr
+-- Zephyr version: 4.4.99 (/home/ismael/zephyrproject-lab5/zephyr)
+-- Found west (found suitable version "1.5.0", minimum required is "0.14.0")
+-- Board: esp32c6_devkitc, qualifiers: esp32c6/hpcore
+-- ZEPHYR_TOOLCHAIN_VARIANT not set, trying to locate Zephyr SDK
+-- Found host-tools: zephyr 1.0.1 (/home/ismael/zephyr-sdk-1.0.1)
+-- Found toolchain: zephyr 1.0.1 (/home/ismael/zephyr-sdk-1.0.1)
+-- Found Dtc: /home/ismael/zephyr-sdk-1.0.1/hosttools/sysroots/x86_64-pokysdk-linux/usr/bin/dtc (found suitable version "1.7.0", minimum required is "1.4.6") 
+-- Found BOARD.dts: /home/ismael/zephyrproject-lab5/zephyr/boards/espressif/esp32c6_devkitc/esp32c6_devkitc_hpcore.dts
+-- Found devicetree overlay: /home/ismael/IoT/lab5/firmware/nodes/boards/esp32c6_devkitc_hpcore.overlay
+-- Found devicetree overlay: /home/ismael/IoT/lab5/firmware/nodes/usb_console.overlay
+-- Generated zephyr.dts: /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/zephyr.dts
+-- Generated pickled edt: /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/edt.pickle
+-- Generated devicetree_generated.h: /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/include/generated/zephyr/devicetree_generated.h
+Parsing /home/ismael/IoT/lab5/firmware/nodes/Kconfig
+Loaded configuration '/home/ismael/zephyrproject-lab5/zephyr/boards/espressif/esp32c6_devkitc/esp32c6_devkitc_hpcore_defconfig'
+Merged configuration '/home/ismael/IoT/lab5/firmware/nodes/prj.conf'
+Merged configuration '/home/ismael/IoT/lab5/firmware/nodes/usb_console.conf'
+Configuration saved to '/home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/.config'
+Kconfig header saved to '/home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/include/generated/zephyr/autoconf.h'
+-- Could NOT find Ccache: Found unsuitable version "4.9.1", but required is at least "4.12" (found /usr/bin/ccache)
+-- Found GnuLd: /home/ismael/zephyr-sdk-1.0.1/gnu/riscv64-zephyr-elf/riscv64-zephyr-elf/bin/ld.bfd (found version "2.43.1") 
+-- The C compiler identification is GNU 14.3.0
+-- The CXX compiler identification is GNU 14.3.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/ismael/zephyr-sdk-1.0.1/gnu/riscv64-zephyr-elf/bin/riscv64-zephyr-elf-gcc
+-- Espressif HAL path: /home/ismael/zephyrproject-lab5/modules/hal/espressif
+-- Image partition address: 0x0
+CMake Warning at /home/ismael/zephyrproject-lab5/zephyr/subsys/secure_storage/src/its/CMakeLists.txt:13 (message):
+  
+
+        The PSA ITS encryption key provider in use generates keys by hashing the device ID
+        retrieved through the HW info API. This is not necessarily secure as the device ID may be
+        easily readable by an attacker, not unique, and/or guessable, depending on the device.
+        This means that the data and keys stored via the PSA APIs may not be secure at rest.
+
+
+-- Found Python3: /home/ismael/zephyrproject-lab5/.venv/bin/python (found version "3.12.3") found components: Interpreter 
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- OpenThread Source Directory: /home/ismael/zephyrproject-lab5/modules/lib/openthread
+-- OT_APP_CLI=ON
+-- OT_APP_NCP=ON
+-- OT_APP_RCP=ON
+-- OT_FTD=ON
+-- OT_MTD=OFF
+-- OT_RCP=ON
+-- - - - - - - - - - - - - - - - - 
+-- OpenThread ON/OFF/Unspecified Configs
+-- OT_15_4=ON --> OPENTHREAD_CONFIG_RADIO_LINK_IEEE_802_15_4_ENABLE=1
+-- OT_ANDROID_NDK=""
+-- OT_ANYCAST_LOCATOR=OFF --> OPENTHREAD_CONFIG_TMF_ANYCAST_LOCATOR_ENABLE=0
+-- OT_ASSERT=OFF --> OPENTHREAD_CONFIG_ASSERT_ENABLE=0
+-- OT_BACKBONE_ROUTER=OFF --> OPENTHREAD_CONFIG_BACKBONE_ROUTER_ENABLE=0
+-- OT_BACKBONE_ROUTER_DUA_NDPROXYING=OFF --> OPENTHREAD_CONFIG_BACKBONE_ROUTER_DUA_NDPROXYING_ENABLE=0
+-- OT_BACKBONE_ROUTER_MULTICAST_ROUTING=OFF --> OPENTHREAD_CONFIG_BACKBONE_ROUTER_MULTICAST_ROUTING_ENABLE=0
+-- OT_BLE_TCAT=OFF --> OPENTHREAD_CONFIG_BLE_TCAT_ENABLE=0
+-- OT_BORDER_ADMITTER=""
+-- OT_BORDER_AGENT=OFF --> OPENTHREAD_CONFIG_BORDER_AGENT_ENABLE=0
+-- OT_BORDER_AGENT_EPSKC=OFF --> OPENTHREAD_CONFIG_BORDER_AGENT_EPHEMERAL_KEY_ENABLE=0
+-- OT_BORDER_AGENT_ID=OFF --> OPENTHREAD_CONFIG_BORDER_AGENT_ID_ENABLE=0
+-- OT_BORDER_AGENT_MESHCOP_SERVICE=OFF --> OPENTHREAD_CONFIG_BORDER_AGENT_MESHCOP_SERVICE_ENABLE=0
+-- OT_BORDER_AGENT_TRACKER=""
+-- OT_BORDER_AGENT_TXT_DATA_PARSER=""
+-- OT_BORDER_ROUTER=OFF --> OPENTHREAD_CONFIG_BORDER_ROUTER_ENABLE=0
+-- OT_BORDER_ROUTING=OFF --> OPENTHREAD_CONFIG_BORDER_ROUTING_ENABLE=0
+-- OT_BORDER_ROUTING_DHCP6_PD=OFF --> OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_ENABLE=0
+-- OT_BORDER_ROUTING_DHCP6_PD_CLIENT=OFF --> OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_CLIENT_ENABLE=0
+-- OT_BORDER_ROUTING_COUNTERS=OFF --> OPENTHREAD_CONFIG_IP6_BR_COUNTERS_ENABLE=0
+-- OT_BORDER_ROUTING_MULTI_AIL_DETECTION=""
+-- OT_CHANNEL_MANAGER=OFF --> OPENTHREAD_CONFIG_CHANNEL_MANAGER_ENABLE=0
+-- OT_CHANNEL_MANAGER_CSL=OFF --> OPENTHREAD_CONFIG_CHANNEL_MANAGER_CSL_CHANNEL_SELECT_ENABLE=0
+-- OT_CHANNEL_MONITOR=OFF --> OPENTHREAD_CONFIG_CHANNEL_MONITOR_ENABLE=0
+-- OT_CHANNEL_MONITOR_AUTO_START=OFF --> OPENTHREAD_CONFIG_CHANNEL_MONITOR_AUTO_START_ENABLE=0
+-- OT_COAP=ON --> OPENTHREAD_CONFIG_COAP_API_ENABLE=1
+-- OT_COAP_BLOCK=OFF --> OPENTHREAD_CONFIG_COAP_BLOCKWISE_TRANSFER_ENABLE=0
+-- OT_COAP_OBSERVE=ON --> OPENTHREAD_CONFIG_COAP_OBSERVE_API_ENABLE=1
+-- OT_COAPS=OFF --> OPENTHREAD_CONFIG_COAP_SECURE_API_ENABLE=0
+-- OT_COMMISSIONER=OFF --> OPENTHREAD_CONFIG_COMMISSIONER_ENABLE=0
+-- OT_CSL_AUTO_SYNC=OFF --> OPENTHREAD_CONFIG_MAC_CSL_AUTO_SYNC_ENABLE=0
+-- OT_CSL_DEBUG=OFF --> OPENTHREAD_CONFIG_MAC_CSL_DEBUG_ENABLE=0
+-- OT_CSL_RECEIVER=OFF --> OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_ENABLE=0
+-- OT_CSL_RECEIVER_LOCAL_TIME_SYNC=OFF --> OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_LOCAL_TIME_SYNC=0
+-- OT_DATASET_UPDATER=OFF --> OPENTHREAD_CONFIG_DATASET_UPDATER_ENABLE=0
+-- OT_DEVICE_PROP_LEADER_WEIGHT=OFF --> OPENTHREAD_CONFIG_MLE_DEVICE_PROPERTY_LEADER_WEIGHT_ENABLE=0
+-- OT_DHCP6_CLIENT=OFF --> OPENTHREAD_CONFIG_DHCP6_CLIENT_ENABLE=0
+-- OT_DHCP6_SERVER=OFF --> OPENTHREAD_CONFIG_DHCP6_SERVER_ENABLE=0
+-- OT_DIAGNOSTIC=OFF --> OPENTHREAD_CONFIG_DIAG_ENABLE=0
+-- OT_DNS_CLIENT=OFF --> OPENTHREAD_CONFIG_DNS_CLIENT_ENABLE=0
+-- OT_DNS_CLIENT_BIND_UDP_THREAD_NETIF=""
+-- OT_DNS_CLIENT_OVER_TCP=OFF --> OPENTHREAD_CONFIG_DNS_CLIENT_OVER_TCP_ENABLE=0
+-- OT_DNS_DSO=OFF --> OPENTHREAD_CONFIG_DNS_DSO_ENABLE=0
+-- OT_DNS_UPSTREAM_QUERY=OFF --> OPENTHREAD_CONFIG_DNS_UPSTREAM_QUERY_ENABLE=0
+-- OT_DNSSD_DISCOVERY_PROXY=OFF --> OPENTHREAD_CONFIG_DNSSD_DISCOVERY_PROXY_ENABLE=0
+-- OT_DNSSD_SERVER=OFF --> OPENTHREAD_CONFIG_DNSSD_SERVER_ENABLE=0
+-- OT_DUA=OFF --> OPENTHREAD_CONFIG_DUA_ENABLE=0
+-- OT_DYNAMIC_STORE_FRAME_AHEAD_COUNTER=OFF --> OPENTHREAD_CONFIG_DYNAMIC_STORE_FRAME_AHEAD_COUNTER_ENABLE=0
+-- OT_ECDSA=OFF --> OPENTHREAD_CONFIG_ECDSA_ENABLE=0
+-- OT_EXTERNAL_HEAP=OFF --> OPENTHREAD_CONFIG_HEAP_EXTERNAL_ENABLE=0
+-- OT_FIREWALL=OFF --> OPENTHREAD_POSIX_CONFIG_FIREWALL_ENABLE=0
+-- OT_HISTORY_TRACKER=OFF --> OPENTHREAD_CONFIG_HISTORY_TRACKER_ENABLE=0
+-- OT_IP6_FRAGM=OFF --> OPENTHREAD_CONFIG_IP6_FRAGMENTATION_ENABLE=0
+-- OT_JAM_DETECTION=OFF --> OPENTHREAD_CONFIG_JAM_DETECTION_ENABLE=0
+-- OT_JOINER=OFF --> OPENTHREAD_CONFIG_JOINER_ENABLE=0
+-- OT_LINK_METRICS_INITIATOR=OFF --> OPENTHREAD_CONFIG_MLE_LINK_METRICS_INITIATOR_ENABLE=0
+-- OT_LINK_METRICS_MANAGER=OFF --> OPENTHREAD_CONFIG_LINK_METRICS_MANAGER_ENABLE=0
+-- OT_LINK_METRICS_SUBJECT=OFF --> OPENTHREAD_CONFIG_MLE_LINK_METRICS_SUBJECT_ENABLE=0
+-- OT_LINK_RAW=OFF --> OPENTHREAD_CONFIG_LINK_RAW_ENABLE=0
+-- OT_LOG_LEVEL_DYNAMIC=OFF --> OPENTHREAD_CONFIG_LOG_LEVEL_DYNAMIC_ENABLE=0
+-- OT_MAC_FILTER=ON --> OPENTHREAD_CONFIG_MAC_FILTER_ENABLE=1
+-- OT_MDNS=OFF --> OPENTHREAD_CONFIG_MULTICAST_DNS_ENABLE=0
+-- OT_MDNS_VERBOSE=""
+-- OT_MDNS_VERBOSE_STATE=""
+-- OT_MESH_DIAG=OFF --> OPENTHREAD_CONFIG_MESH_DIAG_ENABLE=0
+-- OT_MESSAGE_USE_HEAP=OFF --> OPENTHREAD_CONFIG_MESSAGE_USE_HEAP_ENABLE=0
+-- OT_MLE_LONG_ROUTES=OFF --> OPENTHREAD_CONFIG_MLE_LONG_ROUTES_ENABLE=0
+-- OT_MLR=OFF --> OPENTHREAD_CONFIG_MLR_ENABLE=0
+-- OT_MULTIPAN_RCP=OFF --> OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE=0
+-- OT_MULTIPLE_INSTANCE=OFF --> OPENTHREAD_CONFIG_MULTIPLE_INSTANCE_ENABLE=0
+-- OT_NAT64_BORDER_ROUTING=OFF --> OPENTHREAD_CONFIG_NAT64_BORDER_ROUTING_ENABLE=0
+-- OT_NAT64_TRANSLATOR=OFF --> OPENTHREAD_CONFIG_NAT64_TRANSLATOR_ENABLE=0
+-- OT_NEIGHBOR_DISCOVERY_AGENT=OFF --> OPENTHREAD_CONFIG_NEIGHBOR_DISCOVERY_AGENT_ENABLE=0
+-- OT_NETDATA_PUBLISHER=OFF --> OPENTHREAD_CONFIG_NETDATA_PUBLISHER_ENABLE=0
+-- OT_NETDIAG_CLIENT=OFF --> OPENTHREAD_CONFIG_TMF_NETDIAG_CLIENT_ENABLE=0
+-- OT_NETDIAG_VENDOR_INFO=OFF --> OPENTHREAD_CONFIG_NET_DIAG_VENDOR_INFO_SET_API_ENABLE=0
+-- OT_OPERATIONAL_DATASET_AUTO_INIT=ON --> OPENTHREAD_CONFIG_OPERATIONAL_DATASET_AUTO_INIT=1
+-- OT_OTNS=OFF --> OPENTHREAD_CONFIG_OTNS_ENABLE=0
+-- OT_P2P=""
+-- OT_PING_SENDER=ON --> OPENTHREAD_CONFIG_PING_SENDER_ENABLE=1
+-- OT_PLATFORM_BOOTLOADER_MODE=OFF --> OPENTHREAD_CONFIG_PLATFORM_BOOTLOADER_MODE_ENABLE=0
+-- OT_PLATFORM_DNSSD=""
+-- OT_PLATFORM_KEY_REF=ON --> OPENTHREAD_CONFIG_PLATFORM_KEY_REFERENCES_ENABLE=1
+-- OT_PLATFORM_LOG_CRASH_DUMP=OFF --> OPENTHREAD_CONFIG_PLATFORM_LOG_CRASH_DUMP_ENABLE=0
+-- OT_PLATFORM_NETIF=OFF --> OPENTHREAD_CONFIG_PLATFORM_NETIF_ENABLE=0
+-- OT_PLATFORM_POWER_CALIBRATION=OFF --> OPENTHREAD_CONFIG_PLATFORM_POWER_CALIBRATION_ENABLE=0
+-- OT_PLATFORM_UDP=OFF --> OPENTHREAD_CONFIG_PLATFORM_UDP_ENABLE=0
+-- OT_REFERENCE_DEVICE=OFF --> OPENTHREAD_CONFIG_REFERENCE_DEVICE_ENABLE=0
+-- OT_SEEKER=""
+-- OT_SERVICE=OFF --> OPENTHREAD_CONFIG_TMF_NETDATA_SERVICE_ENABLE=0
+-- OT_SETTINGS_RAM=OFF --> OPENTHREAD_SETTINGS_RAM=0
+-- OT_SLAAC=ON --> OPENTHREAD_CONFIG_IP6_SLAAC_ENABLE=1
+-- OT_SNTP_CLIENT=OFF --> OPENTHREAD_CONFIG_SNTP_CLIENT_ENABLE=0
+-- OT_SRP_ADV_PROXY=OFF --> OPENTHREAD_CONFIG_SRP_SERVER_ADVERTISING_PROXY_ENABLE=0
+-- OT_SRP_CLIENT=OFF --> OPENTHREAD_CONFIG_SRP_CLIENT_ENABLE=0
+-- OT_SRP_SERVER=OFF --> OPENTHREAD_CONFIG_SRP_SERVER_ENABLE=0
+-- OT_SRP_SERVER_FAST_START_MODE=OFF --> OPENTHREAD_CONFIG_SRP_SERVER_FAST_START_MODE_ENABLE=0
+-- OT_STEERING_DATA=""
+-- OT_TCP=OFF --> OPENTHREAD_CONFIG_TCP_ENABLE=0
+-- OT_TIME_SYNC=OFF --> OPENTHREAD_CONFIG_TIME_SYNC_ENABLE=0
+-- OT_TREL=OFF --> OPENTHREAD_CONFIG_RADIO_LINK_TREL_ENABLE=0
+-- OT_TREL_MANAGE_DNSSD=OFF --> OPENTHREAD_CONFIG_TREL_MANAGE_DNSSD_ENABLE=0
+-- OT_TX_BEACON_PAYLOAD=OFF --> OPENTHREAD_CONFIG_MAC_OUTGOING_BEACON_PAYLOAD_ENABLE=0
+-- OT_TX_QUEUE_STATS=OFF --> OPENTHREAD_CONFIG_TX_QUEUE_STATISTICS_ENABLE=0
+-- OT_UDP_FORWARD=OFF --> OPENTHREAD_CONFIG_UDP_FORWARD_ENABLE=0
+-- OT_UPTIME=ON --> OPENTHREAD_CONFIG_UPTIME_ENABLE=1
+-- OT_VERHOEFF_CHECKSUM=OFF --> OPENTHREAD_CONFIG_VERHOEFF_CHECKSUM_ENABLE=0
+-- OT_WAKEUP_COORDINATOR=OFF --> OPENTHREAD_CONFIG_WAKEUP_COORDINATOR_ENABLE=0
+-- OT_WAKEUP_END_DEVICE=OFF --> OPENTHREAD_CONFIG_WAKEUP_END_DEVICE_ENABLE=0
+-- OT_SPINEL_CP_RESET_FAIL_CALLBACK_ENABLE=""
+-- - - - - - - - - - - - - - - - - 
+-- OT_PLATFORM="zephyr"
+-- OT_CRYPTO_LIB=""
+-- OT_THREAD_VERSION="1.1" -> OPENTHREAD_CONFIG_THREAD_VERSION=OT_THREAD_VERSION_1_1
+-- OT_LOG_LEVEL=""
+-- OT_LOG_OUTPUT=""
+-- OT_VENDOR_NAME="Zephyr" --> OPENTHREAD_CONFIG_NET_DIAG_VENDOR_NAME="Zephyr"
+-- OT_VENDOR_MODEL="Zephyr-OpenThread" --> OPENTHREAD_CONFIG_NET_DIAG_VENDOR_MODEL="Zephyr-OpenThread"
+-- OT_VENDOR_SW_VERSION="Zephyr-OT-v1.0" --> OPENTHREAD_CONFIG_NET_DIAG_VENDOR_SW_VERSION="Zephyr-OT-v1.0"
+-- OT_BORDER_AGENT_SERVICE_NAME=""
+-- OT_POWER_SUPPLY="EXTERNAL" --> OPENTHREAD_CONFIG_DEVICE_POWER_SUPPLY=OT_POWER_SUPPLY_EXTERNAL
+-- OT_BORDER_ROUTING_DHCP6_PD_MIN_LIFETIME=""
+-- OT_LOG_MAX_SIZE=""
+-- OT_MAC_CSL_REQUEST_AHEAD_US=""
+-- OT_MLE_MAX_CHILDREN=""
+-- OT_RCP_RESTORATION_MAX_COUNT="2" --> OPENTHREAD_SPINEL_CONFIG_RCP_RESTORATION_MAX_COUNT=2
+-- OT_RCP_TIME_SYNC_INTERVAL=""
+-- OT_RCP_TX_WAIT_TIME_SECS=""
+-- Package Name: OPENTHREAD
+-- Setting default package version: e4d97681c
+-- Package Version: e4d97681c
+-- Using ccache: /usr/bin/ccache
+-- Found gen_kobject_list: /home/ismael/zephyrproject-lab5/zephyr/scripts/build/gen_kobject_list.py
+-- Configuring done (12.7s)
+-- Generating done (0.5s)
+-- Build files have been written to: /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb
+-- west build: building application
+[1/909] Preparing syscall dependency handling
+
+[2/909] Generating include/generated/zephyr/version.h
+-- Zephyr version: 4.4.99 (/home/ismael/zephyrproject-lab5/zephyr), build: 2f0bc11264a8
+[3/909] Generating misc/generated/syscalls_subdirs.trigger
+[4/909] Generating misc/generated/syscalls.json, misc/generated/struct_tags.json
+[5/909] Generating include/generated/device-api-sections.ld, include/generated/device-api-sections.cmake
+[6/909] Generating include/generated/zephyr/syscall_dispatch.c, include/generated/zephyr/syscall_exports_llext.c, syscall_weakdefs_llext.c, include/generated/zephyr/syscall_list.h
+[7/909] Generating include/generated/zephyr/driver-validation.h
+[8/909] Generating include/generated/zephyr/kobj-types-enum.h, include/generated/zephyr/otype-to-str.h, include/generated/zephyr/otype-to-size.h
+[9/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_coap_secure.cpp.obj
+[10/909] Building C object zephyr/lib/heap/CMakeFiles/heap_constants.dir/heap_constants.c.obj
+[11/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_br.cpp.obj
+[12/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_history.cpp.obj
+[13/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_ba.cpp.obj
+[14/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_logging.cpp.obj
+[15/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_bbr.cpp.obj
+[16/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_joiner.cpp.obj
+[17/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_commissioner.cpp.obj
+[18/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_srp_client.cpp.obj
+[19/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_dns.cpp.obj
+[20/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_tcat.cpp.obj
+[21/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_mdns.cpp.obj
+[22/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_mac_filter.cpp.obj
+[23/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_tcp.cpp.obj
+[24/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_dataset.cpp.obj
+[25/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_link_metrics.cpp.obj
+[26/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_mesh_diag.cpp.obj
+[27/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_coap.cpp.obj
+[28/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/ble_secure_api.cpp.obj
+[29/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/backbone_router_ftd_api.cpp.obj
+[30/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_agent_api.cpp.obj
+[31/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_ping.cpp.obj
+[32/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/backbone_router_api.cpp.obj
+[33/909] cd /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/modules/openthread/build && /usr/bin/cmake -DLIST="OPENTHREAD_CONFIG_RADIO_LINK_IEEE_802_15_4_ENABLE=1;OPENTHREAD_CONFIG_TMF_ANYCAST_LOCATOR_ENABLE=0;OPENTHREAD_CONFIG_ASSERT_ENABLE=0;OPENTHREAD_CONFIG_BACKBONE_ROUTER_ENABLE=0;OPENTHREAD_CONFIG_BACKBONE_ROUTER_DUA_NDPROXYING_ENABLE=0;OPENTHREAD_CONFIG_BACKBONE_ROUTER_MULTICAST_ROUTING_ENABLE=0;OPENTHREAD_CONFIG_BLE_TCAT_ENABLE=0;OPENTHREAD_CONFIG_BORDER_AGENT_ENABLE=0;OPENTHREAD_CONFIG_BORDER_AGENT_EPHEMERAL_KEY_ENABLE=0;OPENTHREAD_CONFIG_BORDER_AGENT_ID_ENABLE=0;OPENTHREAD_CONFIG_BORDER_AGENT_MESHCOP_SERVICE_ENABLE=0;OPENTHREAD_CONFIG_BORDER_ROUTER_ENABLE=0;OPENTHREAD_CONFIG_BORDER_ROUTING_ENABLE=0;OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_ENABLE=0;OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_IP6_BR_COUNTERS_ENABLE=0;OPENTHREAD_CONFIG_CHANNEL_MANAGER_ENABLE=0;OPENTHREAD_CONFIG_CHANNEL_MANAGER_CSL_CHANNEL_SELECT_ENABLE=0;OPENTHREAD_CONFIG_CHANNEL_MONITOR_ENABLE=0;OPENTHREAD_CONFIG_CHANNEL_MONITOR_AUTO_START_ENABLE=0;OPENTHREAD_CONFIG_COAP_API_ENABLE=1;OPENTHREAD_CONFIG_COAP_BLOCKWISE_TRANSFER_ENABLE=0;OPENTHREAD_CONFIG_COAP_OBSERVE_API_ENABLE=1;OPENTHREAD_CONFIG_COAP_SECURE_API_ENABLE=0;OPENTHREAD_CONFIG_COMMISSIONER_ENABLE=0;OPENTHREAD_CONFIG_MAC_CSL_AUTO_SYNC_ENABLE=0;OPENTHREAD_CONFIG_MAC_CSL_DEBUG_ENABLE=0;OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_ENABLE=0;OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_LOCAL_TIME_SYNC=0;OPENTHREAD_CONFIG_DATASET_UPDATER_ENABLE=0;OPENTHREAD_CONFIG_MLE_DEVICE_PROPERTY_LEADER_WEIGHT_ENABLE=0;OPENTHREAD_CONFIG_DHCP6_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_DHCP6_SERVER_ENABLE=0;OPENTHREAD_CONFIG_DIAG_ENABLE=0;OPENTHREAD_CONFIG_DNS_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_DNS_CLIENT_OVER_TCP_ENABLE=0;OPENTHREAD_CONFIG_DNS_DSO_ENABLE=0;OPENTHREAD_CONFIG_DNS_UPSTREAM_QUERY_ENABLE=0;OPENTHREAD_CONFIG_DNSSD_DISCOVERY_PROXY_ENABLE=0;OPENTHREAD_CONFIG_DNSSD_SERVER_ENABLE=0;OPENTHREAD_CONFIG_DUA_ENABLE=0;OPENTHREAD_CONFIG_DYNAMIC_STORE_FRAME_AHEAD_COUNTER_ENABLE=0;OPENTHREAD_CONFIG_ECDSA_ENABLE=0;OPENTHREAD_CONFIG_HEAP_EXTERNAL_ENABLE=0;OPENTHREAD_POSIX_CONFIG_FIREWALL_ENABLE=0;OPENTHREAD_CONFIG_HISTORY_TRACKER_ENABLE=0;OPENTHREAD_CONFIG_IP6_FRAGMENTATION_ENABLE=0;OPENTHREAD_CONFIG_JAM_DETECTION_ENABLE=0;OPENTHREAD_CONFIG_JOINER_ENABLE=0;OPENTHREAD_CONFIG_MLE_LINK_METRICS_INITIATOR_ENABLE=0;OPENTHREAD_CONFIG_LINK_METRICS_MANAGER_ENABLE=0;OPENTHREAD_CONFIG_MLE_LINK_METRICS_SUBJECT_ENABLE=0;OPENTHREAD_CONFIG_LINK_RAW_ENABLE=0;OPENTHREAD_CONFIG_LOG_LEVEL_DYNAMIC_ENABLE=0;OPENTHREAD_CONFIG_MAC_FILTER_ENABLE=1;OPENTHREAD_CONFIG_MULTICAST_DNS_ENABLE=0;OPENTHREAD_CONFIG_MESH_DIAG_ENABLE=0;OPENTHREAD_CONFIG_MESSAGE_USE_HEAP_ENABLE=0;OPENTHREAD_CONFIG_MLE_LONG_ROUTES_ENABLE=0;OPENTHREAD_CONFIG_MLR_ENABLE=0;OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE=0;OPENTHREAD_CONFIG_MULTIPLE_INSTANCE_ENABLE=0;OPENTHREAD_CONFIG_NAT64_BORDER_ROUTING_ENABLE=0;OPENTHREAD_CONFIG_NAT64_TRANSLATOR_ENABLE=0;OPENTHREAD_CONFIG_NEIGHBOR_DISCOVERY_AGENT_ENABLE=0;OPENTHREAD_CONFIG_NETDATA_PUBLISHER_ENABLE=0;OPENTHREAD_CONFIG_TMF_NETDIAG_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_NET_DIAG_VENDOR_INFO_SET_API_ENABLE=0;OPENTHREAD_CONFIG_OPERATIONAL_DATASET_AUTO_INIT=1;OPENTHREAD_CONFIG_OTNS_ENABLE=0;OPENTHREAD_CONFIG_PING_SENDER_ENABLE=1;OPENTHREAD_CONFIG_PLATFORM_BOOTLOADER_MODE_ENABLE=0;OPENTHREAD_CONFIG_PLATFORM_KEY_REFERENCES_ENABLE=1;OPENTHREAD_CONFIG_PLATFORM_LOG_CRASH_DUMP_ENABLE=0;OPENTHREAD_CONFIG_PLATFORM_NETIF_ENABLE=0;OPENTHREAD_CONFIG_PLATFORM_POWER_CALIBRATION_ENABLE=0;OPENTHREAD_CONFIG_PLATFORM_UDP_ENABLE=0;OPENTHREAD_CONFIG_REFERENCE_DEVICE_ENABLE=0;OPENTHREAD_CONFIG_TMF_NETDATA_SERVICE_ENABLE=0;OPENTHREAD_SETTINGS_RAM=0;OPENTHREAD_CONFIG_IP6_SLAAC_ENABLE=1;OPENTHREAD_CONFIG_SNTP_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_SRP_SERVER_ADVERTISING_PROXY_ENABLE=0;OPENTHREAD_CONFIG_SRP_CLIENT_ENABLE=0;OPENTHREAD_CONFIG_SRP_SERVER_ENABLE=0;OPENTHREAD_CONFIG_SRP_SERVER_FAST_START_MODE_ENABLE=0;OPENTHREAD_CONFIG_TCP_ENABLE=0;OPENTHREAD_CONFIG_TIME_SYNC_ENABLE=0;OPENTHREAD_CONFIG_RADIO_LINK_TREL_ENABLE=0;OPENTHREAD_CONFIG_TREL_MANAGE_DNSSD_ENABLE=0;OPENTHREAD_CONFIG_MAC_OUTGOING_BEACON_PAYLOAD_ENABLE=0;OPENTHREAD_CONFIG_TX_QUEUE_STATISTICS_ENABLE=0;OPENTHREAD_CONFIG_UDP_FORWARD_ENABLE=0;OPENTHREAD_CONFIG_UPTIME_ENABLE=1;OPENTHREAD_CONFIG_VERHOEFF_CHECKSUM_ENABLE=0;OPENTHREAD_CONFIG_WAKEUP_COORDINATOR_ENABLE=0;OPENTHREAD_CONFIG_WAKEUP_END_DEVICE_ENABLE=0;OPENTHREAD_CONFIG_THREAD_VERSION=OT_THREAD_VERSION_1_1;OPENTHREAD_CONFIG_NET_DIAG_VENDOR_NAME="Zephyr";OPENTHREAD_CONFIG_NET_DIAG_VENDOR_MODEL="Zephyr-OpenThread";OPENTHREAD_CONFIG_NET_DIAG_VENDOR_SW_VERSION="Zephyr-OT-v1.0";OPENTHREAD_CONFIG_DEVICE_POWER_SUPPLY=OT_POWER_SUPPLY_EXTERNAL;OPENTHREAD_SPINEL_CONFIG_RCP_RESTORATION_MAX_COUNT=2;OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS=0;OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS_MANAGEMENT=0;PACKAGE_NAME="OPENTHREAD";OPENTHREAD_PLATFORM_POSIX=0;OPENTHREAD_PLATFORM_NEXUS=0;OPENTHREAD_CONFIG_NCP_INFRA_IF_ENABLE=0;OPENTHREAD_CONFIG_NCP_DNSSD_ENABLE=0;OPENTHREAD_CONFIG_NCP_CLI_STREAM_ENABLE=0;OPENTHREAD_CONFIG_NCP_HDLC_ENABLE=1;MBEDTLS_SSL_EXPORT_KEYS;__ZEPHYR__=1;__LINUX_ERRNO_EXTENSIONS__;PICOLIBC_DOUBLE_PRINTF_SCANF;ZVFS_EVENTFD_SIZE=1;ZVFS_OPEN_SIZE=8;_POSIX_THREAD_SAFE_FUNCTIONS=200809L;ESP_PLATFORM;SOC_MMU_PAGE_SIZE=0x10000;__DECLARE_RCC_ATOMIC_ENV;__DECLARE_RCC_RC_ATOMIC_ENV;CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=1;CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=-1;CONFIG_APP_BUILD_USE_FLASH_SECTIONS;asm=__asm__;typeof=__typeof__;ESP_PLATFORM;CONFIG_ESP_COEX_ENABLED;CONFIG_IEEE802154_ENABLED;CONFIG_IEEE802154_RX_BUFFER_SIZE=20;CONFIG_IEEE802154_CCA_MODE=1;CONFIG_IEEE802154_CCA_THRESHOLD=-60;CONFIG_IEEE802154_PENDING_TABLE_SIZE=20;CONFIG_IEEE802154_INTERFACE_NUM=1;ZCBOR_CANONICAL;K_HEAP_MEM_POOL_SIZE=4376;MBEDTLS_CONFIG_FILE="config-mbedtls.h";TF_PSA_CRYPTO_CONFIG_FILE="config-tf-psa-crypto.h"" -P /home/ismael/zephyrproject-lab5/modules/lib/openthread/etc/cmake/print.cmake
+OPENTHREAD_CONFIG_RADIO_LINK_IEEE_802_15_4_ENABLE=1
+OPENTHREAD_CONFIG_TMF_ANYCAST_LOCATOR_ENABLE=0
+OPENTHREAD_CONFIG_ASSERT_ENABLE=0
+OPENTHREAD_CONFIG_BACKBONE_ROUTER_ENABLE=0
+OPENTHREAD_CONFIG_BACKBONE_ROUTER_DUA_NDPROXYING_ENABLE=0
+OPENTHREAD_CONFIG_BACKBONE_ROUTER_MULTICAST_ROUTING_ENABLE=0
+OPENTHREAD_CONFIG_BLE_TCAT_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_AGENT_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_AGENT_EPHEMERAL_KEY_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_AGENT_ID_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_AGENT_MESHCOP_SERVICE_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_ROUTER_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_ROUTING_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_ENABLE=0
+OPENTHREAD_CONFIG_BORDER_ROUTING_DHCP6_PD_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_IP6_BR_COUNTERS_ENABLE=0
+OPENTHREAD_CONFIG_CHANNEL_MANAGER_ENABLE=0
+OPENTHREAD_CONFIG_CHANNEL_MANAGER_CSL_CHANNEL_SELECT_ENABLE=0
+OPENTHREAD_CONFIG_CHANNEL_MONITOR_ENABLE=0
+OPENTHREAD_CONFIG_CHANNEL_MONITOR_AUTO_START_ENABLE=0
+OPENTHREAD_CONFIG_COAP_API_ENABLE=1
+OPENTHREAD_CONFIG_COAP_BLOCKWISE_TRANSFER_ENABLE=0
+OPENTHREAD_CONFIG_COAP_OBSERVE_API_ENABLE=1
+OPENTHREAD_CONFIG_COAP_SECURE_API_ENABLE=0
+OPENTHREAD_CONFIG_COMMISSIONER_ENABLE=0
+OPENTHREAD_CONFIG_MAC_CSL_AUTO_SYNC_ENABLE=0
+OPENTHREAD_CONFIG_MAC_CSL_DEBUG_ENABLE=0
+OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_ENABLE=0
+OPENTHREAD_CONFIG_MAC_CSL_RECEIVER_LOCAL_TIME_SYNC=0
+OPENTHREAD_CONFIG_DATASET_UPDATER_ENABLE=0
+OPENTHREAD_CONFIG_MLE_DEVICE_PROPERTY_LEADER_WEIGHT_ENABLE=0
+OPENTHREAD_CONFIG_DHCP6_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_DHCP6_SERVER_ENABLE=0
+OPENTHREAD_CONFIG_DIAG_ENABLE=0
+OPENTHREAD_CONFIG_DNS_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_DNS_CLIENT_OVER_TCP_ENABLE=0
+OPENTHREAD_CONFIG_DNS_DSO_ENABLE=0
+OPENTHREAD_CONFIG_DNS_UPSTREAM_QUERY_ENABLE=0
+OPENTHREAD_CONFIG_DNSSD_DISCOVERY_PROXY_ENABLE=0
+OPENTHREAD_CONFIG_DNSSD_SERVER_ENABLE=0
+OPENTHREAD_CONFIG_DUA_ENABLE=0
+OPENTHREAD_CONFIG_DYNAMIC_STORE_FRAME_AHEAD_COUNTER_ENABLE=0
+OPENTHREAD_CONFIG_ECDSA_ENABLE=0
+OPENTHREAD_CONFIG_HEAP_EXTERNAL_ENABLE=0
+OPENTHREAD_POSIX_CONFIG_FIREWALL_ENABLE=0
+OPENTHREAD_CONFIG_HISTORY_TRACKER_ENABLE=0
+OPENTHREAD_CONFIG_IP6_FRAGMENTATION_ENABLE=0
+OPENTHREAD_CONFIG_JAM_DETECTION_ENABLE=0
+OPENTHREAD_CONFIG_JOINER_ENABLE=0
+OPENTHREAD_CONFIG_MLE_LINK_METRICS_INITIATOR_ENABLE=0
+OPENTHREAD_CONFIG_LINK_METRICS_MANAGER_ENABLE=0
+OPENTHREAD_CONFIG_MLE_LINK_METRICS_SUBJECT_ENABLE=0
+OPENTHREAD_CONFIG_LINK_RAW_ENABLE=0
+OPENTHREAD_CONFIG_LOG_LEVEL_DYNAMIC_ENABLE=0
+OPENTHREAD_CONFIG_MAC_FILTER_ENABLE=1
+OPENTHREAD_CONFIG_MULTICAST_DNS_ENABLE=0
+OPENTHREAD_CONFIG_MESH_DIAG_ENABLE=0
+OPENTHREAD_CONFIG_MESSAGE_USE_HEAP_ENABLE=0
+OPENTHREAD_CONFIG_MLE_LONG_ROUTES_ENABLE=0
+OPENTHREAD_CONFIG_MLR_ENABLE=0
+OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE=0
+OPENTHREAD_CONFIG_MULTIPLE_INSTANCE_ENABLE=0
+OPENTHREAD_CONFIG_NAT64_BORDER_ROUTING_ENABLE=0
+OPENTHREAD_CONFIG_NAT64_TRANSLATOR_ENABLE=0
+OPENTHREAD_CONFIG_NEIGHBOR_DISCOVERY_AGENT_ENABLE=0
+OPENTHREAD_CONFIG_NETDATA_PUBLISHER_ENABLE=0
+OPENTHREAD_CONFIG_TMF_NETDIAG_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_NET_DIAG_VENDOR_INFO_SET_API_ENABLE=0
+OPENTHREAD_CONFIG_OPERATIONAL_DATASET_AUTO_INIT=1
+OPENTHREAD_CONFIG_OTNS_ENABLE=0
+OPENTHREAD_CONFIG_PING_SENDER_ENABLE=1
+OPENTHREAD_CONFIG_PLATFORM_BOOTLOADER_MODE_ENABLE=0
+OPENTHREAD_CONFIG_PLATFORM_KEY_REFERENCES_ENABLE=1
+OPENTHREAD_CONFIG_PLATFORM_LOG_CRASH_DUMP_ENABLE=0
+OPENTHREAD_CONFIG_PLATFORM_NETIF_ENABLE=0
+OPENTHREAD_CONFIG_PLATFORM_POWER_CALIBRATION_ENABLE=0
+OPENTHREAD_CONFIG_PLATFORM_UDP_ENABLE=0
+OPENTHREAD_CONFIG_REFERENCE_DEVICE_ENABLE=0
+OPENTHREAD_CONFIG_TMF_NETDATA_SERVICE_ENABLE=0
+OPENTHREAD_SETTINGS_RAM=0
+OPENTHREAD_CONFIG_IP6_SLAAC_ENABLE=1
+OPENTHREAD_CONFIG_SNTP_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_SRP_SERVER_ADVERTISING_PROXY_ENABLE=0
+OPENTHREAD_CONFIG_SRP_CLIENT_ENABLE=0
+OPENTHREAD_CONFIG_SRP_SERVER_ENABLE=0
+OPENTHREAD_CONFIG_SRP_SERVER_FAST_START_MODE_ENABLE=0
+OPENTHREAD_CONFIG_TCP_ENABLE=0
+OPENTHREAD_CONFIG_TIME_SYNC_ENABLE=0
+OPENTHREAD_CONFIG_RADIO_LINK_TREL_ENABLE=0
+OPENTHREAD_CONFIG_TREL_MANAGE_DNSSD_ENABLE=0
+OPENTHREAD_CONFIG_MAC_OUTGOING_BEACON_PAYLOAD_ENABLE=0
+OPENTHREAD_CONFIG_TX_QUEUE_STATISTICS_ENABLE=0
+OPENTHREAD_CONFIG_UDP_FORWARD_ENABLE=0
+OPENTHREAD_CONFIG_UPTIME_ENABLE=1
+OPENTHREAD_CONFIG_VERHOEFF_CHECKSUM_ENABLE=0
+OPENTHREAD_CONFIG_WAKEUP_COORDINATOR_ENABLE=0
+OPENTHREAD_CONFIG_WAKEUP_END_DEVICE_ENABLE=0
+OPENTHREAD_CONFIG_THREAD_VERSION=OT_THREAD_VERSION_1_1
+OPENTHREAD_CONFIG_NET_DIAG_VENDOR_NAME=Zephyr
+OPENTHREAD_CONFIG_NET_DIAG_VENDOR_MODEL=Zephyr-OpenThread
+OPENTHREAD_CONFIG_NET_DIAG_VENDOR_SW_VERSION=Zephyr-OT-v1.0
+OPENTHREAD_CONFIG_DEVICE_POWER_SUPPLY=OT_POWER_SUPPLY_EXTERNAL
+OPENTHREAD_SPINEL_CONFIG_RCP_RESTORATION_MAX_COUNT=2
+OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS=0
+OPENTHREAD_CONFIG_ENABLE_BUILTIN_MBEDTLS_MANAGEMENT=0
+PACKAGE_NAME=OPENTHREAD
+OPENTHREAD_PLATFORM_POSIX=0
+OPENTHREAD_PLATFORM_NEXUS=0
+OPENTHREAD_CONFIG_NCP_INFRA_IF_ENABLE=0
+OPENTHREAD_CONFIG_NCP_DNSSD_ENABLE=0
+OPENTHREAD_CONFIG_NCP_CLI_STREAM_ENABLE=0
+OPENTHREAD_CONFIG_NCP_HDLC_ENABLE=1
+MBEDTLS_SSL_EXPORT_KEYS
+__ZEPHYR__=1
+__LINUX_ERRNO_EXTENSIONS__
+PICOLIBC_DOUBLE_PRINTF_SCANF
+ZVFS_EVENTFD_SIZE=1
+ZVFS_OPEN_SIZE=8
+_POSIX_THREAD_SAFE_FUNCTIONS=200809L
+ESP_PLATFORM
+SOC_MMU_PAGE_SIZE=0x10000
+__DECLARE_RCC_ATOMIC_ENV
+__DECLARE_RCC_RC_ATOMIC_ENV
+CONFIG_ESP_CONSOLE_USB_SERIAL_JTAG_ENABLED=1
+CONFIG_ESP_CONSOLE_ROM_SERIAL_PORT_NUM=-1
+CONFIG_APP_BUILD_USE_FLASH_SECTIONS
+asm=__asm__
+typeof=__typeof__
+ESP_PLATFORM
+CONFIG_ESP_COEX_ENABLED
+CONFIG_IEEE802154_ENABLED
+CONFIG_IEEE802154_RX_BUFFER_SIZE=20
+CONFIG_IEEE802154_CCA_MODE=1
+CONFIG_IEEE802154_CCA_THRESHOLD=-60
+CONFIG_IEEE802154_PENDING_TABLE_SIZE=20
+CONFIG_IEEE802154_INTERFACE_NUM=1
+ZCBOR_CANONICAL
+K_HEAP_MEM_POOL_SIZE=4376
+MBEDTLS_CONFIG_FILE=config-mbedtls.h
+TF_PSA_CRYPTO_CONFIG_FILE=config-tf-psa-crypto.h
+[34/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_agent_ephemeral_key_api.cpp.obj
+[35/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_agent_admitter_api.cpp.obj
+[36/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_agent_tracker_api.cpp.obj
+[37/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_agent_txt_data_api.cpp.obj
+[38/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_router_api.cpp.obj
+[39/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/channel_manager_api.cpp.obj
+[40/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/border_routing_api.cpp.obj
+[41/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/channel_monitor_api.cpp.obj
+[42/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/commissioner_api.cpp.obj
+[43/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/coap_secure_api.cpp.obj
+[44/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_srp_server.cpp.obj
+[45/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_network_data.cpp.obj
+[46/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/diags_api.cpp.obj
+[47/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/dataset_updater_api.cpp.obj
+[48/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/error_api.cpp.obj
+[49/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/history_tracker_api.cpp.obj
+[50/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/heap_api.cpp.obj
+[51/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_udp.cpp.obj
+[52/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/jam_detection_api.cpp.obj
+[53/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli_utils.cpp.obj
+[54/909] Building CXX object modules/openthread/build/src/cli/CMakeFiles/openthread-cli-ftd.dir/cli.cpp.obj
+[55/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/joiner_api.cpp.obj
+[56/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/dns_server_api.cpp.obj
+[57/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/link_metrics_api.cpp.obj
+[58/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/crypto_api.cpp.obj
+[59/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/dataset_ftd_api.cpp.obj
+[60/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/child_supervision_api.cpp.obj
+[61/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/coap_api.cpp.obj
+[62/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/dataset_api.cpp.obj
+[63/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/mesh_diag_api.cpp.obj
+[64/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/mdns_api.cpp.obj
+[65/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/dns_api.cpp.obj
+[66/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/multi_radio_api.cpp.obj
+[67/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/netdata_publisher_api.cpp.obj
+[68/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/network_time_api.cpp.obj
+[69/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/icmp6_api.cpp.obj
+[70/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/p2p_api.cpp.obj
+[71/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/instance_api.cpp.obj
+[72/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/random_crypto_api.cpp.obj
+[73/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/random_noncrypto_api.cpp.obj
+[74/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/seeker_api.cpp.obj
+[75/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/server_api.cpp.obj
+[76/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/sntp_api.cpp.obj
+[77/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/srp_client_api.cpp.obj
+[78/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/multi_ail_detection_api.cpp.obj
+[79/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/ip6_api.cpp.obj
+[80/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/link_raw_api.cpp.obj
+[81/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/logging_api.cpp.obj
+[82/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/srp_server_api.cpp.obj
+[83/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/netdiag_api.cpp.obj
+[84/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/nat64_api.cpp.obj
+[85/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/link_api.cpp.obj
+[86/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/tcp_api.cpp.obj
+[87/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/tcp_ext_api.cpp.obj
+[88/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/message_api.cpp.obj
+[89/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/trel_api.cpp.obj
+[90/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/netdata_api.cpp.obj
+[91/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/radio_stats_api.cpp.obj
+[92/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/bbr_leader.cpp.obj
+[93/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/steering_data_api.cpp.obj
+[94/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/backbone_tmf.cpp.obj
+[95/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/verhoeff_checksum_api.cpp.obj
+[96/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/bbr_local.cpp.obj
+[97/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/bbr_manager.cpp.obj
+[98/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/multicast_listeners_table.cpp.obj
+[99/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/backbone_router/ndproxy_table.cpp.obj
+[100/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/ping_sender_api.cpp.obj
+[101/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/br_log.cpp.obj
+[102/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/br_tracker.cpp.obj
+[103/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/dhcp6_pd_client.cpp.obj
+[104/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/br_types.cpp.obj
+[105/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/infra_if.cpp.obj
+[106/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/multi_ail_detector.cpp.obj
+[107/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/routing_manager.cpp.obj
+[108/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/border_router/rx_ra_tracker.cpp.obj
+[109/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/srp_client_buffers_api.cpp.obj
+[110/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/coap/coap_secure.cpp.obj
+[111/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/binary_search.cpp.obj
+[112/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/bit_utils.cpp.obj
+[113/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/data.cpp.obj
+[114/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/tasklet_api.cpp.obj
+[115/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/frame_data.cpp.obj
+[116/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/error.cpp.obj
+[117/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/appender.cpp.obj
+[118/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/heap_string.cpp.obj
+[119/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/crc.cpp.obj
+[120/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/frame_builder.cpp.obj
+[121/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/thread_api.cpp.obj
+[122/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/thread_ftd_api.cpp.obj
+[123/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/heap_data.cpp.obj
+[124/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/preference.cpp.obj
+[125/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/api/udp_api.cpp.obj
+[126/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/offset_range.cpp.obj
+[127/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/random.cpp.obj
+[128/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/string.cpp.obj
+[129/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/heap.cpp.obj
+[130/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/trickle_timer.cpp.obj
+[131/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/coap/coap_message.cpp.obj
+[132/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/crypto_platform_mbedtls.cpp.obj
+[133/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/aes_ecb.cpp.obj
+[134/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/log.cpp.obj
+[135/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/notifier.cpp.obj
+[136/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/tlvs.cpp.obj
+[137/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/aes_ccm.cpp.obj
+[138/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/hkdf_sha256.cpp.obj
+[139/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/mbedtls.cpp.obj
+[140/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/tasklet.cpp.obj
+[141/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/diags/factory_diags.cpp.obj
+[142/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/hmac_sha256.cpp.obj
+[143/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/time_ticker.cpp.obj
+[144/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/storage.cpp.obj
+[145/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/settings.cpp.obj
+[146/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/sha256.cpp.obj
+[147/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/coap/coap.cpp.obj
+[148/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/timer.cpp.obj
+[149/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/link_raw.cpp.obj
+[150/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/channel_mask.cpp.obj
+[151/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/message.cpp.obj
+[152/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac_header_ie.cpp.obj
+[153/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/common/uptime.cpp.obj
+[154/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/scan_result.cpp.obj
+[155/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac_types.cpp.obj
+[156/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/wakeup_tx_scheduler.cpp.obj
+[157/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/sub_mac_csl_receiver.cpp.obj
+[158/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/border_agent.cpp.obj
+[159/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/crypto/crypto_platform_psa.cpp.obj
+[160/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/border_agent_tracker.cpp.obj
+[161/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/border_agent_ephemeral_key.cpp.obj
+[162/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/sub_mac_wed.cpp.obj
+[163/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/border_agent_admitter.cpp.obj
+[164/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/data_poll_handler.cpp.obj
+[165/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac_frame.cpp.obj
+[166/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/commissioner.cpp.obj
+[167/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/dataset_updater.cpp.obj
+[168/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/data_poll_sender.cpp.obj
+[169/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/instance/instance.cpp.obj
+[170/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac_filter.cpp.obj
+[171/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/joiner.cpp.obj
+[172/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/extended_panid.cpp.obj
+[173/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/sub_mac_callbacks.cpp.obj
+[174/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac_links.cpp.obj
+[175/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/network_name.cpp.obj
+[176/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/seeker.cpp.obj
+[177/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/border_agent_txt_data.cpp.obj
+[178/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/sub_mac.cpp.obj
+[179/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/mac/mac.cpp.obj
+[180/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/tcat_agent.cpp.obj
+[181/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dhcp6_server.cpp.obj
+[182/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dhcp6_client.cpp.obj
+[183/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/timestamp.cpp.obj
+[184/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/dataset_manager_ftd.cpp.obj
+[185/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/joiner_router.cpp.obj
+[186/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/meshcop_tlvs.cpp.obj
+[187/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dns_dso.cpp.obj
+[188/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/meshcop.cpp.obj
+[189/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dns_client.cpp.obj
+[190/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/secure_transport.cpp.obj
+[191/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/steering_data.cpp.obj
+[192/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dns_platform.cpp.obj
+[193/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/dataset_manager.cpp.obj
+[194/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dnssd.cpp.obj
+[195/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dnssd_server.cpp.obj
+[196/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/checksum.cpp.obj
+[197/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/dataset.cpp.obj
+[198/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/network_identity.cpp.obj
+[199/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dhcp6_types.cpp.obj
+[200/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/meshcop/meshcop_leader.cpp.obj
+[201/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/mdns.cpp.obj
+[202/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/nd6.cpp.obj
+[203/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/nd_agent.cpp.obj
+[204/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip6_headers.cpp.obj
+[205/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/sntp_client.cpp.obj
+[206/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip4_types.cpp.obj
+[207/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/srp_advertising_proxy.cpp.obj
+[208/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/socket.cpp.obj
+[209/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/srp_client.cpp.obj
+[210/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/srp_server.cpp.obj
+[211/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/tcp6.cpp.obj
+[212/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/tcp6_ext.cpp.obj
+[213/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/ble_secure.cpp.obj
+[214/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip6_address.cpp.obj
+[215/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/trel_interface.cpp.obj
+[216/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/nat64_translator.cpp.obj
+[217/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/icmp6.cpp.obj
+[218/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip6_filter.cpp.obj
+[219/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/slaac_address.cpp.obj
+[220/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/trel_link.cpp.obj
+[221/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/trel_packet.cpp.obj
+[222/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/trel_peer_discoverer.cpp.obj
+[223/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/trel_peer.cpp.obj
+[224/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip6_mpl.cpp.obj
+[225/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/anycast_locator.cpp.obj
+[226/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/radio.cpp.obj
+[227/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/ip6.cpp.obj
+[228/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/csl_tx_scheduler.cpp.obj
+[229/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/dns_types.cpp.obj
+[230/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/dua_manager.cpp.obj
+[231/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/netif.cpp.obj
+[232/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/radio_platform.cpp.obj
+[233/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/radio/radio_callbacks.cpp.obj
+[234/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/link_metrics.cpp.obj
+[235/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/net/udp6.cpp.obj
+[236/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/link_metrics_types.cpp.obj
+[237/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/announce_begin_server.cpp.obj
+[238/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/announce_sender.cpp.obj
+[239/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/child_supervision.cpp.obj
+[240/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/child.cpp.obj
+[241/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/child_table.cpp.obj
+[242/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/address_resolver.cpp.obj
+[243/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/discover_scanner.cpp.obj
+[244/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/energy_scan_server.cpp.obj
+[245/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mlr_manager.cpp.obj
+[246/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/indirect_sender.cpp.obj
+[247/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/link_quality.cpp.obj
+[248/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mesh_forwarder_mtd.cpp.obj
+[249/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/key_manager.cpp.obj
+[250/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mle_p2p.cpp.obj
+[251/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mle_types.cpp.obj
+[252/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mle_tlvs.cpp.obj
+[253/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_local.cpp.obj
+[254/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/message_framer.cpp.obj
+[255/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mesh_forwarder.cpp.obj
+[256/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/lowpan.cpp.obj
+[257/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_publisher.cpp.obj
+[258/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_tlvs.cpp.obj
+[259/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mesh_forwarder_ftd.cpp.obj
+[260/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/neighbor.cpp.obj
+[261/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/neighbor_table.cpp.obj
+[262/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_notifier.cpp.obj
+[263/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/peer.cpp.obj
+[264/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/peer_table.cpp.obj
+[265/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data.cpp.obj
+[266/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_diagnostic_tlvs.cpp.obj
+[267/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/radio_selector.cpp.obj
+[268/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_service.cpp.obj
+[269/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_types.cpp.obj
+[270/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/time_sync_service.cpp.obj
+[271/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_leader.cpp.obj
+[272/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/thread_link_info.cpp.obj
+[273/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_data_leader_ftd.cpp.obj
+[274/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/channel_manager.cpp.obj
+[275/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/channel_monitor.cpp.obj
+[276/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/version.cpp.obj
+[277/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/panid_query_server.cpp.obj
+[278/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mle_ftd.cpp.obj
+[279/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/flash.cpp.obj
+[280/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/network_diagnostic.cpp.obj
+[281/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/history_tracker_server.cpp.obj
+[282/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/history_tracker.cpp.obj
+[283/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/heap.cpp.obj
+[284/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/history_tracker_client.cpp.obj
+[285/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/history_tracker_tlvs.cpp.obj
+[286/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/jam_detector.cpp.obj
+[287/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/mesh_diag.cpp.obj
+[288/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/link_metrics_manager.cpp.obj
+[289/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/router.cpp.obj
+[290/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/otns.cpp.obj
+[291/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/power_calibration.cpp.obj
+[292/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/verhoeff_checksum.cpp.obj
+[293/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/srp_client_buffers.cpp.obj
+[294/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/thread_netif.cpp.obj
+[295/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_fastopen.c.obj
+[296/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/src_match_controller.cpp.obj
+[297/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/uri_paths.cpp.obj
+[298/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/cc/cc_newreno.c.obj
+[299/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_reass.c.obj
+[300/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/tmf.cpp.obj
+[301/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_subr.c.obj
+[302/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/vendor_info.cpp.obj
+[303/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_timer.c.obj
+[304/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_timewait.c.obj
+[305/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_usrreq.c.obj
+[306/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/router_table.cpp.obj
+[307/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/parse_cmdline.cpp.obj
+[308/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_sack.c.obj
+[309/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/lib/bitmap.c.obj
+[310/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/lib/lbuf.c.obj
+[311/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/lib/cbuf.c.obj
+[312/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/thread/mle.cpp.obj
+[313/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_output.c.obj
+[314/909] Building C object modules/openthread/build/third_party/tcplp/CMakeFiles/tcplp-ftd.dir/bsdtcp/tcp_input.c.obj
+[315/909] Linking CXX static library modules/openthread/build/third_party/tcplp/libtcplp-ftd.a
+[316/909] Building CXX object modules/openthread/build/src/core/CMakeFiles/openthread-ftd.dir/utils/ping_sender.cpp.obj
+[317/909] Linking CXX static library modules/openthread/build/src/core/libopenthread-ftd.a
+[318/909] Linking CXX static library modules/openthread/build/src/cli/libopenthread-cli-ftd.a
+[319/909] Generating ../../include/generated/zephyr/heap_constants.h
+[320/909] Building C object zephyr/CMakeFiles/offsets.dir/arch/riscv/core/offsets/offsets.c.obj
+[321/909] Generating include/generated/zephyr/offsets.h
+[322/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/abi/cpp_dtors.c.obj
+[323/909] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_vtable.cpp.obj
+[324/909] Building CXX object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_new.cpp.obj
+[325/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/cpp/minimal/cpp_virtual.c.obj
+[326/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/libc/validate_libc.c.obj
+[327/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/boot_banner.c.obj
+[328/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/assert.c.obj
+[329/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/printk.c.obj
+[330/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/reboot.c.obj
+[331/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/clock.c.obj
+[332/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/dec.c.obj
+[333/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/set.c.obj
+[334/909] Building C object CMakeFiles/app.dir/src/main.c.obj
+[335/909] Building C object CMakeFiles/app.dir/src/valve.c.obj
+[336/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitmask.c.obj
+[337/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/hex.c.obj
+[338/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_packaged.c.obj
+[339/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/last_section_id.c.obj
+[340/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/mpsc_pbuf.c.obj
+[341/909] Building C object CMakeFiles/app.dir/src/reading.c.obj
+[342/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/timeutil.c.obj
+[343/909] Building ASM object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32c6/soc_irq.S.obj
+[344/909] Building ASM object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32c6/vectors.S.obj
+[345/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt_common.c.obj
+[346/909] Building C object CMakeFiles/app.dir/src/env_temp.c.obj
+[347/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/ring_buffer.c.obj
+[348/909] Building C object zephyr/CMakeFiles/zephyr.dir/misc/generated/configs.c.obj
+[349/909] Building ASM object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/start.S.obj
+[350/909] Linking CXX static library app/libapp.a
+[351/909] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/instr_mem.c.obj
+[352/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/heap/heap.c.obj
+[353/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/os/cbprintf_complete.c.obj
+[354/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/getopt/getopt.c.obj
+[355/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/bitarray.c.obj
+[356/909] Building C object zephyr/CMakeFiles/zephyr.dir/lib/utils/rb.c.obj
+[357/909] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32c6/soc.c.obj
+[358/909] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32c6/pmp_regions.c.obj
+[359/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_cache.c.obj
+[360/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_layout.c.obj
+[361/909] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/esp32c6/hw_init.c.obj
+[362/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map_default.c.obj
+[363/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/storage/flash_map/flash_map.c.obj
+[364/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/tracing/tracing_none.c.obj
+[365/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_mgmt.c.obj
+[366/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_msg.c.obj
+[367/909] Building C object zephyr/CMakeFiles/zephyr.dir/soc/espressif/common/loader.c.obj
+[368/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_output.c.obj
+[369/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/logging/log_core.c.obj
+[370/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/net/lib/utils/addr_utils.c.obj
+[371/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/net/lib/coap/coap_link_format.c.obj
+[372/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/kernel_shell.c.obj
+[373/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_store.c.obj
+[374/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/sleep.c.obj
+[375/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_init.c.obj
+[376/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/cycles.c.obj
+[377/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_nvs.c.obj
+[378/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings_line.c.obj
+[379/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/log-level.c.obj
+[380/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/uptime.c.obj
+[381/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/settings/src/settings.c.obj
+[382/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/version.c.obj
+[383/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/reboot.c.obj
+[384/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/stacks.c.obj
+[385/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/suspend.c.obj
+[386/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/unwind.c.obj
+[387/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/thread.c.obj
+[388/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/device_service.c.obj
+[389/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/resume.c.obj
+[390/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/kill.c.obj
+[391/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/date_service.c.obj
+[392/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/kernel_service/thread/list.c.obj
+[393/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/kvss/nvs/nvs.c.obj
+[394/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/modules/devmem_service.c.obj
+[395/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_fprintf.c.obj
+[396/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/backends/shell_uart.c.obj
+[397/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/net/lib/coap/coap.c.obj
+[398/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_history.c.obj
+[399/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_log_backend.c.obj
+[400/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_wildcard.c.obj
+[401/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_utils.c.obj
+[402/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_help.c.obj
+[403/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_ops.c.obj
+[404/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_security/apm_hal.c.obj
+[405/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/src/esp_efuse_fields.c.obj
+[406/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/esp32c6/esp_efuse_table.c.obj
+[407/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/esp32c6/esp_efuse_fields.c.obj
+[408/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell_cmds.c.obj
+[409/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/src/esp_efuse_api.c.obj
+[410/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_mm/port/esp32c6/ext_mem_layout.c.obj
+[411/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/net/lib/coap/coap_server.c.obj
+[412/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_mm/esp_cache_utils.c.obj
+[413/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/src/esp_efuse_utility.c.obj
+[414/909] Building C object zephyr/CMakeFiles/zephyr.dir/drivers/flash/flash_util.c.obj
+[415/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/esp32c6/esp_efuse_utility.c.obj
+[416/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_mspi/spi_flash_encrypt_hal_iram.c.obj
+[417/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/cache_hal.c.obj
+[418/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/efuse/src/efuse_controller/keys/with_key_purposes/esp_efuse_api_key.c.obj
+[419/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/bootloader_support/src/flash_encrypt.c.obj
+[420/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/esp_gpio_reserve.c.obj
+[421/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/mmu_hal.c.obj
+[422/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal.c.obj
+[423/909] Building C object zephyr/CMakeFiles/zephyr.dir/subsys/shell/shell.c.obj
+[424/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_boya.c.obj
+[425/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal_gpspi.c.obj
+[426/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_issi.c.obj
+[427/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/flash_ops.c.obj
+[428/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/flash_mmap.c.obj
+[429/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_mm/esp_mmu_map.c.obj
+[430/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_drivers.c.obj
+[431/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_mspi/spi_flash_hal_iram.c.obj
+[432/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/memspi_host_driver.c.obj
+[433/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_gd.c.obj
+[434/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_th.c.obj
+[435/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_dma/gdma_hal_top.c.obj
+[436/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/soc/lldesc.c.obj
+[437/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_mxic.c.obj
+[438/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_os_func_noos.c.obj
+[439/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_winbond.c.obj
+[440/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_ana_conv/esp32c6/temperature_sensor_periph.c.obj
+[441/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_mxic_opi.c.obj
+[442/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/esp_flash_spi_init.c.obj
+[443/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_dma/gdma_hal_ahb_v1.c.obj
+[444/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/bootloader_support/src/bootloader_clock_init.c.obj
+[445/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/esp_flash_api.c.obj
+[446/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/common/console_init.c.obj
+[447/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_gpio/esp32c6/rtc_io_periph.c.obj
+[448/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_os_func_app.c.obj
+[449/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/bootloader_support/bootloader_flash/src/flash_qio_mode.c.obj
+[450/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/clk_ctrl_os.c.obj
+[451/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/spi_flash_chip_generic.c.obj
+[452/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_gpio/rtc_io_hal.c.obj
+[453/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/bootloader_support/bootloader_flash/src/bootloader_flash_config_esp32c6.c.obj
+[454/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_systimer/systimer_hal.c.obj
+[455/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/esp_memory_utils.c.obj
+[456/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_ana_conv/temperature_sensor_hal.c.obj
+[457/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_wdt/wdt_hal_iram.c.obj
+[458/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/cpu.c.obj
+[459/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/common/soc_init.c.obj
+[460/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_clock/esp32c6/clk_tree_hal.c.obj
+[461/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/cpu_region_protect.c.obj
+[462/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_driver_gpio/src/rtc_io.c.obj
+[463/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/adc_share_hw_ctrl.c.obj
+[464/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/esp_cpu_intr.c.obj
+[465/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/esp_clk.c.obj
+[466/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/hw_random.c.obj
+[467/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/mac_addr.c.obj
+[468/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/systimer.c.obj
+[469/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/io_mux.c.obj
+[470/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/esp_clk_tree.c.obj
+[471/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/modem/port/esp32c6/modem_clock_impl.c.obj
+[472/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/ocode_init.c.obj
+[473/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/modem/modem_clock.c.obj
+[474/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/pmu_param.c.obj
+[475/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/rtc_clk_init.c.obj
+[476/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/pmu_init.c.obj
+[477/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/periph_ctrl.c.obj
+[478/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/sar_periph_ctrl.c.obj
+[479/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_ana_conv/adc_hal_common.c.obj
+[480/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/regi2c_ctrl.c.obj
+[481/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/rtc_time.c.obj
+[482/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_crc.c.obj
+[483/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/rtc_clk.c.obj
+[484/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp32c6/pmu_sleep.c.obj
+[485/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/sar_periph_ctrl_common.c.obj
+[486/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/sleep_cache.c.obj
+[487/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_gpio.c.obj
+[488/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_efuse.c.obj
+[489/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_sys.c.obj
+[490/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_regi2c/esp32c6/regi2c_impl.c.obj
+[491/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/sar_tsens_ctrl.c.obj
+[492/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/esp_clk_tree_common.c.obj
+[493/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/rtc_module.c.obj
+[494/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_spiflash.c.obj
+[495/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_serial_output.c.obj
+[496/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_mm/esp_cache_msync.c.obj
+[497/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_rom/patches/esp_rom_print.c.obj
+[498/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_system/port/soc/esp32c6/reset_reason.c.obj
+[499/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/system_time.c.obj
+[500/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/esp_timer_init.c.obj
+[501/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_system/esp_err.c.obj
+[502/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/esp_timer_etm.c.obj
+[503/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/port/regdma_link.c.obj
+[504/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/esp32c6/efuse_hal.c.obj
+[505/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/riscv/instruction_decode.c.obj
+[506/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/esp_timer_impl_common.c.obj
+[507/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/ets_timer_legacy.c.obj
+[508/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/efuse_hal.c.obj
+[509/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/esp_timer_impl_systimer.c.obj
+[510/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_system/port/soc/esp32c6/clk.c.obj
+[511/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_system/port/soc/esp32c6/system_internal.c.obj
+[512/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/esp32c6/modem_clock_hal.c.obj
+[513/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/soc/esp32c6/gpio_periph.c.obj
+[514/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/riscv/interrupt.c.obj
+[515/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/riscv/rv_utils.c.obj
+[516/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/riscv/interrupt_plic.c.obj
+[517/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_timer/src/esp_timer.c.obj
+[518/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_i2c/i2c_hal_iram.c.obj
+[519/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/common/esp_restart.c.obj
+[520/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_i2c/i2c_hal.c.obj
+[521/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/port/heap/heap_caps_zephyr.c.obj
+[522/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/hal/hal_utils.c.obj
+[523/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/common/flash_init.c.obj
+[524/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/spi_flash/cache_utils.c.obj
+[525/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/sleep_retention.c.obj
+[526/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/esp32c6/src/soc_random.c.obj
+[527/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_uart/esp32c6/uart_periph.c.obj
+[528/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/esp32c6/src/soc_flash_init.c.obj
+[529/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_uart/uart_hal_iram.c.obj
+[530/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/esp32c6/src/soc_init.c.obj
+[531/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/src/phy_override.c.obj
+[532/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_ieee802154/esp32c6/ieee802154_periph.c.obj
+[533/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/src/lib_printf.c.obj
+[534/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/zephyr/port/bootloader/bootloader_flash.c.obj
+[535/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_i2s/i2s_hal.c.obj
+[536/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hal_uart/uart_hal.c.obj
+[537/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/esp32c6/phy_init_data.c.obj
+[538/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_hw_support/sleep_modes.c.obj
+[539/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/src/phy_init.c.obj
+[540/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/src/btbb_init.c.obj
+[541/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_phy/src/phy_common.c.obj
+[542/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/esp_coex/esp32c6/esp_coex_adapter.c.obj
+[543/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_event.c.obj
+[544/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_util.c.obj
+[545/909] Generating linker_zephyr_pre0.cmd
+[546/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_ack.c.obj
+[547/909] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/thread_entry.c.obj
+[548/909] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/sw_isr_common.c.obj
+[549/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_sec.c.obj
+[550/909] Building C object zephyr/CMakeFiles/zephyr_pre0.dir/misc/empty_file.c.obj
+[551/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_timer.c.obj
+[552/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/esp_ieee802154.c.obj
+[553/909] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/instr_mem.c.obj
+[554/909] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/init.c.obj
+[555/909] Building C object zephyr/CMakeFiles/zephyr.dir/kernel/sys/sem.c.obj
+[556/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_frame.c.obj
+[557/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_pib.c.obj
+[558/909] Building C object zephyr/arch/common/CMakeFiles/arch__common.dir/dynamic_isr.c.obj
+[559/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/prep_c.c.obj
+[560/909] Building ASM object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/reset.S.obj
+[561/909] Building C object zephyr/arch/common/CMakeFiles/isr_tables.dir/isr_tables.c.obj
+[562/909] Building ASM object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/isr.S.obj
+[563/909] Building ASM object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/pmp.S.obj
+[564/909] Linking CXX static library zephyr/arch/common/libisr_tables.a
+[565/909] Building ASM object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/switch.S.obj
+[566/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/cpu_idle.c.obj
+[567/909] Linking CXX static library zephyr/arch/common/libarch__common.a
+[568/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/reboot.c.obj
+[569/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/irq_manage.c.obj
+[570/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/thread.c.obj
+[571/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/tls.c.obj
+[572/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/assert.c.obj
+[573/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/chk_fail.c.obj
+[574/909] Building C object zephyr/CMakeFiles/zephyr.dir/home/ismael/zephyrproject-lab5/modules/hal/espressif/components/ieee802154/driver/esp_ieee802154_dev.c.obj
+[575/909] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/time/time.c.obj
+[576/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/locks.c.obj
+[577/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/errno_wrap.c.obj
+[578/909] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/abort.c.obj
+[579/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/cbprintf.c.obj
+[580/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/exit.c.obj
+[581/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/stacktrace.c.obj
+[582/909] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/errno/errno.c.obj
+[583/909] Building C object zephyr/lib/libc/picolibc/CMakeFiles/lib__libc__picolibc.dir/stdio.c.obj
+[584/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/pmp.c.obj
+[585/909] Linking CXX static library zephyr/lib/libc/picolibc/liblib__libc__picolibc.a
+[586/909] Building C object zephyr/lib/libc/common/CMakeFiles/lib__libc__common.dir/source/stdlib/malloc.c.obj
+[587/909] Linking CXX static library zephyr/lib/libc/common/liblib__libc__common.a
+[588/909] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/fnmatch.c.obj
+[589/909] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_poll.c.obj
+[590/909] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getentropy.c.obj
+[591/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc4_sw.c.obj
+[592/909] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf.c.obj
+[593/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc8_sw.c.obj
+[594/909] Building C object zephyr/subsys/portability/posix/c_lib_ext/CMakeFiles/subsys__portability__posix__c_lib_ext.dir/getopt_shim.c.obj
+[595/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc16_sw.c.obj
+[596/909] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_fdtable.c.obj
+[597/909] Linking CXX static library zephyr/subsys/portability/posix/c_lib_ext/libsubsys__portability__posix__c_lib_ext.a
+[598/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc7_sw.c.obj
+[599/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc24_sw.c.obj
+[600/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32c_sw.c.obj
+[601/909] Linking CXX static library zephyr/libzephyr.a
+[602/909] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_eventfd.c.obj
+[603/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32_sw.c.obj
+[604/909] Building C object zephyr/subsys/random/CMakeFiles/subsys__random.dir/random_entropy_device.c.obj
+[605/909] Building C object zephyr/subsys/crc/CMakeFiles/subsys__crc.dir/crc32k_4_2_sw.c.obj
+[606/909] Building C object zephyr/lib/os/zvfs/CMakeFiles/lib__os__zvfs.dir/zvfs_select.c.obj
+[607/909] Building C object zephyr/lib/net_buf/CMakeFiles/lib__net_buf.dir/buf_simple.c.obj
+[608/909] Linking CXX static library zephyr/subsys/random/libsubsys__random.a
+[609/909] Linking CXX static library zephyr/lib/os/zvfs/liblib__os__zvfs.a
+[610/909] Linking CXX static library zephyr/subsys/crc/libsubsys__crc.a
+[611/909] Linking CXX static library zephyr/lib/net_buf/liblib__net_buf.a
+[612/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/getnameinfo.c.obj
+[613/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets_misc.c.obj
+[614/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/getaddrinfo.c.obj
+[615/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/allocs.c.obj
+[616/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/capture.c.obj
+[617/909] Building C object zephyr/arch/arch/riscv/core/CMakeFiles/arch__riscv__core.dir/fatal.c.obj
+[618/909] Linking CXX static library zephyr/arch/arch/riscv/core/libarch__riscv__core.a
+[619/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/arp.c.obj
+[620/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/net_shell.c.obj
+[621/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/dhcpv6.c.obj
+[622/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/conn.c.obj
+[623/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/dhcpv4.c.obj
+[624/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets.c.obj
+[625/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/gptp.c.obj
+[626/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/dns.c.obj
+[627/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/http_client.c.obj
+[628/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ptp.c.obj
+[629/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/events.c.obj
+[630/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ftp.c.obj
+[631/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/cm.c.obj
+[632/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/http.c.obj
+[633/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ipv4.c.obj
+[634/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/mem.c.obj
+[635/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ipv6.c.obj
+[636/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/nbr.c.obj
+[637/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/pkt.c.obj
+[638/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/resume.c.obj
+[639/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/iface.c.obj
+[640/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/pmtu.c.obj
+[641/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/filter.c.obj
+[642/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ppp.c.obj
+[643/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/suspend.c.obj
+[644/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/stats.c.obj
+[645/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ping.c.obj
+[646/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/sockets.c.obj
+[647/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/route.c.obj
+[648/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/tftp_client.c.obj
+[649/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/tcp.c.obj
+[650/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/virtual.c.obj
+[651/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/websocket.c.obj
+[652/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/vlan.c.obj
+[653/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/quic_shell.c.obj
+[654/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/iptables.c.obj
+[655/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/wg_shell.c.obj
+[656/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/udp.c.obj
+[657/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_timeout.c.obj
+[658/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/ssh_shell.c.obj
+[659/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/shell/qbv_shell.c.obj
+[660/909] Building C object zephyr/subsys/net/CMakeFiles/subsys__net.dir/lib/sockets/sockets_inet.c.obj
+[661/909] Linking CXX static library zephyr/subsys/net/libsubsys__net.a
+[662/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/icmp.c.obj
+[663/909] Building C object zephyr/subsys/net/l2/openthread/CMakeFiles/subsys__net__ip__l2__openthread.dir/openthread.c.obj
+[664/909] Building C object zephyr/subsys/net/l2/openthread/CMakeFiles/subsys__net__ip__l2__openthread.dir/openthread_utils.c.obj
+[665/909] Linking CXX static library zephyr/subsys/net/l2/openthread/libsubsys__net__ip__l2__openthread.a
+[666/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_tc.c.obj
+[667/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/nbr.c.obj
+[668/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/utils.c.obj
+[669/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/udp.c.obj
+[670/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/connection.c.obj
+[671/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/route.c.obj
+[672/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/icmpv6.c.obj
+[673/909] Building C object zephyr/subsys/secure_storage/CMakeFiles/subsys__secure_storage.dir/src/log.c.obj
+[674/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_core.c.obj
+[675/909] Building C object zephyr/subsys/secure_storage/CMakeFiles/subsys__secure_storage.dir/src/its/transform/aead.c.obj
+[676/909] Building C object zephyr/subsys/secure_storage/CMakeFiles/subsys__secure_storage.dir/src/its/implementation.c.obj
+[677/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/route_ipv6.c.obj
+[678/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/ipv6_mld.c.obj
+[679/909] Building C object zephyr/subsys/secure_storage/CMakeFiles/subsys__secure_storage.dir/src/its/store/settings.c.obj
+[680/909] Building C object zephyr/subsys/secure_storage/CMakeFiles/subsys__secure_storage.dir/src/its/transform/aead_get.c.obj
+[681/909] Building C object zephyr/drivers/console/CMakeFiles/drivers__console.dir/uart_console.c.obj
+[682/909] Linking CXX static library zephyr/drivers/console/libdrivers__console.a
+[683/909] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_page_layout.c.obj
+[684/909] Building C object zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir/clock_control_esp32.c.obj
+[685/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_pkt.c.obj
+[686/909] Building C object zephyr/drivers/interrupt_controller/CMakeFiles/drivers__interrupt_controller.dir/intc_esp32.c.obj
+[687/909] Linking CXX static library zephyr/drivers/interrupt_controller/libdrivers__interrupt_controller.a
+[688/909] Building C object zephyr/drivers/clock_control/CMakeFiles/drivers__clock_control.dir/clock_control_esp32_pmu.c.obj
+[689/909] Building C object zephyr/drivers/entropy/CMakeFiles/drivers__entropy.dir/entropy_esp32.c.obj
+[690/909] Linking CXX static library zephyr/drivers/entropy/libdrivers__entropy.a
+[691/909] Building C object zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir/hwinfo_weak_impl.c.obj
+[692/909] Linking CXX static library zephyr/drivers/clock_control/libdrivers__clock_control.a
+[693/909] Building C object zephyr/drivers/hwinfo/CMakeFiles/drivers__hwinfo.dir/hwinfo_esp32.c.obj
+[694/909] Linking CXX static library zephyr/drivers/hwinfo/libdrivers__hwinfo.a
+[695/909] Building C object zephyr/drivers/i2s/CMakeFiles/drivers__i2s.dir/i2s_common.c.obj
+[696/909] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/common.c.obj
+[697/909] Building C object zephyr/drivers/gpio/CMakeFiles/drivers__gpio.dir/gpio_esp32.c.obj
+[698/909] Linking CXX static library zephyr/drivers/gpio/libdrivers__gpio.a
+[699/909] Building C object zephyr/drivers/flash/CMakeFiles/drivers__flash.dir/flash_esp32.c.obj
+[700/909] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_common.c.obj
+[701/909] Linking CXX static library zephyr/drivers/flash/libdrivers__flash.a
+[702/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/ipv6.c.obj
+[703/909] Building C object zephyr/drivers/led_strip/CMakeFiles/drivers__led_strip.dir/ws2812_i2s.c.obj
+[704/909] Linking CXX static library zephyr/drivers/led_strip/libdrivers__led_strip.a
+[705/909] Building C object zephyr/drivers/serial/CMakeFiles/drivers__serial.dir/serial_esp32_usb.c.obj
+[706/909] Building C object zephyr/drivers/i2c/CMakeFiles/drivers__i2c.dir/i2c_esp32.c.obj
+[707/909] Linking CXX static library zephyr/drivers/i2c/libdrivers__i2c.a
+[708/909] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/sys_clock_init.c.obj
+[709/909] Building C object zephyr/drivers/pinctrl/CMakeFiles/drivers__pinctrl.dir/pinctrl_esp32.c.obj
+[710/909] Building C object zephyr/drivers/dma/CMakeFiles/drivers__dma.dir/dma_esp32_gdma.c.obj
+[711/909] Linking CXX static library zephyr/drivers/pinctrl/libdrivers__pinctrl.a
+[712/909] Linking CXX static library zephyr/drivers/dma/libdrivers__dma.a
+[713/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/x25519.c.obj
+[714/909] Building C object zephyr/drivers/timer/CMakeFiles/drivers__timer.dir/esp32_sys_timer.c.obj
+[715/909] Building C object zephyr/drivers/w1/CMakeFiles/drivers__w1.dir/w1_common.c.obj
+[716/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_context.c.obj
+[717/909] Linking CXX static library zephyr/drivers/timer/libdrivers__timer.a
+[718/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/everest/CMakeFiles/everest.dir/library/Hacl_Curve25519_joined.c.obj
+[719/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m_driver_entrypoints.c.obj
+[720/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/p256-m/CMakeFiles/p256-m.dir/p256-m/p256-m.c.obj
+[721/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesce.c.obj
+[722/909] Building C object modules/mbedtls/CMakeFiles/modules__mbedtls.dir/zephyr_entropy.c.obj
+[723/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aesni.c.obj
+[724/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aria.c.obj
+[725/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum.c.obj
+[726/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_core.c.obj
+[727/909] Building C object zephyr/drivers/serial/CMakeFiles/drivers__serial.dir/uart_esp32.c.obj
+[728/909] Building C object modules/mbedtls/CMakeFiles/modules__mbedtls.dir/zephyr_init.c.obj
+[729/909] Building C object zephyr/drivers/w1/CMakeFiles/drivers__w1.dir/w1_net.c.obj
+[730/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod.c.obj
+[731/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/bignum_mod_raw.c.obj
+[732/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/block_cipher.c.obj
+[733/909] Linking CXX static library modules/mbedtls/libmodules__mbedtls.a
+[734/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/camellia.c.obj
+[735/909] Linking CXX static library zephyr/drivers/serial/libdrivers__serial.a
+[736/909] Linking CXX static library zephyr/drivers/w1/libdrivers__w1.a
+[737/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20.c.obj
+[738/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chacha20_neon.c.obj
+[739/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/chachapoly.c.obj
+[740/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecdsa.c.obj
+[741/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ctr_drbg.c.obj
+[742/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecjpake.c.obj
+[743/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves_new.c.obj
+[744/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp.c.obj
+[745/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ecp_curves.c.obj
+[746/909] Building C object zephyr/drivers/ieee802154/CMakeFiles/drivers__ieee802154.dir/ieee802154_esp32.c.obj
+[747/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy.c.obj
+[748/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/entropy_poll.c.obj
+[749/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher_wrap.c.obj
+[750/909] Linking CXX static library zephyr/drivers/ieee802154/libdrivers__ieee802154.a
+[751/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/md5.c.obj
+[752/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/aes.c.obj
+[753/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cmac.c.obj
+[754/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/hmac_drbg.c.obj
+[755/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/poly1305.c.obj
+[756/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ccm.c.obj
+[757/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ecp.c.obj
+[758/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_ffdh.c.obj
+[759/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_xof.c.obj
+[760/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_hash.c.obj
+[761/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_pake.c.obj
+[762/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_aead.c.obj
+[763/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/cipher.c.obj
+[764/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa.c.obj
+[765/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/rsa_alt_helpers.c.obj
+[766/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/ripemd160.c.obj
+[767/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_util_internal.c.obj
+[768/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha3.c.obj
+[769/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_mac.c.obj
+[770/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_cipher.c.obj
+[771/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/wrap_mldsa_native.c.obj
+[772/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/psa_crypto_rsa.c.obj
+[773/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha1.c.obj
+[774/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha512.c.obj
+[775/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/pqcp/CMakeFiles/pqcp.dir/src/psa_crypto_mldsa.c.obj
+[776/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lmots.c.obj
+[777/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk.c.obj
+[778/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_ecc.c.obj
+[779/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/gcm.c.obj
+[780/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_wrap.c.obj
+[781/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/lms.c.obj
+[782/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/nist_kw.c.obj
+[783/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pk_rsa.c.obj
+[784/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkparse.c.obj
+[785/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/drivers/builtin/CMakeFiles/builtin.dir/src/sha256.c.obj
+[786/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/pkwrite.c.obj
+[787/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/threading.c.obj
+[788/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform.c.obj
+[789/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/oid.c.obj
+[790/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1write.c.obj
+[791/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/platform_util.c.obj
+[792/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/base64.c.obj
+[793/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/constant_time.c.obj
+[794/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pkcs5.c.obj
+[795/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/pem.c.obj
+[796/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/extras/CMakeFiles/extras.dir/md.c.obj
+[797/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/platform/CMakeFiles/platform.dir/memory_buffer_alloc.c.obj
+[798/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_random.c.obj
+[799/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_client.c.obj
+[800/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_config.c.obj
+[801/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/utilities/CMakeFiles/utilities.dir/asn1parse.c.obj
+[802/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_its_file.c.obj
+[803/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/tf_psa_crypto_version.c.obj
+[804/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/mbedtls_config.c.obj
+[805/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_util.c.obj
+[806/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/error.c.obj
+[807/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_storage.c.obj
+[808/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/pkcs7.c.obj
+[809/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/home/ismael/zephyrproject-lab5/modules/crypto/tf-psa-crypto/dispatch/psa_crypto_driver_wrappers_no_static.c.obj
+[810/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crt.c.obj
+[811/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto_slot_management.c.obj
+[812/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509.c.obj
+[813/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_csr.c.obj
+[814/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_crl.c.obj
+[815/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_create.c.obj
+[816/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509_oid.c.obj
+[817/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_crt.c.obj
+[818/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write.c.obj
+[819/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedx509.dir/x509write_csr.c.obj
+[820/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/mps_trace.c.obj
+[821/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/net_sockets.c.obj
+[822/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_cache.c.obj
+[823/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/debug.c.obj
+[824/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/mps_reader.c.obj
+[825/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_ciphersuites.c.obj
+[826/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_client.c.obj
+[827/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_cookie.c.obj
+[828/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_debug_helpers_generated.c.obj
+[829/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_ticket.c.obj
+[830/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls.c.obj
+[831/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_msg.c.obj
+[832/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls12_client.c.obj
+[833/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls12_server.c.obj
+[834/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_keys.c.obj
+[835/909] Building C object zephyr/drivers/i2s/CMakeFiles/drivers__i2s.dir/i2s_esp32.c.obj
+[836/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_client.c.obj
+[837/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_server.c.obj
+[838/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/timing.c.obj
+[839/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/version_features.c.obj
+[840/909] Linking CXX static library zephyr/drivers/i2s/libdrivers__i2s.a
+[841/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/version.c.obj
+[842/909] Building C object modules/mbedtls/mbedtls/library/CMakeFiles/mbedtls.dir/ssl_tls13_generic.c.obj
+[843/909] Building C object modules/openthread/CMakeFiles/openthread_utils.dir/openthread_utils.c.obj
+[844/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/alarm_milli.c.obj
+[845/909] Building C object modules/openthread/CMakeFiles/openthread_utils.dir/shell.c.obj
+[846/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/platform.c.obj
+[847/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/misc.c.obj
+[848/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/spi.c.obj
+[849/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/alarm_micro.c.obj
+[850/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/entropy.c.obj
+[851/909] Building C object modules/zcbor/CMakeFiles/modules__zcbor.dir/home/ismael/zephyrproject-lab5/modules/lib/zcbor/src/zcbor_common.c.obj
+[852/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/crypto_psa.c.obj
+[853/909] Building C object modules/zcbor/CMakeFiles/modules__zcbor.dir/home/ismael/zephyrproject-lab5/modules/lib/zcbor/src/zcbor_print.c.obj
+[854/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/logging.c.obj
+[855/909] Building C object modules/zcbor/CMakeFiles/modules__zcbor.dir/home/ismael/zephyrproject-lab5/modules/lib/zcbor/src/zcbor_encode.c.obj
+[856/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/main_weak.c.obj
+[857/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/net_if.c.obj
+[858/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/busy_wait.c.obj
+[859/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/device.c.obj
+[860/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/version.c.obj
+[861/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/settings.c.obj
+[862/909] Building C object modules/openthread/platform/CMakeFiles/openthread_platform.dir/radio.c.obj
+[863/909] Building C object modules/openthread/CMakeFiles/openthread_utils.dir/openthread.c.obj
+[864/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mem_slab.c.obj
+[865/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/float.c.obj
+[866/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/kheap.c.obj
+[867/909] Linking CXX static library modules/openthread/libopenthread_utils.a
+[868/909] Linking CXX static library modules/openthread/platform/libopenthread_platform.a
+[869/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/init.c.obj
+[870/909] Building C object modules/zcbor/CMakeFiles/modules__zcbor.dir/home/ismael/zephyrproject-lab5/modules/lib/zcbor/src/zcbor_decode.c.obj
+[871/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/idle.c.obj
+[872/909] Linking CXX static library modules/zcbor/libmodules__zcbor.a
+[873/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/fatal.c.obj
+[874/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/system_work_q.c.obj
+[875/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/msg_q.c.obj
+[876/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mailbox.c.obj
+[877/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/stack.c.obj
+[878/909] Building C object modules/mbedtls/mbedtls/tf-psa-crypto/core/CMakeFiles/tfpsacrypto.dir/psa_crypto.c.obj
+[879/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sem.c.obj
+[880/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/condvar.c.obj
+[881/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sleep.c.obj
+[882/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/queue.c.obj
+[883/909] Linking CXX static library modules/mbedtls/mbedtls/tf-psa-crypto/core/libtfpsacrypto.a
+[884/909] Linking CXX static library zephyr/subsys/secure_storage/libsubsys__secure_storage.a
+[885/909] Building C object zephyr/subsys/net/ip/CMakeFiles/subsys__net__ip.dir/ipv6_nbr.c.obj
+[886/909] Linking CXX static library modules/mbedtls/mbedtls/library/libmbedx509.a
+[887/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/thread_monitor.c.obj
+[888/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/thread.c.obj
+[889/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/scheduler.c.obj
+[890/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mutex.c.obj
+[891/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeslicing.c.obj
+[892/909] Linking CXX static library zephyr/subsys/net/ip/libsubsys__net__ip.a
+[893/909] Linking CXX static library modules/mbedtls/mbedtls/library/libmbedtls.a
+[894/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/pipe.c.obj
+[895/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timer.c.obj
+[896/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/work.c.obj
+[897/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/events.c.obj
+[898/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/sched.c.obj
+[899/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/dynamic_disabled.c.obj
+[900/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/mempool.c.obj
+[901/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/timeout.c.obj
+[902/909] Building C object zephyr/kernel/CMakeFiles/kernel.dir/poll.c.obj
+[903/909] Linking CXX static library zephyr/kernel/libkernel.a
+[904/909] Linking CXX executable zephyr/zephyr_pre0.elf
+[905/909] Generating linker.cmd
+[906/909] Generating isr_tables.c, isr_tables_vt.ld, isr_tables_swi.ld
+[907/909] Building C object zephyr/CMakeFiles/zephyr_final.dir/misc/empty_file.c.obj
+[908/909] Building C object zephyr/CMakeFiles/zephyr_final.dir/isr_tables.c.obj
+[909/909] Linking CXX executable zephyr/zephyr.elf
+Memory region         Used Size  Region Size  %age Used
+           FLASH:      649572 B    4194048 B     15.49%
+     sram0_0_seg:      193056 B     509456 B     37.89%
+     irom0_0_seg:      415264 B         4 MB      9.90%
+     drom0_0_seg:       59748 B         4 MB      1.42%
+      lp_ram_seg:           0 B      15584 B      0.00%
+ lp_reserved_seg:           0 B         24 B      0.00%
+        IDT_LIST:           0 B         8 KB      0.00%
+Generating files from /home/ismael/zephyrproject-lab5/build-iot-lab5-C-none-usb/zephyr/zephyr.elf for board: esp32c6_devkitc/esp32c6/hpcore
+esptool v5.6.0
+Creating ESP32-C6 image...
+Image has only RAM segments visible. ROM segments are hidden and SHA256 digest is not appended.
+NOTE: Inserting 8 bytes padding between pmp_soc_region_area and .flash.rodata_end
+NOTE: Inserting 4 bytes padding between net_if_area and net_if_dev_area
+Merged 36 ELF sections.
+Successfully created ESP32-C6 image.
