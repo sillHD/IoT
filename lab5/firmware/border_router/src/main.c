@@ -7,6 +7,9 @@
  */
 #include <zephyr/kernel.h>
 #include <zephyr/logging/log.h>
+#include <zephyr/sys/printk.h>
+
+#define LAB5_UART_BUILD_ID "LAB5-UART-STABLE-V2"
 
 #if defined(CONFIG_LAB_AUTOSTART)
 #include <zephyr/net/net_if.h>
@@ -43,6 +46,9 @@ static void autostart(void)
 
 int main(void)
 {
+	printk("\n[%s] main thread alive; console is UART0/CH343\n",
+	       LAB5_UART_BUILD_ID);
+
 #if defined(CONFIG_LAB_AUTOSTART)
 	autostart();
 #endif
@@ -52,6 +58,6 @@ int main(void)
 	 * look as if the serial monitor closed by itself.
 	 */
 	for (;;) {
-		k_sleep(K_FOREVER);
+		k_sleep(K_SECONDS(60));
 	}
 }
